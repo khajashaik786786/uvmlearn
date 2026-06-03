@@ -1,1 +1,1756 @@
-kk
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UVMLearn — Master Universal Verification Methodology</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0e1a;
+  --bg2: #0f1525;
+  --bg3: #141c30;
+  --surface: #1a2540;
+  --surface2: #1f2d4a;
+  --accent: #00f5c4;
+  --accent2: #7b61ff;
+  --accent3: #ff6b35;
+  --text: #e8edf5;
+  --text2: #8a9bb8;
+  --text3: #4a5a78;
+  --border: rgba(255,255,255,0.08);
+  --glow: 0 0 40px rgba(0,245,196,0.15);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+
+/* SCROLLBAR */
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg2)}
+::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
+
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
+.nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:2rem;height:64px}
+.logo{font-size:1.4rem;font-weight:800;color:var(--accent);letter-spacing:-0.03em;text-decoration:none;white-space:nowrap}
+.logo span{color:var(--accent2)}
+.nav-links{display:flex;gap:0.25rem;overflow-x:auto;flex:1;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;font-weight:600;padding:0.4rem 0.75rem;border-radius:6px;white-space:nowrap;transition:all 0.2s;font-family:'Space Mono',monospace}
+.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(0,245,196,0.08)}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:64px}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,196,0.04) 1px,transparent 1px);background-size:60px 60px;animation:grid-shift 20s linear infinite}
+@keyframes grid-shift{0%{transform:translateY(0)}100%{transform:translateY(60px)}}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:2rem}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,245,196,0.1);border:1px solid rgba(0,245,196,0.3);color:var(--accent);padding:0.4rem 1rem;border-radius:100px;font-size:0.78rem;font-family:'Space Mono',monospace;margin-bottom:2rem;letter-spacing:0.05em}
+.hero-badge::before{content:'●';animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
+h1.hero-title{font-size:clamp(3rem,8vw,7rem);font-weight:800;line-height:0.95;letter-spacing:-0.04em;margin-bottom:1.5rem}
+.hero-title .line1{display:block;color:var(--text)}
+.hero-title .line2{display:block;color:var(--accent)}
+.hero-title .line3{display:block;color:var(--accent2)}
+.hero-sub{font-size:1.1rem;color:var(--text2);max-width:600px;margin:0 auto 2.5rem;font-family:'Space Mono',monospace;font-size:0.9rem;line-height:1.8}
+.hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
+.btn-primary{background:var(--accent);color:var(--bg);padding:0.9rem 2.5rem;border-radius:8px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;transition:all 0.2s;font-size:0.95rem}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,245,196,0.4)}
+.btn-secondary{background:transparent;color:var(--accent2);padding:0.9rem 2.5rem;border-radius:8px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;border:1.5px solid var(--accent2);transition:all 0.2s;font-size:0.95rem}
+.btn-secondary:hover{background:rgba(123,97,255,0.1);transform:translateY(-2px)}
+.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border)}
+.stat{text-align:center}
+.stat-num{font-size:2.5rem;font-weight:800;color:var(--accent);letter-spacing:-0.04em}
+.stat-label{font-size:0.78rem;color:var(--text3);font-family:'Space Mono',monospace;letter-spacing:0.05em;text-transform:uppercase;margin-top:0.25rem}
+
+/* TEACHER SECTION */
+#teacher-section{padding:6rem 2rem;background:var(--bg2);position:relative;overflow:hidden}
+.teacher-wrap{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center}
+.teacher-canvas-wrap{position:relative;display:flex;justify-content:center}
+#teacher-canvas{border-radius:20px;border:1px solid var(--border);cursor:pointer}
+.teacher-controls{display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;justify-content:center}
+.teach-btn{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0.5rem 1rem;border-radius:6px;font-family:'Space Mono',monospace;font-size:0.75rem;cursor:pointer;transition:all 0.2s}
+.teach-btn:hover,.teach-btn.active{background:rgba(0,245,196,0.1);border-color:var(--accent);color:var(--accent)}
+.teacher-info h2{font-size:2.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem}
+.teacher-info h2 span{color:var(--accent)}
+.teacher-speech{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 12px;padding:1.5rem;margin:1.5rem 0;min-height:120px;font-family:'Space Mono',monospace;font-size:0.85rem;line-height:1.8;color:var(--text2);position:relative}
+.speech-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;animation:blink 1s infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.teacher-topic-name{font-size:0.75rem;font-family:'Space Mono',monospace;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem}
+
+/* SECTIONS */
+.section-wrapper{padding:5rem 2rem}
+.section-wrapper.alt{background:var(--bg2)}
+.section-inner{max-width:1400px;margin:0 auto}
+.section-header{margin-bottom:3.5rem}
+.section-tag{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
+.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-0.03em;color:var(--text)}
+.section-title span{color:var(--accent2)}
+.section-desc{color:var(--text2);font-size:0.95rem;margin-top:0.75rem;max-width:600px;font-family:'Space Mono',monospace;line-height:1.8}
+
+/* CONCEPT CARDS */
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
+.concept-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.3s;position:relative}
+.concept-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.concept-card:hover{transform:translateY(-4px);border-color:rgba(0,245,196,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.concept-card:hover::before{transform:scaleX(1)}
+.card-header{padding:1.5rem 1.5rem 1rem;display:flex;align-items:flex-start;gap:1rem}
+.card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+.card-num{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);letter-spacing:0.1em}
+.card-title{font-size:1.1rem;font-weight:700;color:var(--text);margin-top:0.25rem}
+.card-body{padding:0 1.5rem 1.5rem}
+.card-desc{font-size:0.85rem;color:var(--text2);line-height:1.7;font-family:'Space Mono',monospace}
+.card-tags{display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap}
+.tag{font-family:'Space Mono',monospace;font-size:0.65rem;padding:0.25rem 0.6rem;border-radius:4px;letter-spacing:0.05em}
+.tag-green{background:rgba(0,245,196,0.1);color:var(--accent);border:1px solid rgba(0,245,196,0.2)}
+.tag-purple{background:rgba(123,97,255,0.1);color:var(--accent2);border:1px solid rgba(123,97,255,0.2)}
+.tag-orange{background:rgba(255,107,53,0.1);color:var(--accent3);border:1px solid rgba(255,107,53,0.2)}
+.card-expand-btn{display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1.5rem;border-top:1px solid var(--border);font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent);background:none;border-left:none;border-right:none;border-bottom:none;cursor:pointer;width:100%;text-align:left;transition:background 0.2s}
+.card-expand-btn:hover{background:rgba(0,245,196,0.05)}
+.card-expand-btn::after{content:'↓';margin-left:auto;transition:transform 0.3s}
+.card-expand-btn.open::after{transform:rotate(180deg)}
+.card-content{display:none;padding:1.5rem;border-top:1px solid var(--border);background:rgba(0,0,0,0.2)}
+.card-content.show{display:block}
+.concept-explain{font-size:0.85rem;color:var(--text2);line-height:1.9;margin-bottom:1.5rem;font-family:'Space Mono',monospace}
+.concept-explain strong{color:var(--accent);font-weight:600}
+
+/* CODE BLOCKS */
+.code-label{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem}
+.code-label::before{content:'';width:8px;height:8px;background:var(--accent3);border-radius:50%;display:inline-block}
+pre{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.25rem;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:1.8;color:#cdd6f4;margin-bottom:1rem}
+pre .kw{color:#cba6f7}
+pre .str{color:#a6e3a1}
+pre .cm{color:#585b70;font-style:italic}
+pre .fn{color:#89b4fa}
+pre .cls{color:#f38ba8}
+pre .num{color:#fab387}
+pre .mac{color:#f9e2af}
+
+/* ARCHITECTURE DIAGRAM */
+.arch-container{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;overflow-x:auto}
+.arch-diagram{min-width:700px}
+.arch-level{display:flex;justify-content:center;gap:1rem;margin-bottom:1.5rem;position:relative}
+.arch-level::after{content:'';position:absolute;bottom:-1.5rem;left:50%;transform:translateX(-50%);width:2px;height:1.5rem;background:linear-gradient(180deg,var(--accent),transparent)}
+.arch-level:last-child::after{display:none}
+.arch-box{padding:0.75rem 1.5rem;border-radius:10px;font-family:'Space Mono',monospace;font-size:0.78rem;font-weight:700;text-align:center;border:1.5px solid transparent;min-width:120px;transition:all 0.3s;cursor:default}
+.arch-box:hover{transform:scale(1.05)}
+.arch-box.test{background:rgba(123,97,255,0.2);border-color:var(--accent2);color:var(--accent2)}
+.arch-box.env{background:rgba(0,245,196,0.15);border-color:var(--accent);color:var(--accent)}
+.arch-box.agent{background:rgba(255,107,53,0.15);border-color:var(--accent3);color:var(--accent3)}
+.arch-box.comp{background:rgba(255,255,255,0.05);border-color:var(--text3);color:var(--text2)}
+.arch-box.dut{background:rgba(255,107,53,0.3);border-color:var(--accent3);color:var(--accent3);font-weight:800}
+
+/* PHASE TIMELINE */
+.phase-timeline{position:relative;padding-left:2rem}
+.phase-timeline::before{content:'';position:absolute;left:0.5rem;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),var(--accent3))}
+.phase-item{position:relative;margin-bottom:1.5rem;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:all 0.2s}
+.phase-item::before{content:'';position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg2);z-index:1}
+.phase-item:hover{border-color:rgba(0,245,196,0.3);transform:translateX(4px)}
+.phase-item .phase-name{font-family:'Space Mono',monospace;font-weight:700;font-size:0.85rem;color:var(--accent);margin-bottom:0.35rem}
+.phase-item .phase-desc{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.7}
+.phase-item .phase-type{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text3);margin-top:0.35rem}
+
+/* TLM PORT TABLE */
+.tlm-table{width:100%;border-collapse:collapse;font-family:'Space Mono',monospace;font-size:0.78rem;margin-top:1rem}
+.tlm-table th{background:rgba(0,245,196,0.1);color:var(--accent);padding:0.75rem 1rem;text-align:left;border-bottom:2px solid rgba(0,245,196,0.3);font-size:0.72rem;letter-spacing:0.05em}
+.tlm-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}
+.tlm-table tr:hover td{background:rgba(255,255,255,0.02);color:var(--text)}
+
+/* QUIZ SECTION */
+#quiz-section{padding:5rem 2rem;background:var(--bg3)}
+.quiz-inner{max-width:800px;margin:0 auto}
+.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem}
+.quiz-q{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.5}
+.quiz-q span{color:var(--accent2);font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:400;display:block;margin-bottom:0.5rem}
+.quiz-options{display:flex;flex-direction:column;gap:0.75rem}
+.quiz-opt{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;cursor:pointer;transition:all 0.2s;font-size:0.88rem;color:var(--text2);font-family:'Space Mono',monospace;text-align:left;width:100%}
+.quiz-opt:hover{border-color:var(--accent2);color:var(--text)}
+.quiz-opt.correct{background:rgba(0,245,196,0.1);border-color:var(--accent);color:var(--accent)}
+.quiz-opt.wrong{background:rgba(255,107,53,0.1);border-color:var(--accent3);color:var(--accent3)}
+.quiz-feedback{margin-top:1.5rem;padding:1rem;border-radius:8px;font-family:'Space Mono',monospace;font-size:0.82rem;line-height:1.7;display:none}
+.quiz-feedback.show{display:block}
+.quiz-feedback.good{background:rgba(0,245,196,0.08);border:1px solid rgba(0,245,196,0.2);color:var(--accent)}
+.quiz-feedback.bad{background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.2);color:var(--accent3)}
+.quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem}
+.quiz-progress{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--text3)}
+.quiz-btn{background:var(--accent);color:var(--bg);padding:0.75rem 2rem;border-radius:8px;font-weight:700;cursor:pointer;border:none;font-family:'Syne',sans-serif;transition:all 0.2s}
+.quiz-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,245,196,0.3)}
+.quiz-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none}
+.quiz-score{text-align:center;padding:3rem;display:none}
+.quiz-score.show{display:block}
+.score-num{font-size:5rem;font-weight:800;color:var(--accent);letter-spacing:-0.05em}
+.score-msg{font-size:1.2rem;color:var(--text2);margin-top:0.5rem;font-family:'Space Mono',monospace}
+
+/* CHEATSHEET */
+.cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
+.cheat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
+.cheat-title{font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.cheat-title::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
+.cheat-item{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid var(--border);font-family:'Space Mono',monospace;font-size:0.72rem}
+.cheat-item:last-child{border-bottom:none}
+.cheat-key{color:var(--text2)}
+.cheat-val{color:var(--accent2);font-weight:600}
+
+/* FOOTER */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center}
+.footer-logo{font-size:2rem;font-weight:800;color:var(--accent);letter-spacing:-0.04em;margin-bottom:0.5rem}
+.footer-logo span{color:var(--accent2)}
+.footer-text{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--text3);margin-top:0.5rem}
+
+/* RESPONSIVE */
+@media(max-width:900px){
+  .teacher-wrap{grid-template-columns:1fr}
+  .hero-stats{gap:2rem}
+  .stat-num{font-size:2rem}
+}
+@media(max-width:600px){
+  .nav-links{display:none}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
+}
+
+/* FLOATING PARTICLES */
+.particle{position:fixed;pointer-events:none;border-radius:50%;opacity:0;animation:float-up linear infinite}
+@keyframes float-up{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:0.6}90%{opacity:0.2}100%{transform:translateY(-100px) scale(1.5);opacity:0}}
+
+/* GLOW ORBS */
+.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
+.orb1{width:500px;height:500px;background:rgba(0,245,196,0.05);top:-100px;right:-100px}
+.orb2{width:400px;height:400px;background:rgba(123,97,255,0.06);bottom:0;left:-100px}
+
+/* COPY BTN */
+.copy-btn{float:right;background:transparent;border:1px solid var(--border);color:var(--text3);padding:0.25rem 0.6rem;border-radius:4px;font-family:'Space Mono',monospace;font-size:0.65rem;cursor:pointer;transition:all 0.2s;margin-top:-2.5rem;position:relative;z-index:1}
+.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+
+/* PROGRESS BAR */
+.page-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:2000;transition:width 0.1s;width:0%}
+
+/* CONCEPT DETAIL MODAL */
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-overlay.show{display:flex}
+.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
+.modal-header{padding:2rem 2rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;background:var(--bg2);z-index:1}
+.modal-title{font-size:1.8rem;font-weight:800;letter-spacing:-0.03em}
+.modal-close{background:var(--surface);border:none;color:var(--text2);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
+.modal-close:hover{background:rgba(255,107,53,0.2);color:var(--accent3)}
+.modal-body{padding:2rem}
+</style>
+</head>
+<body>
+
+<div class="page-progress" id="pageProgress"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="#hero" class="logo">UVM<span>Learn</span></a>
+    <div class="nav-links">
+      <a href="#teacher-section">AI Teacher</a>
+      <a href="#architecture">Architecture</a>
+      <a href="#phases">Phases</a>
+      <a href="#factory">Factory Override</a>
+      <a href="#seq-seqr">Sequences</a>
+      <a href="#vseq">Virtual Seq</a>
+      <a href="#configdb">Config DB</a>
+      <a href="#tlm-ports">TLM Ports</a>
+      <a href="#analysis-ports">Analysis Ports</a>
+      <a href="#fifos">TLM FIFOs</a>
+      <a href="#field-macros">Field Macros</a>
+      <a href="#verbosity">Verbosity</a>
+      <a href="#objections">Objections</a>
+      <a href="#quiz-section">Quiz</a>
+      <a href="#cheatsheet">Cheatsheet</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-grid"></div>
+  <div class="glow-orb orb1"></div>
+  <div class="glow-orb orb2"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ SystemVerilog UVM Learning Platform</div>
+    <h1 class="hero-title">
+      <span class="line1">MASTER</span>
+      <span class="line2">UVM</span>
+      <span class="line3">VERIFICATION</span>
+    </h1>
+    <p class="hero-sub">// Complete guide to Universal Verification Methodology<br>// Learn factory override, TLM ports, sequences, and more</p>
+    <div class="hero-buttons">
+      <a href="#teacher-section" class="btn-primary">Meet Your AI Teacher →</a>
+      <a href="#architecture" class="btn-secondary">Start Learning</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">12</div><div class="stat-label">Core Concepts</div></div>
+      <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Code Examples</div></div>
+      <div class="stat"><div class="stat-num">3D</div><div class="stat-label">Animated Teacher</div></div>
+      <div class="stat"><div class="stat-num">∞</div><div class="stat-label">Practice Quizzes</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TEACHER SECTION -->
+<section id="teacher-section" class="section-wrapper alt">
+  <div class="teacher-wrap">
+    <div class="teacher-canvas-wrap">
+      <canvas id="teacher-canvas" width="440" height="520"></canvas>
+      <div class="teacher-controls">
+        <button class="teach-btn active" onclick="setTeacherTopic('intro')">👋 Intro</button>
+        <button class="teach-btn" onclick="setTeacherTopic('factory')">🏭 Factory</button>
+        <button class="teach-btn" onclick="setTeacherTopic('tlm')">🔌 TLM</button>
+        <button class="teach-btn" onclick="setTeacherTopic('sequence')">🔄 Sequences</button>
+        <button class="teach-btn" onclick="setTeacherTopic('phases')">⚙️ Phases</button>
+        <button class="teach-btn" onclick="setTeacherTopic('configdb')">💾 Config DB</button>
+      </div>
+    </div>
+    <div class="teacher-info">
+      <h2>Meet Professor <span>UVM-X</span></h2>
+      <p style="color:var(--text2);font-family:'Space Mono',monospace;font-size:0.85rem;line-height:1.8;">Your 3D AI instructor for Universal Verification Methodology. Click a topic button to hear an explanation, or scroll down to explore concepts with full code examples.</p>
+      <div class="teacher-speech">
+        <div class="teacher-topic-name" id="teacherTopicName">INTRODUCTION</div>
+        <div id="teacherSpeech"></div><span class="speech-cursor"></span>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem">
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem">
+          <div style="font-size:0.7rem;font-family:'Space Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Current Topic</div>
+          <div id="currentTopicDisplay" style="font-family:'Space Mono',monospace;color:var(--accent);font-size:0.9rem;font-weight:700">Introduction to UVM</div>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem">
+          <div style="font-size:0.7rem;font-family:'Space Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Difficulty</div>
+          <div id="difficultyDisplay" style="font-family:'Space Mono',monospace;color:var(--accent3);font-size:0.9rem;font-weight:700">Beginner</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="section-wrapper">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 01</div>
+      <div class="section-title">UVM <span>Architecture</span></div>
+      <div class="section-desc">// Hierarchical testbench structure — from test to DUT interface</div>
+    </div>
+    <div class="arch-container" style="margin-bottom:2rem">
+      <div class="arch-diagram">
+        <div class="arch-level"><div class="arch-box test">uvm_test</div></div>
+        <div class="arch-level"><div class="arch-box env">uvm_env</div></div>
+        <div class="arch-level">
+          <div class="arch-box agent">uvm_agent (Active)</div>
+          <div class="arch-box agent">uvm_agent (Passive)</div>
+        </div>
+        <div class="arch-level">
+          <div class="arch-box comp">uvm_sequencer</div>
+          <div class="arch-box comp">uvm_driver</div>
+          <div class="arch-box comp">uvm_monitor</div>
+          <div class="arch-box comp">uvm_scoreboard</div>
+        </div>
+        <div class="arch-level">
+          <div class="arch-box comp">uvm_sequence</div>
+          <div class="arch-box comp">uvm_sequence_item</div>
+        </div>
+        <div class="arch-level"><div class="arch-box dut">DUT (Design Under Test)</div></div>
+      </div>
+    </div>
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(123,97,255,0.2)">🧪</div>
+          <div><div class="card-num">// uvm_test</div><div class="card-title">Test Class</div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">Top-level test class that extends uvm_test. Instantiates the environment and starts sequences. Each test scenario is a new test class.</div>
+          <div class="card-tags"><span class="tag tag-purple">uvm_test</span><span class="tag tag-green">build_phase</span></div>
+        </div>
+        <button class="card-expand-btn" onclick="toggleCard(this)">View Code Example</button>
+        <div class="card-content">
+          <div class="concept-explain">The <strong>test class</strong> is the entry point. It creates the env, optionally sets factory overrides, and starts sequences in run_phase.</div>
+          <div class="code-label">test class skeleton</div>
+          <pre><span class="kw">class</span> <span class="cls">test</span> <span class="kw">extends</span> uvm_test;
+  <span class="mac">`uvm_component_utils</span>(test)
+  
+  env envh;
+  
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name, uvm_component parent);
+    <span class="kw">super</span>.new(name, parent);
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">function void build_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.build_phase(phase);
+    envh = env::<span class="fn">type_id::create</span>(<span class="str">"envh"</span>, <span class="kw">this</span>);
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    phase.<span class="fn">raise_objection</span>(<span class="kw">this</span>);
+    <span class="cm">// start sequences here</span>
+    phase.<span class="fn">drop_objection</span>(<span class="kw">this</span>);
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span></pre>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(0,245,196,0.15)">🌍</div>
+          <div><div class="card-num">// uvm_env</div><div class="card-title">Environment Class</div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">Container that instantiates and connects all verification components — agents, scoreboards, coverage models, and virtual sequencers.</div>
+          <div class="card-tags"><span class="tag tag-green">uvm_env</span><span class="tag tag-purple">connect_phase</span></div>
+        </div>
+        <button class="card-expand-btn" onclick="toggleCard(this)">View Code Example</button>
+        <div class="card-content">
+          <div class="concept-explain">The <strong>environment</strong> is the glue that holds agents together. Use connect_phase to wire up TLM ports between components.</div>
+          <div class="code-label">env class</div>
+          <pre><span class="kw">class</span> <span class="cls">env</span> <span class="kw">extends</span> uvm_env;
+  <span class="mac">`uvm_component_utils</span>(env)
+  
+  agent_1 agnth1;
+  agent_2 agnth2;
+  virtual_sequencer v_seqr;
+  
+  <span class="fn">function void build_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.build_phase(phase);
+    agnth1 = agent_1::<span class="fn">type_id::create</span>(<span class="str">"agnth1"</span>, <span class="kw">this</span>);
+    agnth2 = agent_2::<span class="fn">type_id::create</span>(<span class="str">"agnth2"</span>, <span class="kw">this</span>);
+    v_seqr = virtual_sequencer::<span class="fn">type_id::create</span>(<span class="str">"v_seqr"</span>, <span class="kw">this</span>);
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">function void connect_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.connect_phase(phase);
+    v_seqr.seqrh1 = agnth1.seqr1h;
+    v_seqr.seqrh2 = agnth2.seqr2h;
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span></pre>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(255,107,53,0.15)">🤖</div>
+          <div><div class="card-num">// uvm_agent</div><div class="card-title">Agent Class</div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">Encapsulates the sequencer, driver, and monitor. Can be active (drives DUT) or passive (monitors only). Reusable across testbenches.</div>
+          <div class="card-tags"><span class="tag tag-orange">uvm_agent</span><span class="tag tag-green">active/passive</span></div>
+        </div>
+        <button class="card-expand-btn" onclick="toggleCard(this)">View Code Example</button>
+        <div class="card-content">
+          <div class="concept-explain">Agents contain a <strong>sequencer</strong>, <strong>driver</strong>, and <strong>monitor</strong>. The driver and sequencer are connected via TLM ports in connect_phase.</div>
+          <div class="code-label">agent class</div>
+          <pre><span class="kw">class</span> <span class="cls">agent_1</span> <span class="kw">extends</span> uvm_agent;
+  <span class="mac">`uvm_component_utils</span>(agent_1)
+  
+  driver1 drv1h;
+  sequencer_1 seqr1h;
+  
+  <span class="fn">function void build_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.build_phase(phase);
+    drv1h = driver1::<span class="fn">type_id::create</span>(<span class="str">"drv1h"</span>, <span class="kw">this</span>);
+    seqr1h = sequencer_1::<span class="fn">type_id::create</span>(<span class="str">"seqr1h"</span>, <span class="kw">this</span>);
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">function void connect_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.connect_phase(phase);
+    drv1h.<span class="fn">seq_item_port.connect</span>(seqr1h.seq_item_export);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PHASES -->
+<section id="phases" class="section-wrapper alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 02</div>
+      <div class="section-title">UVM <span>Phases</span></div>
+      <div class="section-desc">// Ordered execution phases control build, connect, and simulation lifecycle</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
+      <div>
+        <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem">Build/Connect Phases (Functions)</h3>
+        <div class="phase-timeline">
+          <div class="phase-item">
+            <div class="phase-name">build_phase</div>
+            <div class="phase-desc">Create and configure child components. Called top-down: parent before child.</div>
+            <div class="phase-type">// type: function | order: top-down</div>
+          </div>
+          <div class="phase-item" style="--accent:#7b61ff">
+            <div class="phase-name" style="color:var(--accent2)">connect_phase</div>
+            <div class="phase-desc">Connect TLM ports between components. Called bottom-up.</div>
+            <div class="phase-type">// type: function | order: bottom-up</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-name">end_of_elaboration_phase</div>
+            <div class="phase-desc">Final topology adjustments. Print topology here.</div>
+            <div class="phase-type">// type: function | order: bottom-up</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-name">start_of_simulation_phase</div>
+            <div class="phase-desc">Display banner, reset signals, initialize variables.</div>
+            <div class="phase-type">// type: function | order: bottom-up</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem">Run Phase (Task — Time-Consuming)</h3>
+        <div class="phase-timeline">
+          <div class="phase-item" style="--accent:#ff6b35">
+            <div class="phase-name" style="color:var(--accent3)">run_phase</div>
+            <div class="phase-desc">Main simulation phase. Must raise/drop objections to control simulation end. Runs in parallel across all components.</div>
+            <div class="phase-type">// type: task | fork-join | objection-controlled</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-name">extract_phase</div>
+            <div class="phase-desc">Extract and process data from DUT/monitors.</div>
+            <div class="phase-type">// type: function | post-run</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-name">check_phase</div>
+            <div class="phase-desc">Check for errors. Scoreboard final comparison.</div>
+            <div class="phase-type">// type: function | post-run</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-name">report_phase</div>
+            <div class="phase-desc">Print simulation results and coverage summary.</div>
+            <div class="phase-type">// type: function | final</div>
+          </div>
+          <div class="phase-item">
+            <div class="phase-name">final_phase</div>
+            <div class="phase-desc">Close files, databases. Last phase before simulation exits.</div>
+            <div class="phase-type">// type: function | absolute final</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:2.5rem">
+      <div class="code-label">phases example — objections &amp; banner</div>
+      <pre><span class="kw">class</span> <span class="cls">test</span> <span class="kw">extends</span> uvm_test;
+  <span class="fn">function void start_of_simulation_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.start_of_simulation_phase(phase);
+    <span class="mac">`uvm_info</span>(<span class="str">"BANNER"</span>, <span class="str">"============================================="</span>, UVM_NONE)
+    <span class="mac">`uvm_info</span>(<span class="str">"BANNER"</span>, <span class="str">" Starting Simulation: my_test "</span>, UVM_NONE)
+    <span class="mac">`uvm_info</span>(<span class="str">"BANNER"</span>, <span class="str">"============================================="</span>, UVM_NONE)
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    phase.<span class="fn">raise_objection</span>(<span class="kw">this</span>);    <span class="cm">// Simulation won't end</span>
+    <span class="mac">`uvm_info</span>(get_type_name, <span class="str">"Running test..."</span>, UVM_LOW)
+    <span class="num">#100</span>;
+    phase.<span class="fn">drop_objection</span>(<span class="kw">this</span>);    <span class="cm">// Allow simulation to end</span>
+  <span class="kw">endtask</span>
+  
+  <span class="fn">function void end_of_elaboration_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.end_of_elaboration_phase(phase);
+    uvm_top.<span class="fn">print_topology</span>();   <span class="cm">// Print component hierarchy</span>
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span></pre>
+    </div>
+  </div>
+</section>
+
+<!-- FACTORY OVERRIDE -->
+<section id="factory" class="section-wrapper">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 03</div>
+      <div class="section-title">Factory <span>Override</span></div>
+      <div class="section-desc">// Replace component types at runtime without changing testbench code</div>
+    </div>
+    <div class="concepts-grid">
+      <div class="concept-card" style="grid-column:span 2">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(255,107,53,0.2)">🏭</div>
+          <div><div class="card-num">// uvm_factory</div><div class="card-title">Type Override — Replace a class with a subclass globally</div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">Factory overrides let you swap driver1 or driver2 at the test level using preprocessor defines, without modifying any other code. This is the power of UVM's factory pattern.</div>
+          <div class="card-tags"><span class="tag tag-orange">set_type_override_by_type</span><span class="tag tag-green">type_id::create</span><span class="tag tag-purple">uvm_factory</span></div>
+        </div>
+        <button class="card-expand-btn" onclick="toggleCard(this)">View Full Factory Override Example</button>
+        <div class="card-content">
+          <div class="concept-explain">
+            <strong>Key insight:</strong> All components must be created with <strong>type_id::create()</strong> instead of <strong>new()</strong>. This registers them with the factory, enabling overrides. The override must be set BEFORE the component is created.
+            <br><br>Use <strong>`ifdef DRV1</strong> compile-time flags or test-level overrides to switch implementations.
+          </div>
+          <div class="code-label">factory override — base + child drivers</div>
+          <pre><span class="cm">// Base driver — default implementation</span>
+<span class="kw">class</span> <span class="cls">base_driver</span> <span class="kw">extends</span> uvm_driver;
+  <span class="mac">`uvm_component_utils</span>(base_driver)
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name = <span class="str">"base_driver"</span>, uvm_component parent);
+    <span class="kw">super</span>.new(name, parent);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// Override 1: driver1</span>
+<span class="kw">class</span> <span class="cls">driver1</span> <span class="kw">extends</span> base_driver;
+  <span class="mac">`uvm_component_utils</span>(driver1)
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name = <span class="str">"driver1"</span>, uvm_component parent);
+    <span class="kw">super</span>.new(name, parent);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// Override 2: driver2</span>
+<span class="kw">class</span> <span class="cls">driver2</span> <span class="kw">extends</span> base_driver;
+  <span class="mac">`uvm_component_utils</span>(driver2)
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name = <span class="str">"driver2"</span>, uvm_component parent);
+    <span class="kw">super</span>.new(name, parent);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span></pre>
+          <div class="code-label">test class — applying override</div>
+          <pre><span class="kw">class</span> <span class="cls">test</span> <span class="kw">extends</span> uvm_test;
+  <span class="fn">function void build_phase</span>(uvm_phase phase);
+    uvm_factory factory = uvm_factory::<span class="fn">get</span>();
+    envh = env::<span class="fn">type_id::create</span>(<span class="str">"envh"</span>, <span class="kw">this</span>);
+    <span class="kw">super</span>.build_phase(phase);
+
+    <span class="mac">`ifdef</span> DRV1
+      <span class="fn">set_type_override_by_type</span>(
+        base_driver::<span class="fn">get_type</span>(),
+        driver1::<span class="fn">get_type</span>()
+      );
+    <span class="mac">`elsif</span> DRV2
+      <span class="fn">set_type_override_by_type</span>(
+        base_driver::<span class="fn">get_type</span>(),
+        driver2::<span class="fn">get_type</span>()
+      );
+    <span class="mac">`endif</span>
+    
+    factory.<span class="fn">print</span>();  <span class="cm">// Show current factory state</span>
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// Compile with: +define+DRV1 or +define+DRV2</span></pre>
+          <div class="concept-explain">
+            <strong>Important:</strong> Note that <strong>super.build_phase(phase)</strong> is called AFTER creating the env. The override must be set before child component creation. When base_agent calls <strong>base_driver::type_id::create()</strong>, the factory will instead create driver1 or driver2.
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SEQUENCES -->
+<section id="seq-seqr" class="section-wrapper alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 04</div>
+      <div class="section-title">Sequences &amp; <span>Sequencers</span></div>
+      <div class="section-desc">// The sequence-sequencer-driver trio — how stimulus is generated and driven</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
+        <h3 style="font-family:'Space Mono',monospace;font-size:0.85rem;color:var(--accent);margin-bottom:1rem">🔄 Sequence Flow</h3>
+        <div style="display:flex;flex-direction:column;gap:0.75rem;font-family:'Space Mono',monospace;font-size:0.78rem">
+          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(123,97,255,0.1);border:1px solid rgba(123,97,255,0.2);border-radius:8px">
+            <span style="color:var(--accent2);font-weight:700">1</span>
+            <span style="color:var(--text2)">sequence.start(sequencer)</span>
+          </div>
+          <div style="text-align:center;color:var(--text3)">↓ arbitration</div>
+          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(0,245,196,0.08);border:1px solid rgba(0,245,196,0.2);border-radius:8px">
+            <span style="color:var(--accent);font-weight:700">2</span>
+            <span style="color:var(--text2)">wait_for_grant()</span>
+          </div>
+          <div style="text-align:center;color:var(--text3)">↓ granted</div>
+          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(0,245,196,0.08);border:1px solid rgba(0,245,196,0.2);border-radius:8px">
+            <span style="color:var(--accent);font-weight:700">3</span>
+            <span style="color:var(--text2)">req.randomize() → send_request(req)</span>
+          </div>
+          <div style="text-align:center;color:var(--text3)">↓ to driver</div>
+          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:8px">
+            <span style="color:var(--accent3);font-weight:700">4</span>
+            <span style="color:var(--text2)">driver: seq_item_port.get_next_item(req)</span>
+          </div>
+          <div style="text-align:center;color:var(--text3)">↓ drive DUT</div>
+          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:8px">
+            <span style="color:var(--accent3);font-weight:700">5</span>
+            <span style="color:var(--text2)">seq_item_port.item_done() → wait_for_item_done()</span>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="code-label">complete seq + seqr + driver example</div>
+        <pre><span class="kw">class</span> <span class="cls">seq_item</span> <span class="kw">extends</span> uvm_sequence_item;
+  <span class="kw">rand int</span> data;
+  <span class="mac">`uvm_object_utils</span>(seq_item)
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name = <span class="str">"seq_item"</span>);
+    <span class="kw">super</span>.new(name);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="kw">class</span> <span class="cls">sequence_ex</span> <span class="kw">extends</span> uvm_sequence#(seq_item);
+  <span class="mac">`uvm_object_utils</span>(sequence_ex)
+  seq_item req;
+  
+  <span class="fn">task body</span>();
+    req = seq_item::<span class="fn">type_id::create</span>(<span class="str">"req"</span>);
+    <span class="fn">wait_for_grant</span>();
+    assert(req.<span class="fn">randomize</span>());
+    <span class="fn">send_request</span>(req);
+    <span class="fn">wait_for_item_done</span>();
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span>
+
+<span class="kw">class</span> <span class="cls">driver</span> <span class="kw">extends</span> uvm_driver#(seq_item);
+  <span class="mac">`uvm_component_utils</span>(driver)
+  
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    <span class="kw">forever</span> <span class="kw">begin</span>
+      seq_item_port.<span class="fn">get_next_item</span>(req);
+      <span class="num">#50</span>;  <span class="cm">// Drive the DUT</span>
+      seq_item_port.<span class="fn">item_done</span>();
+    <span class="kw">end</span>
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// In test run_phase:</span>
+seqh.<span class="fn">start</span>(envh.agnth.seqrh);</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VIRTUAL SEQUENCE -->
+<section id="vseq" class="section-wrapper">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 05</div>
+      <div class="section-title">Virtual <span>Sequences</span></div>
+      <div class="section-desc">// Coordinate multiple sequencers from a single sequence using a virtual sequencer</div>
+    </div>
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(0,245,196,0.15)">🕹️</div>
+          <div><div class="card-num">// virtual_sequencer</div><div class="card-title">Virtual Sequencer</div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">A uvm_sequencer with handles to real sequencers. No sequence items of its own — just pointers to sub-sequencers.</div>
+          <div class="card-tags"><span class="tag tag-green">uvm_sequencer</span><span class="tag tag-purple">pointer refs</span></div>
+        </div>
+        <button class="card-expand-btn" onclick="toggleCard(this)">View Code</button>
+        <div class="card-content">
+          <pre><span class="kw">class</span> <span class="cls">virtual_sequencer</span> <span class="kw">extends</span> uvm_sequencer;
+  <span class="mac">`uvm_component_utils</span>(virtual_sequencer)
+  
+  sequencer_1 seqrh1;  <span class="cm">// handle to real sequencer 1</span>
+  sequencer_2 seqrh2;  <span class="cm">// handle to real sequencer 2</span>
+  
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name, uvm_component parent);
+    <span class="kw">super</span>.new(name, parent);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// In env connect_phase — assign real sequencer handles:</span>
+v_seqr.seqrh1 = agnth1.seqr1h;
+v_seqr.seqrh2 = agnth2.seqr2h;</pre>
+        </div>
+      </div>
+      <div class="concept-card">
+        <div class="card-header">
+          <div class="card-icon" style="background:rgba(123,97,255,0.2)">🎭</div>
+          <div><div class="card-num">// virtual_sequence</div><div class="card-title">Virtual Sequence</div></div>
+        </div>
+        <div class="card-body">
+          <div class="card-desc">Runs on virtual_sequencer. Uses `uvm_declare_p_sequencer to get typed handle. Starts sub-sequences on real sequencers.</div>
+          <div class="card-tags"><span class="tag tag-purple">uvm_declare_p_sequencer</span><span class="tag tag-orange">p_sequencer</span></div>
+        </div>
+        <button class="card-expand-btn" onclick="toggleCard(this)">View Code</button>
+        <div class="card-content">
+          <pre><span class="kw">class</span> <span class="cls">virtual_sequence</span> <span class="kw">extends</span> uvm_sequence#(sequence_item);
+  <span class="mac">`uvm_object_utils</span>(virtual_sequence)
+  <span class="mac">`uvm_declare_p_sequencer</span>(virtual_sequencer)
+  
+  seq1 seq1h;
+  seq2 seq2h;
+  
+  <span class="fn">task body</span>();
+    seq1h = seq1::<span class="fn">type_id::create</span>(<span class="str">"seq1h"</span>);
+    seq2h = seq2::<span class="fn">type_id::create</span>(<span class="str">"seq2h"</span>);
+    
+    <span class="cm">// Start on real sequencers via p_sequencer</span>
+    seq1h.<span class="fn">start</span>(p_sequencer.seqrh1);
+    seq2h.<span class="fn">start</span>(p_sequencer.seqrh2);
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// In test run_phase:</span>
+vseq = virtual_sequence::<span class="fn">type_id::create</span>(<span class="str">"vseq"</span>, <span class="kw">this</span>);
+vseq.<span class="fn">start</span>(envh.v_seqr);  <span class="cm">// Pass virtual sequencer</span></pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONFIG DB -->
+<section id="configdb" class="section-wrapper alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 06</div>
+      <div class="section-title">UVM <span>Config DB</span></div>
+      <div class="section-desc">// Pass configuration objects between components without direct references</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">CONFIG DB API</h3>
+          <table class="tlm-table">
+            <tr><th>Method</th><th>Description</th></tr>
+            <tr><td style="color:var(--accent2)">uvm_config_db#(T)::set()</td><td>Store a value — 4 args: context, path, field, value</td></tr>
+            <tr><td style="color:var(--accent2)">uvm_config_db#(T)::get()</td><td>Retrieve a value — 4 args: context, path, field, variable</td></tr>
+          </table>
+        </div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent3);margin-bottom:1rem">PATH WILDCARDS</h3>
+          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2">
+            <div><span style="color:var(--accent)">"envh.*"</span> — all children of envh</div>
+            <div><span style="color:var(--accent)">"envh.cb"</span> — specific component</div>
+            <div><span style="color:var(--accent)">"*"</span> — all components in hierarchy</div>
+            <div><span style="color:var(--accent)">""</span> — current component only</div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="code-label">config db set &amp; get example</div>
+        <pre><span class="cm">// TEST: Set control value for all children of envh</span>
+<span class="kw">class</span> <span class="cls">test</span> <span class="kw">extends</span> uvm_test;
+  <span class="kw">int</span> ctrl = <span class="num">1</span>;
+  
+  <span class="fn">function void build_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.build_phase(phase);
+    envh = env::<span class="fn">type_id::create</span>(<span class="str">"envh"</span>, <span class="kw">this</span>);
+    
+    <span class="cm">// Set: context=this, path="envh.*", field="control"</span>
+    uvm_config_db#(<span class="kw">int</span>)::<span class="fn">set</span>(<span class="kw">this</span>, <span class="str">"envh.*"</span>, <span class="str">"control"</span>, ctrl);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// CLASS_B: Get the control value</span>
+<span class="kw">class</span> <span class="cls">class_b</span> <span class="kw">extends</span> uvm_component;
+  <span class="kw">int</span> ctrl;
+  class_c cc;
+  
+  <span class="fn">function void build_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.build_phase(phase);
+    
+    <span class="cm">// Get: fatal if not found</span>
+    <span class="kw">if</span>(!uvm_config_db#(<span class="kw">int</span>)::<span class="fn">get</span>(<span class="kw">this</span>, <span class="str">""</span>, <span class="str">"control"</span>, ctrl))
+      <span class="mac">`uvm_fatal</span>(get_type_name(), <span class="str">"get function failed"</span>)
+    
+    <span class="cm">// Conditionally create component based on config</span>
+    <span class="kw">if</span>(ctrl)
+      cc = class_c::<span class="fn">type_id::create</span>(<span class="str">"cc"</span>, <span class="kw">this</span>);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TLM PORTS -->
+<section id="tlm-ports" class="section-wrapper">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 07</div>
+      <div class="section-title">TLM <span>Ports</span></div>
+      <div class="section-desc">// Transaction Level Modeling — blocking, non-blocking, and implementation ports</div>
+    </div>
+    <table class="tlm-table" style="margin-bottom:2rem">
+      <tr><th>Port Type</th><th>Direction</th><th>Blocking</th><th>Use Case</th></tr>
+      <tr><td style="color:var(--accent)">uvm_put_port</td><td>Producer → Consumer</td><td>Yes (put/try_put/can_put)</td><td>Send transactions to consumer</td></tr>
+      <tr><td style="color:var(--accent)">uvm_get_port</td><td>Consumer ← Producer</td><td>Yes (get/try_get/can_get)</td><td>Pull transactions from producer</td></tr>
+      <tr><td style="color:var(--accent)">uvm_blocking_put_port</td><td>Producer → Consumer</td><td>Blocking only</td><td>Simple one-way flow</td></tr>
+      <tr><td style="color:var(--accent)">uvm_blocking_get_port</td><td>Consumer ← Producer</td><td>Blocking only</td><td>Simple pull model</td></tr>
+      <tr><td style="color:var(--accent2)">uvm_put_imp</td><td>Implementation</td><td>Both</td><td>Consumer implementation (has put/try_put/can_put)</td></tr>
+      <tr><td style="color:var(--accent2)">uvm_analysis_port</td><td>1-to-many</td><td>Non-blocking write</td><td>Broadcast to monitors/scoreboards</td></tr>
+    </table>
+    <div class="code-label">blocking + non-blocking TLM port example</div>
+    <pre><span class="kw">class</span> <span class="cls">producer</span> <span class="kw">extends</span> uvm_component;
+  uvm_put_port#(<span class="kw">int</span>) tlm_put;  <span class="cm">// Supports blocking + non-blocking</span>
+  
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    <span class="kw">int</span> data = <span class="num">20</span>;
+    tlm_put.<span class="fn">put</span>(data);       <span class="cm">// blocking put</span>
+    tlm_put.<span class="fn">try_put</span>(data);   <span class="cm">// non-blocking put (returns bit)</span>
+    tlm_put.<span class="fn">can_put</span>();       <span class="cm">// check if can put</span>
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span>
+
+<span class="kw">class</span> <span class="cls">consumer</span> <span class="kw">extends</span> uvm_component;
+  uvm_put_imp#(<span class="kw">int</span>, consumer) tlm_imp;  <span class="cm">// Implementation port</span>
+  
+  <span class="fn">task put</span>(<span class="kw">int</span> val);         <span class="cm">// implements blocking put</span>
+    <span class="num">#10</span>;
+    <span class="mac">`uvm_info</span>(get_type_name(), $sformatf(<span class="str">"got: %0h"</span>, val), UVM_LOW)
+  <span class="kw">endtask</span>
+  
+  <span class="fn">function bit try_put</span>(<span class="kw">int</span> val);  <span class="cm">// non-blocking</span>
+    <span class="mac">`uvm_info</span>(get_type_name(), $sformatf(<span class="str">"try_put: %0d"</span>, val), UVM_LOW)
+    <span class="kw">return</span> <span class="num">1</span>;
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">function bit can_put</span>();
+    <span class="kw">return</span> <span class="num">1</span>;
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// In env connect_phase:</span>
+prh.tlm_put.<span class="fn">connect</span>(crh.tlm_imp);</pre>
+  </div>
+</section>
+
+<!-- ANALYSIS PORTS -->
+<section id="analysis-ports" class="section-wrapper alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 08</div>
+      <div class="section-title">Analysis <span>Ports</span></div>
+      <div class="section-desc">// Broadcast transactions to multiple subscribers — 1-to-N write() communication</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">ANALYSIS PORT FLOW</h3>
+          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2.2">
+            <div style="color:var(--accent2)">producer — uvm_analysis_port</div>
+            <div style="padding-left:1rem">↓ .write(t_h) broadcasts to all connected</div>
+            <div style="color:var(--accent)">consumer_a — uvm_analysis_imp</div>
+            <div style="color:var(--accent)">consumer_b — uvm_analysis_imp</div>
+            <div style="color:var(--accent)">consumer_c — uvm_analysis_imp</div>
+            <div style="padding-top:0.5rem;color:var(--text3)">// Each consumer implements write()</div>
+            <div style="color:var(--text3)">// All receive the same transaction</div>
+          </div>
+        </div>
+        <div class="code-label">producer with analysis port</div>
+        <pre><span class="kw">class</span> <span class="cls">producer</span> <span class="kw">extends</span> uvm_component;
+  uvm_analysis_port#(transaction) producer_put;
+  
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name, uvm_component parent);
+    <span class="kw">super</span>.new(name, parent);
+    producer_put = <span class="kw">new</span>(<span class="str">"producer_put"</span>, <span class="kw">this</span>);
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    transaction t_h = transaction::<span class="fn">type_id::create</span>(<span class="str">"t_h"</span>, <span class="kw">this</span>);
+    assert(t_h.<span class="fn">randomize</span>());
+    producer_put.<span class="fn">write</span>(t_h);  <span class="cm">// broadcast!</span>
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span></pre>
+      </div>
+      <div>
+        <div class="code-label">consumers with analysis imp</div>
+        <pre><span class="kw">class</span> <span class="cls">consumer_a</span> <span class="kw">extends</span> uvm_component;
+  uvm_analysis_imp#(transaction, consumer_a) consumer_imp;
+  
+  <span class="fn">function void write</span>(transaction t_h);
+    <span class="mac">`uvm_info</span>(get_type_name(),
+      $sformatf(<span class="str">"received: %0d"</span>, t_h.data), UVM_LOW)
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// Consumer B and C are identical pattern...</span>
+
+<span class="cm">// In env connect_phase — connect 1 port to 3 imps:</span>
+p_h.producer_put.<span class="fn">connect</span>(ca_h.consumer_imp);
+p_h.producer_put.<span class="fn">connect</span>(cb_h.b_imp);
+p_h.producer_put.<span class="fn">connect</span>(cc_h.c_imp);
+<span class="cm">// All 3 consumers get write() called automatically</span></pre>
+        <div style="background:rgba(0,245,196,0.05);border:1px solid rgba(0,245,196,0.15);border-radius:10px;padding:1rem;margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.8">
+          <span style="color:var(--accent);font-weight:700">Key Rules:</span><br>
+          • <strong style="color:var(--text)">analysis_port</strong> — no blocking; write() returns immediately<br>
+          • One port connects to <strong style="color:var(--text)">unlimited</strong> subscribers<br>
+          • write() is <strong style="color:var(--text)">void function</strong> — no return value<br>
+          • Used in monitors to broadcast to scoreboard/coverage
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TLM FIFOs -->
+<section id="fifos" class="section-wrapper">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 09</div>
+      <div class="section-title">TLM <span>FIFOs</span></div>
+      <div class="section-desc">// Buffer between producer and consumer — decouples generation from driving</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:start">
+      <div>
+        <div class="code-label">tlm_fifo connecting generator to driver</div>
+        <pre><span class="kw">class</span> <span class="cls">generator</span> <span class="kw">extends</span> uvm_component;
+  uvm_blocking_put_port#(packet) put_port;
+  
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    packet pkt = packet::<span class="fn">type_id::create</span>(<span class="str">"pkt"</span>, <span class="kw">this</span>);
+    pkt.<span class="fn">randomize</span>();
+    put_port.<span class="fn">put</span>(pkt);  <span class="cm">// put to FIFO</span>
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span>
+
+<span class="kw">class</span> <span class="cls">driver</span> <span class="kw">extends</span> uvm_driver;
+  uvm_blocking_get_port#(packet) get_port;
+  packet pkt;
+  
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    get_port.<span class="fn">get</span>(pkt);  <span class="cm">// get from FIFO</span>
+    pkt.<span class="fn">display</span>(<span class="str">"driver"</span>);
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span>
+
+<span class="kw">class</span> <span class="cls">agent</span> <span class="kw">extends</span> uvm_agent;
+  generator genh;
+  driver drvh;
+  uvm_tlm_fifo#(packet) fifoh;  <span class="cm">// The FIFO!</span>
+  
+  <span class="kw">function</span> <span class="kw">new</span>(<span class="kw">string</span> name, uvm_component parent);
+    <span class="kw">super</span>.new(name, parent);
+    fifoh = <span class="kw">new</span>(<span class="str">"fifoh"</span>, <span class="kw">this</span>);  <span class="cm">// created in new()</span>
+  <span class="kw">endfunction</span>
+  
+  <span class="fn">function void connect_phase</span>(uvm_phase phase);
+    genh.put_port.<span class="fn">connect</span>(fifoh.put_export);
+    drvh.get_port.<span class="fn">connect</span>(fifoh.get_export);
+  <span class="kw">endfunction</span>
+<span class="kw">endclass</span></pre>
+      </div>
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">FIFO EXPORTS</h3>
+          <table class="tlm-table">
+            <tr><th>Export</th><th>Used By</th></tr>
+            <tr><td style="color:var(--accent)">put_export</td><td>Producer puts items in</td></tr>
+            <tr><td style="color:var(--accent)">get_export</td><td>Consumer gets items out</td></tr>
+            <tr><td style="color:var(--accent)">peek_export</td><td>Peek without removing</td></tr>
+            <tr><td style="color:var(--accent)">get_peek_export</td><td>Combined get+peek</td></tr>
+          </table>
+        </div>
+        <div style="background:rgba(123,97,255,0.06);border:1px solid rgba(123,97,255,0.15);border-radius:10px;padding:1.25rem;margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.9">
+          <span style="color:var(--accent2);font-weight:700">When to use uvm_tlm_fifo:</span><br>
+          • Generator runs at its own rate<br>
+          • Driver runs at its own rate<br>
+          • FIFO buffers the difference<br>
+          • Useful when gen faster/slower than driver<br>
+          • Default size = 1 (acts as synchronizer)<br>
+          • <span style="color:var(--accent)">new("fifoh", this)</span> — created in new() not build_phase
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FIELD MACROS -->
+<section id="field-macros" class="section-wrapper alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 10</div>
+      <div class="section-title">Field <span>Macros</span></div>
+      <div class="section-desc">// Auto-generate copy, compare, print, pack, unpack for sequence_item fields</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+      <div>
+        <div class="code-label">field macros + copy/clone example</div>
+        <pre><span class="kw">class</span> <span class="cls">packet</span> <span class="kw">extends</span> uvm_object;
+  <span class="kw">int</span> data;
+  <span class="kw">reg</span> [3:0] addr;
+  <span class="kw">logic</span> enable;
+  
+  <span class="cm">// Wrap all fields between begin/end</span>
+  <span class="mac">`uvm_object_utils_begin</span>(packet)
+    <span class="mac">`uvm_field_int</span>(data,   UVM_ALL_ON)    <span class="cm">// all ops</span>
+    <span class="mac">`uvm_field_int</span>(addr,   UVM_NOCOPY)    <span class="cm">// skip copy</span>
+    <span class="mac">`uvm_field_int</span>(enable, UVM_NOCOMPARE) <span class="cm">// skip compare</span>
+  <span class="mac">`uvm_object_utils_end</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// copy() uses do_copy — automatic with field macros</span>
+packet p1_h = packet::<span class="fn">type_id::create</span>(<span class="str">"p1_h"</span>);
+packet p2_h = packet::<span class="fn">type_id::create</span>(<span class="str">"p2_h"</span>);
+p2_h.<span class="fn">copy</span>(p1_h);   <span class="cm">// deep copy p1 → p2</span>
+
+<span class="cm">// clone() = copy + new allocation</span>
+$cast(p2_h, p1_h.<span class="fn">clone</span>());
+
+<span class="cm">// compare() using do_compare</span>
+<span class="kw">if</span>(p2_h.<span class="fn">compare</span>(p1_h))
+  $display(<span class="str">"comparison success"</span>);</pre>
+      </div>
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">FIELD MACRO FLAGS</h3>
+          <table class="tlm-table">
+            <tr><th>Flag</th><th>Effect</th></tr>
+            <tr><td style="color:var(--accent)">UVM_ALL_ON</td><td>Enable all operations</td></tr>
+            <tr><td style="color:var(--accent)">UVM_NOCOPY</td><td>Skip field in copy()</td></tr>
+            <tr><td style="color:var(--accent)">UVM_NOCOMPARE</td><td>Skip in compare()</td></tr>
+            <tr><td style="color:var(--accent)">UVM_NOPRINT</td><td>Skip in print()</td></tr>
+            <tr><td style="color:var(--accent)">UVM_NOPACK</td><td>Skip in pack()</td></tr>
+          </table>
+        </div>
+        <div class="code-label" style="margin-top:1.5rem">custom do_copy override</div>
+        <pre><span class="kw">virtual function void</span> <span class="fn">do_copy</span>(uvm_object rhs);
+  transaction t_h = <span class="kw">new</span>();
+  $cast(t_h, rhs);
+  <span class="kw">this</span>.addr = t_h.addr;
+  <span class="kw">this</span>.data = t_h.data;
+<span class="kw">endfunction</span></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VERBOSITY -->
+<section id="verbosity" class="section-wrapper">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 11</div>
+      <div class="section-title">UVM <span>Verbosity</span></div>
+      <div class="section-desc">// Control message display levels — from UVM_NONE (always shown) to UVM_DEBUG</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+      <div>
+        <div class="cheat-grid" style="grid-template-columns:1fr">
+          <div class="cheat-card">
+            <div class="cheat-title">Verbosity Levels (Lowest → Highest)</div>
+            <div class="cheat-item"><span class="cheat-key">UVM_NONE (0)</span><span class="cheat-val">Always shown</span></div>
+            <div class="cheat-item"><span class="cheat-key">UVM_LOW (100)</span><span class="cheat-val">Low detail</span></div>
+            <div class="cheat-item"><span class="cheat-key">UVM_MEDIUM (200)</span><span class="cheat-val">Default level</span></div>
+            <div class="cheat-item"><span class="cheat-key">UVM_HIGH (300)</span><span class="cheat-val">Detailed</span></div>
+            <div class="cheat-item"><span class="cheat-key">UVM_FULL (400)</span><span class="cheat-val">Full debug</span></div>
+            <div class="cheat-item"><span class="cheat-key">UVM_DEBUG (500)</span><span class="cheat-val">Maximum</span></div>
+          </div>
+          <div class="cheat-card">
+            <div class="cheat-title">Severity Levels</div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_info</span><span class="cheat-val" style="color:var(--accent)">Informational</span></div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_warning</span><span class="cheat-val" style="color:#f0c040">Warning</span></div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_error</span><span class="cheat-val" style="color:var(--accent3)">Error (continues)</span></div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_fatal</span><span class="cheat-val" style="color:#ff4040">Fatal (stops sim)</span></div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="code-label">verbosity control example</div>
+        <pre><span class="cm">// In component:</span>
+<span class="mac">`uvm_info</span>(get_type_name,
+  $sformatf(<span class="str">"value of a is %d"</span>, a), UVM_NONE)
+
+<span class="cm">// In top module — set global verbosity:</span>
+<span class="kw">module</span> <span class="cls">top</span>;
+  initial <span class="kw">begin</span>
+    <span class="cm">// Only show UVM_LOW and below</span>
+    uvm_top.<span class="fn">set_report_verbosity_level</span>(UVM_LOW);
+    
+    <span class="cm">// Make UVM_INFO exit simulation</span>
+    uvm_top.<span class="fn">set_report_severity_action</span>(UVM_INFO, UVM_EXIT);
+    
+    <span class="fn">run_test</span>(<span class="str">"test"</span>);
+  <span class="kw">end</span>
+<span class="kw">endmodule</span>
+
+<span class="cm">// Component-level control:</span>
+set_report_verbosity_level(UVM_HIGH);
+set_report_severity_action(UVM_WARNING, UVM_DISPLAY | UVM_COUNT);
+
+<span class="cm">// Per-ID control:</span>
+set_report_id_verbosity(<span class="str">"MY_ID"</span>, UVM_HIGH);</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- OBJECTIONS -->
+<section id="objections" class="section-wrapper alt">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// CONCEPT 12</div>
+      <div class="section-title">UVM <span>Objections</span></div>
+      <div class="section-desc">// Objection mechanism controls when run_phase ends — simulation won't end until all objections are dropped</div>
+    </div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
+      <div>
+        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">OBJECTION RULES</h3>
+          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2">
+            <div>• At least ONE component must raise an objection</div>
+            <div>• Simulation ends when ALL objections are dropped</div>
+            <div>• Raise BEFORE the work, drop AFTER</div>
+            <div>• Never drop an objection you didn't raise</div>
+            <div>• Multiple components can raise concurrently</div>
+            <div style="color:var(--accent3)">• Forgetting to drop = simulation hangs!</div>
+          </div>
+        </div>
+        <div class="code-label">driver + monitor concurrent objections</div>
+        <pre><span class="cm">// driver: raises, does work, drops</span>
+<span class="fn">task run_phase</span>(uvm_phase phase);
+  phase.<span class="fn">raise_objection</span>(<span class="kw">this</span>);
+  <span class="mac">`uvm_info</span>(<span class="str">"RUN PHASE"</span>,<span class="str">"objection raised"</span>,UVM_LOW)
+  <span class="num">#10</span>;
+  phase.<span class="fn">drop_objection</span>(<span class="kw">this</span>);
+<span class="kw">endtask</span>
+
+<span class="cm">// monitor: FORGOT to drop — simulation hangs!</span>
+<span class="fn">task run_phase</span>(uvm_phase phase);
+  phase.<span class="fn">raise_objection</span>(<span class="kw">this</span>);
+  <span class="num">#50</span>;
+  <span class="cm">// phase.drop_objection(this); &lt;-- BUG!</span>
+<span class="kw">endtask</span></pre>
+      </div>
+      <div>
+        <div class="code-label">best practice — objections in test only</div>
+        <pre><span class="cm">// RECOMMENDED: Only test class manages objections</span>
+<span class="kw">class</span> <span class="cls">test</span> <span class="kw">extends</span> uvm_test;
+  <span class="fn">task run_phase</span>(uvm_phase phase);
+    <span class="kw">super</span>.run_phase(phase);
+    phase.<span class="fn">raise_objection</span>(<span class="kw">this</span>);
+    
+    <span class="cm">// Run all sequences</span>
+    vseq.<span class="fn">start</span>(envh.v_seqr);
+    
+    phase.<span class="fn">drop_objection</span>(<span class="kw">this</span>);
+  <span class="kw">endtask</span>
+<span class="kw">endclass</span>
+
+<span class="cm">// Set drain time (wait after all dropped)</span>
+phase.<span class="fn">phase_done.set_drain_time</span>(<span class="kw">this</span>, <span class="num">100</span>);
+
+<span class="cm">// Check objection count:</span>
+<span class="kw">int</span> count = phase.<span class="fn">get_objection_count</span>(<span class="kw">this</span>);</pre>
+        <div style="background:rgba(0,245,196,0.05);border:1px solid rgba(0,245,196,0.15);border-radius:10px;padding:1.25rem;margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.8">
+          <span style="color:var(--accent);font-weight:700">Debug tip:</span> If simulation hangs, add<br>
+          <span style="color:var(--accent2)">+UVM_OBJECTION_TRACE</span> to the command line to see all raise/drop events with component names and counts.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ -->
+<section id="quiz-section">
+  <div class="quiz-inner">
+    <div class="section-header" style="text-align:center">
+      <div class="section-tag" style="justify-content:center;display:flex">// TEST YOURSELF</div>
+      <div class="section-title">UVM <span>Quiz</span></div>
+      <div class="section-desc" style="margin:0 auto">// Check your understanding of UVM concepts</div>
+    </div>
+    <div class="quiz-card" id="quizCard">
+      <div id="quizContent">
+        <!-- Rendered by JS -->
+      </div>
+      <div class="quiz-score" id="quizScore">
+        <div class="score-num" id="scoreNum">0/10</div>
+        <div class="score-msg" id="scoreMsg"></div>
+        <button class="quiz-btn" style="margin-top:2rem" onclick="resetQuiz()">Try Again</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CHEATSHEET -->
+<section id="cheatsheet" class="section-wrapper">
+  <div class="section-inner">
+    <div class="section-header">
+      <div class="section-tag">// REFERENCE</div>
+      <div class="section-title">UVM <span>Cheatsheet</span></div>
+      <div class="section-desc">// Quick reference for the most important UVM patterns and macros</div>
+    </div>
+    <div class="cheat-grid">
+      <div class="cheat-card">
+        <div class="cheat-title">Key Macros</div>
+        <div class="cheat-item"><span class="cheat-key">`uvm_component_utils</span><span class="cheat-val">Register component</span></div>
+        <div class="cheat-item"><span class="cheat-key">`uvm_object_utils</span><span class="cheat-val">Register object</span></div>
+        <div class="cheat-item"><span class="cheat-key">`uvm_info / warning</span><span class="cheat-val">Messaging</span></div>
+        <div class="cheat-item"><span class="cheat-key">`uvm_fatal</span><span class="cheat-val">Stop simulation</span></div>
+        <div class="cheat-item"><span class="cheat-key">`uvm_declare_p_sequencer</span><span class="cheat-val">Typed p_seqr</span></div>
+        <div class="cheat-item"><span class="cheat-key">`uvm_field_int</span><span class="cheat-val">Auto copy/compare</span></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Component Hierarchy</div>
+        <div class="cheat-item"><span class="cheat-key">uvm_test</span><span class="cheat-val">Top level</span></div>
+        <div class="cheat-item"><span class="cheat-key">uvm_env</span><span class="cheat-val">Container</span></div>
+        <div class="cheat-item"><span class="cheat-key">uvm_agent</span><span class="cheat-val">Seqr+Drv+Mon</span></div>
+        <div class="cheat-item"><span class="cheat-key">uvm_driver</span><span class="cheat-val">Drive DUT</span></div>
+        <div class="cheat-item"><span class="cheat-key">uvm_monitor</span><span class="cheat-val">Observe DUT</span></div>
+        <div class="cheat-item"><span class="cheat-key">uvm_scoreboard</span><span class="cheat-val">Check results</span></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Factory Usage</div>
+        <div class="cheat-item"><span class="cheat-key">type_id::create()</span><span class="cheat-val">Always use this!</span></div>
+        <div class="cheat-item"><span class="cheat-key">set_type_override_by_type</span><span class="cheat-val">Global override</span></div>
+        <div class="cheat-item"><span class="cheat-key">set_inst_override_by_type</span><span class="cheat-val">Instance override</span></div>
+        <div class="cheat-item"><span class="cheat-key">factory.print()</span><span class="cheat-val">Debug factory</span></div>
+        <div class="cheat-item"><span class="cheat-key">uvm_factory::get()</span><span class="cheat-val">Get singleton</span></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Sequence API</div>
+        <div class="cheat-item"><span class="cheat-key">seq.start(seqr)</span><span class="cheat-val">Run sequence</span></div>
+        <div class="cheat-item"><span class="cheat-key">wait_for_grant()</span><span class="cheat-val">Get arbitration</span></div>
+        <div class="cheat-item"><span class="cheat-key">send_request(req)</span><span class="cheat-val">Send to driver</span></div>
+        <div class="cheat-item"><span class="cheat-key">wait_for_item_done()</span><span class="cheat-val">Sync with driver</span></div>
+        <div class="cheat-item"><span class="cheat-key">get_next_item(req)</span><span class="cheat-val">Driver receives</span></div>
+        <div class="cheat-item"><span class="cheat-key">item_done()</span><span class="cheat-val">Driver signals done</span></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">TLM Connections</div>
+        <div class="cheat-item"><span class="cheat-key">put_port → put_imp</span><span class="cheat-val">Producer → Consumer</span></div>
+        <div class="cheat-item"><span class="cheat-key">get_port → get_imp</span><span class="cheat-val">Consumer ← Producer</span></div>
+        <div class="cheat-item"><span class="cheat-key">analysis_port → analysis_imp</span><span class="cheat-val">1→N broadcast</span></div>
+        <div class="cheat-item"><span class="cheat-key">put → fifo.put_export</span><span class="cheat-val">To FIFO</span></div>
+        <div class="cheat-item"><span class="cheat-key">get ← fifo.get_export</span><span class="cheat-val">From FIFO</span></div>
+      </div>
+      <div class="cheat-card">
+        <div class="cheat-title">Config DB Syntax</div>
+        <div class="cheat-item"><span class="cheat-key">set(context, path, field, val)</span><span class="cheat-val">Store</span></div>
+        <div class="cheat-item"><span class="cheat-key">get(this, "", field, var)</span><span class="cheat-val">Retrieve</span></div>
+        <div class="cheat-item"><span class="cheat-key">"envh.*"</span><span class="cheat-val">All children</span></div>
+        <div class="cheat-item"><span class="cheat-key">"*"</span><span class="cheat-val">All components</span></div>
+        <div class="cheat-item"><span class="cheat-key">T = int, class, if</span><span class="cheat-val">Any type</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo">UVM<span>Learn</span></div>
+  <div class="footer-text">// Complete UVM Learning Platform — Factory Override • Sequences • TLM Ports • Config DB • Analysis Ports • Field Macros</div>
+  <div style="margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3)">Built for verification engineers learning SystemVerilog UVM</div>
+</footer>
+
+<script>
+// ==============================
+// 3D TEACHER CANVAS
+// ==============================
+const canvas = document.getElementById('teacher-canvas');
+const ctx = canvas.getContext('2d');
+let teacherState = {
+  eyeBlink: 0, blinkTimer: 0,
+  mouthOpen: 0, talking: false,
+  armAngle: 0, armDir: 1,
+  headBob: 0, headBobT: 0,
+  bodyBreath: 0, breathT: 0,
+  boardText: '', boardAnim: 0,
+  currentTopic: 'intro',
+  particles: [],
+  glassesShine: 0
+};
+
+const teacherTopics = {
+  intro: {
+    name: 'INTRODUCTION',
+    difficulty: 'Beginner',
+    color: '#00f5c4',
+    speech: "Welcome to UVMLearn! I'm Professor UVM-X. Universal Verification Methodology is a standardized testbench framework for verifying hardware designs. It's built on SystemVerilog and provides reusable, scalable verification components. Let me guide you through every concept!",
+    board: 'UVM'
+  },
+  factory: {
+    name: 'FACTORY OVERRIDE',
+    difficulty: 'Intermediate',
+    color: '#ff6b35',
+    speech: "The UVM Factory is brilliant! Instead of using 'new()', always use type_id::create(). This registers your component with the factory. Then, you can override base_driver with driver1 at runtime — without changing a single line of testbench code!",
+    board: 'FACTORY'
+  },
+  tlm: {
+    name: 'TLM PORTS',
+    difficulty: 'Intermediate',
+    color: '#7b61ff',
+    speech: "TLM — Transaction Level Modeling — is how UVM components communicate. A producer has a put_port, a consumer has a put_imp. Connect them in connect_phase. The analysis_port is special — it broadcasts to unlimited subscribers simultaneously!",
+    board: 'TLM'
+  },
+  sequence: {
+    name: 'SEQUENCES',
+    difficulty: 'Intermediate',
+    color: '#00f5c4',
+    speech: "Sequences generate stimulus. The flow is: start() → wait_for_grant() → randomize → send_request() → wait_for_item_done(). The driver calls get_next_item() then item_done(). This handshake synchronizes generation with driving!",
+    board: 'SEQ'
+  },
+  phases: {
+    name: 'UVM PHASES',
+    difficulty: 'Beginner',
+    color: '#f0c040',
+    speech: "UVM phases are ordered execution stages. build_phase creates components top-down. connect_phase wires TLM ports bottom-up. Then run_phase drives the actual simulation — it's a task, so it runs concurrently. Always use objections to control simulation end!",
+    board: 'PHASES'
+  },
+  configdb: {
+    name: 'CONFIG DB',
+    difficulty: 'Advanced',
+    color: '#ff6b35',
+    speech: "uvm_config_db is a global configuration database. Use set() in the test to store an interface or integer, then get() in any component to retrieve it. The path wildcard 'envh.*' means all children of envh. Always check the return value — use uvm_fatal if get fails!",
+    board: 'CONFIG'
+  }
+};
+
+let speechTimeout, charIndex = 0, currentText = '';
+function setTeacherTopic(topic) {
+  document.querySelectorAll('.teach-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  teacherState.currentTopic = topic;
+  const t = teacherTopics[topic];
+  document.getElementById('teacherTopicName').textContent = t.name;
+  document.getElementById('currentTopicDisplay').textContent = t.name;
+  document.getElementById('difficultyDisplay').textContent = t.difficulty;
+  teacherState.boardText = t.board;
+  teacherState.boardAnim = 1;
+  clearTimeout(speechTimeout);
+  charIndex = 0;
+  currentText = t.speech;
+  document.getElementById('teacherSpeech').textContent = '';
+  teacherState.talking = true;
+  teacherState.armAngle = 0.3;
+  typeSpeech();
+}
+function typeSpeech() {
+  if (charIndex < currentText.length) {
+    document.getElementById('teacherSpeech').textContent += currentText[charIndex];
+    charIndex++;
+    speechTimeout = setTimeout(typeSpeech, 25 + Math.random() * 15);
+  } else {
+    teacherState.talking = false;
+  }
+}
+setTeacherTopic.call({target: document.querySelector('.teach-btn')}, 'intro');
+setTimeout(() => setTeacherTopic.call({target: document.querySelector('.teach-btn')}, 'intro'), 100);
+
+function drawTeacher(t) {
+  ctx.clearRect(0, 0, 440, 520);
+  const w = 440, h = 520;
+  // Background
+  ctx.fillStyle = '#0a0e1a';
+  ctx.fillRect(0, 0, w, h);
+  // Grid
+  ctx.strokeStyle = 'rgba(0,245,196,0.04)';
+  ctx.lineWidth = 1;
+  for(let x=0;x<w;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+  for(let y=0;y<h;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+  
+  // WHITEBOARD
+  const bx=60,by=30,bw=320,bh=160;
+  ctx.fillStyle='#1a2540';
+  ctx.strokeStyle='rgba(0,245,196,0.3)';
+  ctx.lineWidth=2;
+  roundRect(ctx,bx,by,bw,bh,10);
+  ctx.fill();ctx.stroke();
+  // Board grid lines
+  ctx.strokeStyle='rgba(0,245,196,0.06)';ctx.lineWidth=1;
+  for(let i=1;i<5;i++){ctx.beginPath();ctx.moveTo(bx,by+bh*i/5);ctx.lineTo(bx+bw,by+bh*i/5);ctx.stroke()}
+  // Board text
+  const topic = teacherTopics[teacherState.currentTopic];
+  ctx.fillStyle=topic.color;
+  ctx.font='bold 36px "Space Mono", monospace';
+  ctx.textAlign='center';
+  ctx.globalAlpha = Math.min(1, teacherState.boardAnim);
+  ctx.fillText(teacherState.boardText, bx+bw/2, by+bh/2+14);
+  ctx.globalAlpha = 1;
+  // Board formula
+  ctx.fillStyle='rgba(255,255,255,0.25)';
+  ctx.font='11px "Space Mono", monospace';
+  ctx.fillText('type_id::create("name", this)', bx+bw/2, by+bh-20);
+  // Board stand
+  ctx.fillStyle='#1a2540';ctx.strokeStyle='rgba(0,245,196,0.2)';
+  ctx.fillRect(bx+bw/2-5,by+bh,10,30);
+  ctx.fillRect(bx+bw/2-40,by+bh+30,80,8);
+  
+  const cx=220, baseY=440;
+  const breath = Math.sin(teacherState.breathT)*3;
+  const bob = Math.sin(teacherState.headBobT)*3;
+  const eyeClose = teacherState.eyeBlink;
+
+  // LEFT ARM (pointer arm) 
+  ctx.save();
+  ctx.translate(cx-55, baseY-120);
+  ctx.rotate(-0.3 + Math.sin(t*0.03)*0.15);
+  ctx.fillStyle='#2a4080';
+  ctx.strokeStyle='#1a2d5a';ctx.lineWidth=1.5;
+  roundRect(ctx,-12,0,24,80,10);ctx.fill();ctx.stroke();
+  // Hand
+  ctx.fillStyle='#f4c89a';
+  ctx.beginPath();ctx.arc(0,88,12,0,Math.PI*2);ctx.fill();
+  // Pointer
+  ctx.strokeStyle=topic.color;ctx.lineWidth=3;
+  ctx.beginPath();ctx.moveTo(12,85);ctx.lineTo(55,60);ctx.stroke();
+  ctx.restore();
+  
+  // RIGHT ARM
+  ctx.save();
+  ctx.translate(cx+55, baseY-120);
+  ctx.rotate(0.2 + Math.sin(t*0.03+1)*0.1);
+  ctx.fillStyle='#2a4080';
+  ctx.strokeStyle='#1a2d5a';ctx.lineWidth=1.5;
+  roundRect(ctx,-12,0,24,80,10);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#f4c89a';
+  ctx.beginPath();ctx.arc(0,88,12,0,Math.PI*2);ctx.fill();
+  ctx.restore();
+  
+  // BODY
+  ctx.fillStyle='#2a4080';
+  ctx.strokeStyle='#1a2d5a';ctx.lineWidth=2;
+  roundRect(ctx,cx-60,baseY-160+breath,120,130,20);
+  ctx.fill();ctx.stroke();
+  // Shirt collar
+  ctx.fillStyle='#1a2d5a';
+  ctx.beginPath();ctx.moveTo(cx-20,baseY-155+breath);ctx.lineTo(cx,baseY-130+breath);ctx.lineTo(cx+20,baseY-155+breath);ctx.closePath();ctx.fill();
+  // Tie
+  ctx.fillStyle=topic.color;
+  ctx.beginPath();ctx.moveTo(cx-8,baseY-145+breath);ctx.lineTo(cx,baseY-100+breath);ctx.lineTo(cx+8,baseY-145+breath);ctx.closePath();ctx.fill();
+  // Buttons
+  for(let i=0;i<3;i++){
+    ctx.fillStyle='rgba(255,255,255,0.3)';
+    ctx.beginPath();ctx.arc(cx,baseY-115+breath+i*18,3,0,Math.PI*2);ctx.fill();
+  }
+  
+  // NECK
+  ctx.fillStyle='#f4c89a';
+  ctx.strokeStyle='#e5a870';ctx.lineWidth=1;
+  roundRect(ctx,cx-18,baseY-175+breath,36,28,8);
+  ctx.fill();ctx.stroke();
+  
+  // HEAD
+  const headY = baseY-240+bob;
+  ctx.fillStyle='#f4c89a';
+  ctx.strokeStyle='#e5a870';ctx.lineWidth=2;
+  roundRect(ctx,cx-55,headY,110,95,28);
+  ctx.fill();ctx.stroke();
+  
+  // Hair
+  ctx.fillStyle='#2c1a0e';
+  ctx.beginPath();ctx.ellipse(cx,headY+5,55,22,0,Math.PI,0);ctx.fill();
+  // Hair detail
+  ctx.strokeStyle='#1a0e08';ctx.lineWidth=1.5;
+  for(let i=-3;i<=3;i++){
+    ctx.beginPath();ctx.moveTo(cx+i*12,headY+3);ctx.quadraticCurveTo(cx+i*15,headY-5,cx+i*10,headY+26);ctx.stroke();
+  }
+  
+  // EARS
+  ctx.fillStyle='#f4c89a';ctx.strokeStyle='#e5a870';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.ellipse(cx-56,headY+42,10,14,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+  ctx.beginPath();ctx.ellipse(cx+56,headY+42,10,14,0,0,Math.PI*2);ctx.fill();ctx.stroke();
+  
+  // GLASSES
+  ctx.strokeStyle='#555';ctx.lineWidth=2;
+  // Left lens
+  roundRect(ctx,cx-48,headY+28,36,26,6);ctx.stroke();
+  // Right lens
+  roundRect(ctx,cx+12,headY+28,36,26,6);ctx.stroke();
+  // Bridge
+  ctx.beginPath();ctx.moveTo(cx-12,headY+40);ctx.lineTo(cx+12,headY+40);ctx.stroke();
+  // Shine
+  ctx.fillStyle='rgba(255,255,255,0.15)';
+  ctx.beginPath();ctx.ellipse(cx-35,headY+32,8,4,0,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+25,headY+32,8,4,0,0,Math.PI*2);ctx.fill();
+  
+  // EYES
+  const eyeH = eyeClose > 0.5 ? 2 : 9*(1-eyeClose);
+  ctx.fillStyle='#2c1a0e';
+  // Left eye
+  ctx.beginPath();ctx.ellipse(cx-30,headY+40,6,eyeH,0,0,Math.PI*2);ctx.fill();
+  // Right eye
+  ctx.beginPath();ctx.ellipse(cx+30,headY+40,6,eyeH,0,0,Math.PI*2);ctx.fill();
+  // Eye shine
+  if(eyeClose < 0.3) {
+    ctx.fillStyle='white';
+    ctx.beginPath();ctx.arc(cx-27,headY+37,2,0,Math.PI*2);ctx.fill();
+    ctx.beginPath();ctx.arc(cx+33,headY+37,2,0,Math.PI*2);ctx.fill();
+  }
+  
+  // EYEBROWS
+  ctx.strokeStyle='#2c1a0e';ctx.lineWidth=3;ctx.lineCap='round';
+  ctx.beginPath();ctx.moveTo(cx-42,headY+22);ctx.quadraticCurveTo(cx-30,headY+18,cx-18,headY+22);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx+18,headY+22);ctx.quadraticCurveTo(cx+30,headY+18,ctx.moveTo,headY+22);
+  ctx.moveTo(cx+18,headY+22);ctx.quadraticCurveTo(cx+30,headY+18,cx+42,headY+22);ctx.stroke();
+  
+  // NOSE
+  ctx.strokeStyle='#e5a870';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(cx,headY+45);ctx.quadraticCurveTo(cx-10,headY+60,cx-8,headY+68);ctx.stroke();
+  ctx.beginPath();ctx.moveTo(cx,headY+45);ctx.quadraticCurveTo(cx+10,headY+60,cx+8,headY+68);ctx.stroke();
+  
+  // MOUTH
+  const mouthO = teacherState.talking ? (0.15 + Math.sin(t*0.4)*0.1) : 0;
+  ctx.strokeStyle='#c8845a';ctx.lineWidth=2.5;
+  if(mouthO > 0.05) {
+    ctx.beginPath();ctx.ellipse(cx, headY+78, 14, 6+mouthO*12, 0, 0, Math.PI);ctx.stroke();
+    ctx.fillStyle='#8b2020';
+    ctx.beginPath();ctx.ellipse(cx, headY+79, 10, 3+mouthO*8, 0, 0, Math.PI);ctx.fill();
+    ctx.fillStyle='#ff8888';
+    ctx.beginPath();ctx.ellipse(cx, headY+78, 14, 2, 0, 0, Math.PI);ctx.fill();
+  } else {
+    ctx.beginPath();ctx.moveTo(cx-14,headY+78);ctx.quadraticCurveTo(cx,headY+84,cx+14,headY+78);ctx.stroke();
+  }
+  
+  // Cheeks
+  ctx.fillStyle='rgba(255,150,120,0.3)';
+  ctx.beginPath();ctx.ellipse(cx-42,headY+58,14,8,0,0,Math.PI*2);ctx.fill();
+  ctx.beginPath();ctx.ellipse(cx+42,headY+58,14,8,0,0,Math.PI*2);ctx.fill();
+  
+  // LEGS
+  ctx.fillStyle='#1a1a2a';ctx.strokeStyle='#0a0a1a';ctx.lineWidth=1.5;
+  roundRect(ctx,cx-50,baseY-30+breath,38,55,10);ctx.fill();ctx.stroke();
+  roundRect(ctx,cx+12,baseY-30+breath,38,55,10);ctx.fill();ctx.stroke();
+  // Shoes
+  ctx.fillStyle='#111';
+  roundRect(ctx,cx-56,baseY+20+breath,48,18,6);ctx.fill();
+  roundRect(ctx,cx+8,baseY+20+breath,48,18,6);ctx.fill();
+  
+  // Floating particles
+  for(let i=0;i<teacherState.particles.length;i++){
+    const p = teacherState.particles[i];
+    ctx.globalAlpha = p.life;
+    ctx.fillStyle = topic.color;
+    ctx.font = `${10+p.size*6}px "Space Mono", monospace`;
+    ctx.fillText(p.char, p.x, p.y);
+    ctx.globalAlpha = 1;
+  }
+  
+  // Name badge
+  ctx.fillStyle='rgba(0,245,196,0.1)';
+  ctx.strokeStyle='rgba(0,245,196,0.3)';ctx.lineWidth=1;
+  roundRect(ctx,cx-70,baseY+45,140,30,8);ctx.fill();ctx.stroke();
+  ctx.fillStyle=topic.color;
+  ctx.font='bold 11px "Space Mono", monospace';
+  ctx.textAlign='center';
+  ctx.fillText('PROF. UVM-X', cx, baseY+64);
+}
+
+function roundRect(ctx,x,y,w,h,r){
+  ctx.beginPath();
+  ctx.moveTo(x+r,y);
+  ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
+  ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
+  ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
+  ctx.lineTo(x,y+r);ctx.quadraticCurveTo(x,y,x+r,y);
+  ctx.closePath();
+}
+
+let frame=0;
+function animateTeacher(){
+  frame++;
+  const s = teacherState;
+  // Blink
+  s.blinkTimer++;
+  if(s.blinkTimer > 180+Math.random()*120){s.blinkTimer=0;s.eyeBlink=1;}
+  if(s.eyeBlink>0){s.eyeBlink=Math.max(0,s.eyeBlink-(s.eyeBlink>0.5?0.15:0.05));}
+  // Head bob
+  s.headBobT += 0.03;
+  // Breathe
+  s.breathT += 0.015;
+  s.bodyBreath = Math.sin(s.breathT)*2;
+  // Board anim
+  if(s.boardAnim>0) s.boardAnim=Math.min(1,s.boardAnim+0.05);
+  // Particles
+  if(s.talking && Math.random()<0.15){
+    const chars=['`','{','}','#','//','=',';'];
+    s.particles.push({
+      x:180+Math.random()*80, y:300+Math.random()*60,
+      char:chars[Math.floor(Math.random()*chars.length)],
+      size:Math.random(), life:1, dy:-1-Math.random()*2
+    });
+  }
+  s.particles = s.particles.filter(p=>{p.y+=p.dy;p.life-=0.02;return p.life>0});
+  drawTeacher(frame);
+  requestAnimationFrame(animateTeacher);
+}
+animateTeacher();
+
+// ==============================
+// CARD EXPAND
+// ==============================
+function toggleCard(btn){
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('show');
+}
+
+// ==============================
+// PAGE PROGRESS
+// ==============================
+window.addEventListener('scroll',()=>{
+  const scrolled = window.scrollY;
+  const total = document.body.scrollHeight - window.innerHeight;
+  document.getElementById('pageProgress').style.width = (scrolled/total*100)+'%';
+});
+
+// ==============================
+// NAV ACTIVE
+// ==============================
+const sections = document.querySelectorAll('section[id]');
+window.addEventListener('scroll',()=>{
+  let current='';
+  sections.forEach(s=>{
+    if(window.scrollY>=s.offsetTop-100) current=s.id;
+  });
+  document.querySelectorAll('.nav-links a').forEach(a=>{
+    a.classList.toggle('active', a.getAttribute('href')==='#'+current);
+  });
+});
+
+// ==============================
+// QUIZ
+// ==============================
+const quizData = [
+  {q:"What method must you always use to create UVM components?",opts:["new()","create()","type_id::create()","build()"],ans:2,exp:"Always use type_id::create('name', parent) — this registers the component with the UVM factory and enables factory overrides."},
+  {q:"Which phase is called TOP-DOWN in UVM?",opts:["connect_phase","run_phase","build_phase","report_phase"],ans:2,exp:"build_phase is called top-down (parent before child) so parents can create child components before they need to be connected."},
+  {q:"What does uvm_analysis_port do differently from uvm_put_port?",opts:["Blocks until consumed","Broadcasts to multiple subscribers","Creates a FIFO buffer","Requires two-way handshake"],ans:1,exp:"uvm_analysis_port broadcasts write() to all connected uvm_analysis_imp instances simultaneously — it's non-blocking 1-to-N communication."},
+  {q:"What happens if you forget to call phase.drop_objection(this)?",opts:["Compilation error","Simulation hangs forever","Test is skipped","Fatal error"],ans:1,exp:"The simulation run_phase will never end — it keeps running forever waiting for all objections to be dropped."},
+  {q:"Which macro declares a typed virtual sequencer handle in a virtual sequence?",opts:["`uvm_sequencer_utils","`uvm_declare_p_sequencer","`uvm_virtual_sequencer","`uvm_object_utils"],ans:1,exp:"`uvm_declare_p_sequencer(TYPE) creates a typed p_sequencer handle of type TYPE, giving the virtual sequence access to the real sequencers."},
+  {q:"In uvm_config_db::set(this, 'envh.*', 'control', val) — what does 'envh.*' mean?",opts:["Only envh itself","All components globally","All children of envh","envh's parent"],ans:2,exp:"'envh.*' is a path wildcard meaning all children (and descendants) of the envh component will see this config_db entry."},
+  {q:"What is the correct order of driver-sequence handshake?",opts:["item_done → get_next_item → wait_for_grant → send_request","wait_for_grant → send_request → get_next_item → item_done","get_next_item → item_done → wait_for_grant → send_request","send_request → wait_for_grant → get_next_item → item_done"],ans:1,exp:"Sequence: wait_for_grant → randomize → send_request → wait_for_item_done. Driver: get_next_item → drive DUT → item_done."},
+  {q:"Which UVM verbosity level always prints regardless of set verbosity?",opts:["UVM_LOW","UVM_HIGH","UVM_NONE","UVM_MEDIUM"],ans:2,exp:"UVM_NONE (value=0) is always displayed because the default verbosity is UVM_MEDIUM (200), and UVM_NONE (0) is always ≤ any verbosity level."},
+  {q:"Where should uvm_tlm_fifo be created — new() or build_phase()?",opts:["build_phase only","new() only","Either works","run_phase"],ans:1,exp:"uvm_tlm_fifo must be created in new() because it doesn't extend uvm_component — it extends uvm_object. build_phase is only for uvm_component instances."},
+  {q:"What flag in field macros excludes a field from copy() operations?",opts:["UVM_NOCOPY","UVM_NOCOMPARE","UVM_NOPRINT","UVM_ALL_OFF"],ans:0,exp:"UVM_NOCOPY flag in `uvm_field_int(field, UVM_NOCOPY) means the field will be excluded from automatic copy() operations while still participating in compare, print, etc."}
+];
+let qIdx=0, score=0, answered=false;
+function renderQuiz(){
+  if(qIdx>=quizData.length){
+    document.getElementById('quizContent').style.display='none';
+    document.getElementById('quizScore').classList.add('show');
+    document.getElementById('scoreNum').textContent=score+'/'+quizData.length;
+    const pct=score/quizData.length;
+    document.getElementById('scoreMsg').textContent=pct>=0.9?'Outstanding! You really know UVM! 🏆':pct>=0.7?'Great job! Keep practicing 💪':pct>=0.5?'Good start! Review the concepts above 📚':'Time to review! Read through the concepts again 🎓';
+    return;
+  }
+  const q=quizData[qIdx];
+  answered=false;
+  document.getElementById('quizContent').innerHTML=`
+    <div class="quiz-q"><span>Question ${qIdx+1} of ${quizData.length}</span>${q.q}</div>
+    <div class="quiz-options">${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(${i})">${o}</button>`).join('')}</div>
+    <div class="quiz-feedback" id="qFeedback"></div>
+    <div class="quiz-nav">
+      <div class="quiz-progress">${Array(quizData.length).fill(0).map((_,i)=>`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 2px;background:${i<qIdx?'var(--accent)':i===qIdx?'var(--accent2)':'var(--border)'}">`).join('')}</div>
+      <button class="quiz-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next →</button>
+    </div>`;
+}
+function answerQuiz(idx){
+  if(answered) return;
+  answered=true;
+  const q=quizData[qIdx];
+  const opts=document.querySelectorAll('.quiz-opt');
+  opts.forEach((o,i)=>{
+    o.disabled=true;
+    if(i===q.ans) o.classList.add('correct');
+    else if(i===idx) o.classList.add('wrong');
+  });
+  const fb=document.getElementById('qFeedback');
+  if(idx===q.ans){score++;fb.className='quiz-feedback show good';fb.textContent='✓ Correct! '+q.exp;}
+  else{fb.className='quiz-feedback show bad';fb.textContent='✗ Not quite. '+q.exp;}
+  document.getElementById('nextBtn').disabled=false;
+}
+function nextQuestion(){qIdx++;renderQuiz();}
+function resetQuiz(){
+  qIdx=0;score=0;answered=false;
+  document.getElementById('quizContent').style.display='';
+  document.getElementById('quizScore').classList.remove('show');
+  renderQuiz();
+}
+renderQuiz();
+
+// Smooth scroll for anchor links
+document.querySelectorAll('a[href^="#"]').forEach(a=>{
+  a.addEventListener('click',e=>{
+    e.preventDefault();
+    const t=document.querySelector(a.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth'});
+  });
+});
+</script>
+</body>
+</html>
