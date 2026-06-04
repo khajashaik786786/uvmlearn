@@ -7,117 +7,152 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0e1a;
-  --bg2: #0f1525;
-  --bg3: #141c30;
-  --surface: #1a2540;
-  --surface2: #1f2d4a;
-  --accent: #00f5c4;
-  --accent2: #7b61ff;
-  --accent3: #ff6b35;
-  --text: #e8edf5;
-  --text2: #8a9bb8;
-  --text3: #4a5a78;
-  --border: rgba(255,255,255,0.08);
-  --glow: 0 0 40px rgba(0,245,196,0.15);
+  --lime: #c8f03a;
+  --lime2: #d4f55a;
+  --lime3: #b8e020;
+  --dark: #0f1210;
+  --dark2: #1a1f1a;
+  --white: #f8faf5;
+  --offwhite: #f0f4eb;
+  --surface: #e8f0da;
+  --text: #0f1210;
+  --text2: #3a4a30;
+  --text3: #6a7a60;
+  --border: rgba(15,18,16,0.12);
+  --border2: rgba(15,18,16,0.2);
+  --accent-purple: #7b61ff;
+  --accent-orange: #ff6b35;
+  --accent-green: #00f5c4;
 }
 *{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth}
-body{font-family:'Syne',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;line-height:1.6}
+body{font-family:'Syne',sans-serif;background:var(--white);color:var(--text);overflow-x:hidden;line-height:1.6}
 
-/* SCROLLBAR */
-::-webkit-scrollbar{width:6px;height:6px}
-::-webkit-scrollbar-track{background:var(--bg2)}
-::-webkit-scrollbar-thumb{background:var(--accent2);border-radius:3px}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--offwhite)}
+::-webkit-scrollbar-thumb{background:var(--dark);border-radius:3px}
 
 /* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(10,14,26,0.9);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 2rem}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(248,250,245,0.92);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:0 2rem}
 .nav-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:2rem;height:64px}
-.logo{font-size:1.4rem;font-weight:800;color:var(--accent);letter-spacing:-0.03em;text-decoration:none;white-space:nowrap}
-.logo span{color:var(--accent2)}
-.nav-links{display:flex;gap:0.25rem;overflow-x:auto;flex:1;scrollbar-width:none}
+.logo{font-size:1.4rem;font-weight:800;color:var(--dark);letter-spacing:-0.04em;text-decoration:none;white-space:nowrap}
+.logo span{color:var(--dark2);background:var(--lime);padding:0 6px;border-radius:4px}
+.nav-links{display:flex;gap:0.15rem;overflow-x:auto;flex:1;scrollbar-width:none}
 .nav-links::-webkit-scrollbar{display:none}
-.nav-links a{color:var(--text2);text-decoration:none;font-size:0.78rem;font-weight:600;padding:0.4rem 0.75rem;border-radius:6px;white-space:nowrap;transition:all 0.2s;font-family:'Space Mono',monospace}
-.nav-links a:hover,.nav-links a.active{color:var(--accent);background:rgba(0,245,196,0.08)}
+.nav-links a{color:var(--text2);text-decoration:none;font-size:0.75rem;font-weight:600;padding:0.4rem 0.75rem;border-radius:100px;white-space:nowrap;transition:all 0.2s;font-family:'Space Mono',monospace}
+.nav-links a:hover,.nav-links a.active{color:var(--dark);background:var(--lime)}
 
-/* HERO */
-#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:64px}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(0,245,196,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,245,196,0.04) 1px,transparent 1px);background-size:60px 60px;animation:grid-shift 20s linear infinite}
-@keyframes grid-shift{0%{transform:translateY(0)}100%{transform:translateY(60px)}}
-.hero-content{position:relative;z-index:2;text-align:center;max-width:900px;padding:2rem}
-.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:rgba(0,245,196,0.1);border:1px solid rgba(0,245,196,0.3);color:var(--accent);padding:0.4rem 1rem;border-radius:100px;font-size:0.78rem;font-family:'Space Mono',monospace;margin-bottom:2rem;letter-spacing:0.05em}
-.hero-badge::before{content:'●';animation:pulse 2s infinite}
+/* HERO — HERB STYLE */
+#hero{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding-top:64px;background:var(--lime)}
+.hero-dot-bg{position:absolute;inset:0;background-image:radial-gradient(circle,rgba(15,18,16,0.12) 1.5px,transparent 1.5px);background-size:28px 28px;z-index:0}
+.hero-content{position:relative;z-index:2;text-align:center;max-width:980px;padding:2rem}
+.hero-badge{display:inline-flex;align-items:center;gap:0.5rem;background:var(--dark);color:var(--lime);padding:0.4rem 1.2rem;border-radius:100px;font-size:0.75rem;font-family:'Space Mono',monospace;margin-bottom:2.5rem;letter-spacing:0.06em;font-weight:700}
+.hero-badge-dot{width:7px;height:7px;background:var(--lime);border-radius:50%;animation:pulse 2s infinite}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.3}}
-h1.hero-title{font-size:clamp(3rem,8vw,7rem);font-weight:800;line-height:0.95;letter-spacing:-0.04em;margin-bottom:1.5rem}
-.hero-title .line1{display:block;color:var(--text)}
-.hero-title .line2{display:block;color:var(--accent)}
-.hero-title .line3{display:block;color:var(--accent2)}
-.hero-sub{font-size:1.1rem;color:var(--text2);max-width:600px;margin:0 auto 2.5rem;font-family:'Space Mono',monospace;font-size:0.9rem;line-height:1.8}
+h1.hero-title{font-size:clamp(3.5rem,9vw,8rem);font-weight:800;line-height:0.92;letter-spacing:-0.05em;margin-bottom:1.5rem;color:var(--dark)}
+.hero-title .line1{display:block}
+.hero-title .line2{display:inline-block;background:var(--dark);color:var(--lime);padding:0 12px;border-radius:8px;margin:4px 0}
+.hero-title .line3{display:block}
+.hero-sub{font-size:1rem;color:var(--text2);max-width:580px;margin:0 auto 3rem;font-family:'Space Mono',monospace;font-size:0.88rem;line-height:1.9}
 .hero-buttons{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap}
-.btn-primary{background:var(--accent);color:var(--bg);padding:0.9rem 2.5rem;border-radius:8px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;transition:all 0.2s;font-size:0.95rem}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,245,196,0.4)}
-.btn-secondary{background:transparent;color:var(--accent2);padding:0.9rem 2.5rem;border-radius:8px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;border:1.5px solid var(--accent2);transition:all 0.2s;font-size:0.95rem}
-.btn-secondary:hover{background:rgba(123,97,255,0.1);transform:translateY(-2px)}
-.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;padding-top:3rem;border-top:1px solid var(--border)}
-.stat{text-align:center}
-.stat-num{font-size:2.5rem;font-weight:800;color:var(--accent);letter-spacing:-0.04em}
-.stat-label{font-size:0.78rem;color:var(--text3);font-family:'Space Mono',monospace;letter-spacing:0.05em;text-transform:uppercase;margin-top:0.25rem}
+.btn-primary{background:var(--dark);color:var(--lime);padding:1rem 2.5rem;border-radius:100px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;transition:all 0.25s;font-size:0.95rem;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-primary:hover{background:var(--dark2);transform:translateY(-2px)}
+.btn-secondary{background:transparent;color:var(--dark);padding:1rem 2.5rem;border-radius:100px;font-weight:700;text-decoration:none;font-family:'Syne',sans-serif;border:2px solid var(--dark);transition:all 0.25s;font-size:0.95rem;display:inline-flex;align-items:center;gap:0.5rem}
+.btn-secondary:hover{background:var(--dark);color:var(--lime);transform:translateY(-2px)}
 
-/* TEACHER SECTION */
-#teacher-section{padding:6rem 2rem;background:var(--bg2);position:relative;overflow:hidden}
-.teacher-wrap{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center}
-.teacher-canvas-wrap{position:relative;display:flex;justify-content:center}
-#teacher-canvas{border-radius:20px;border:1px solid var(--border);cursor:pointer}
-.teacher-controls{display:flex;gap:0.75rem;margin-top:1rem;flex-wrap:wrap;justify-content:center}
-.teach-btn{background:var(--surface);border:1px solid var(--border);color:var(--text2);padding:0.5rem 1rem;border-radius:6px;font-family:'Space Mono',monospace;font-size:0.75rem;cursor:pointer;transition:all 0.2s}
-.teach-btn:hover,.teach-btn.active{background:rgba(0,245,196,0.1);border-color:var(--accent);color:var(--accent)}
-.teacher-info h2{font-size:2.5rem;font-weight:800;letter-spacing:-0.03em;margin-bottom:1rem}
-.teacher-info h2 span{color:var(--accent)}
-.teacher-speech{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 12px 12px 12px;padding:1.5rem;margin:1.5rem 0;min-height:120px;font-family:'Space Mono',monospace;font-size:0.85rem;line-height:1.8;color:var(--text2);position:relative}
-.speech-cursor{display:inline-block;width:2px;height:1em;background:var(--accent);margin-left:2px;animation:blink 1s infinite;vertical-align:middle}
-@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
-.teacher-topic-name{font-size:0.75rem;font-family:'Space Mono',monospace;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem}
+/* HERO DASHBOARD MOCKUP */
+.hero-mockup{margin-top:5rem;position:relative;max-width:860px;margin-left:auto;margin-right:auto}
+.mockup-bubble{position:absolute;background:var(--dark);color:var(--lime);font-family:'Space Mono',monospace;font-size:0.72rem;padding:0.5rem 1rem;border-radius:100px;font-weight:700;z-index:3;display:flex;align-items:center;gap:0.4rem}
+.mockup-bubble.top{top:-18px;left:50%;transform:translateX(-50%);background:var(--dark)}
+.mockup-bubble.left{bottom:30%;left:-10px;background:var(--dark2)}
+.mockup-bubble.right{top:15%;right:-10px;background:var(--dark2)}
+.mockup-screen{background:var(--dark2);border-radius:16px;border:2px solid var(--dark);overflow:hidden;box-shadow:6px 8px 0 var(--dark)}
+.mockup-topbar{background:var(--dark);padding:0.6rem 1.25rem;display:flex;align-items:center;gap:0.5rem}
+.mockup-dots{display:flex;gap:5px}
+.mockup-dot{width:10px;height:10px;border-radius:50%}
+.mockup-dot:nth-child(1){background:#ff5f57}
+.mockup-dot:nth-child(2){background:#febc2e}
+.mockup-dot:nth-child(3){background:var(--lime)}
+.mockup-title-bar{font-family:'Space Mono',monospace;font-size:0.72rem;color:rgba(200,240,58,0.5);margin-left:0.75rem;letter-spacing:0.1em}
+.mockup-body{padding:1.5rem;display:grid;grid-template-columns:180px 1fr;gap:1rem;min-height:280px}
+.mockup-sidebar{display:flex;flex-direction:column;gap:0.5rem}
+.mock-nav-item{background:rgba(200,240,58,0.08);border:1px solid rgba(200,240,58,0.15);border-radius:6px;padding:0.5rem 0.75rem;font-family:'Space Mono',monospace;font-size:0.68rem;color:rgba(200,240,58,0.6);cursor:default;transition:all 0.2s}
+.mock-nav-item.active{background:rgba(200,240,58,0.2);border-color:var(--lime);color:var(--lime);font-weight:700}
+.mockup-main{display:flex;flex-direction:column;gap:0.75rem}
+.mockup-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:0.5rem}
+.mock-stat{background:rgba(200,240,58,0.06);border:1px solid rgba(200,240,58,0.12);border-radius:8px;padding:0.6rem 0.75rem}
+.mock-stat-label{font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(200,240,58,0.4);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:4px}
+.mock-stat-val{font-family:'Space Mono',monospace;font-size:0.9rem;font-weight:700;color:var(--lime)}
+.mock-stat-badge{font-family:'Space Mono',monospace;font-size:0.6rem;color:rgba(200,240,58,0.6);margin-top:2px}
+.mock-chart-area{background:rgba(200,240,58,0.04);border:1px solid rgba(200,240,58,0.1);border-radius:8px;padding:0.75rem;flex:1}
+.mock-chart-label{font-family:'Space Mono',monospace;font-size:0.65rem;color:rgba(200,240,58,0.4);margin-bottom:0.5rem}
+.mock-bars{display:flex;align-items:flex-end;gap:4px;height:60px}
+.mock-bar{background:var(--lime);border-radius:3px 3px 0 0;flex:1;opacity:0.7;transition:all 0.3s}
+
+.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;padding-top:3rem;border-top:2px solid rgba(15,18,16,0.15)}
+.stat{text-align:center}
+.stat-num{font-size:2.8rem;font-weight:800;color:var(--dark);letter-spacing:-0.05em}
+.stat-label{font-size:0.72rem;color:var(--text2);font-family:'Space Mono',monospace;letter-spacing:0.06em;text-transform:uppercase;margin-top:0.25rem}
 
 /* SECTIONS */
-.section-wrapper{padding:5rem 2rem}
-.section-wrapper.alt{background:var(--bg2)}
+.section-wrapper{padding:5rem 2rem;background:var(--white)}
+.section-wrapper.alt{background:var(--offwhite)}
+.section-wrapper.dark{background:var(--dark);color:var(--white)}
+.section-wrapper.lime{background:var(--lime)}
 .section-inner{max-width:1400px;margin:0 auto}
 .section-header{margin-bottom:3.5rem}
-.section-tag{font-family:'Space Mono',monospace;font-size:0.72rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--accent);margin-bottom:0.75rem}
-.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-0.03em;color:var(--text)}
-.section-title span{color:var(--accent2)}
-.section-desc{color:var(--text2);font-size:0.95rem;margin-top:0.75rem;max-width:600px;font-family:'Space Mono',monospace;line-height:1.8}
+.section-tag{font-family:'Space Mono',monospace;font-size:0.7rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--text3);margin-bottom:0.75rem;display:flex;align-items:center;gap:0.5rem}
+.section-tag::before{content:'';width:24px;height:2px;background:var(--lime3);display:inline-block;border-radius:2px}
+.section-wrapper.dark .section-tag{color:rgba(200,240,58,0.5)}
+.section-wrapper.dark .section-tag::before{background:var(--lime)}
+.section-title{font-size:clamp(2rem,4vw,3.2rem);font-weight:800;letter-spacing:-0.04em;color:var(--text)}
+.section-wrapper.dark .section-title{color:var(--white)}
+.section-wrapper.lime .section-title{color:var(--dark)}
+.section-title .hl{background:var(--lime);padding:0 8px;border-radius:5px;color:var(--dark)}
+.section-wrapper.dark .section-title .hl{background:var(--lime);color:var(--dark)}
+.section-desc{color:var(--text2);font-size:0.88rem;margin-top:0.75rem;max-width:600px;font-family:'Space Mono',monospace;line-height:1.85}
+.section-wrapper.dark .section-desc{color:rgba(248,250,245,0.55)}
 
 /* CONCEPT CARDS */
-.concepts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.5rem}
-.concept-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.3s;position:relative}
-.concept-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
-.concept-card:hover{transform:translateY(-4px);border-color:rgba(0,245,196,0.3);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.concepts-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:1.25rem}
+.concept-card{background:var(--white);border:1.5px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all 0.25s;position:relative}
+.section-wrapper.dark .concept-card{background:var(--dark2);border-color:rgba(200,240,58,0.12)}
+.section-wrapper.alt .concept-card{background:var(--white)}
+.concept-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--lime3);transform:scaleX(0);transform-origin:left;transition:transform 0.3s}
+.concept-card:hover{transform:translateY(-3px);border-color:var(--lime3);box-shadow:0 12px 40px rgba(0,0,0,0.08)}
 .concept-card:hover::before{transform:scaleX(1)}
 .card-header{padding:1.5rem 1.5rem 1rem;display:flex;align-items:flex-start;gap:1rem}
-.card-icon{width:48px;height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-.card-num{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);letter-spacing:0.1em}
-.card-title{font-size:1.1rem;font-weight:700;color:var(--text);margin-top:0.25rem}
+.card-icon{width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;background:var(--lime);border:1px solid var(--lime3)}
+.card-num{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--text3);letter-spacing:0.1em}
+.section-wrapper.dark .card-num{color:rgba(200,240,58,0.4)}
+.card-title{font-size:1.05rem;font-weight:700;color:var(--text);margin-top:0.2rem}
+.section-wrapper.dark .card-title{color:var(--white)}
 .card-body{padding:0 1.5rem 1.5rem}
-.card-desc{font-size:0.85rem;color:var(--text2);line-height:1.7;font-family:'Space Mono',monospace}
-.card-tags{display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap}
-.tag{font-family:'Space Mono',monospace;font-size:0.65rem;padding:0.25rem 0.6rem;border-radius:4px;letter-spacing:0.05em}
-.tag-green{background:rgba(0,245,196,0.1);color:var(--accent);border:1px solid rgba(0,245,196,0.2)}
-.tag-purple{background:rgba(123,97,255,0.1);color:var(--accent2);border:1px solid rgba(123,97,255,0.2)}
-.tag-orange{background:rgba(255,107,53,0.1);color:var(--accent3);border:1px solid rgba(255,107,53,0.2)}
-.card-expand-btn{display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1.5rem;border-top:1px solid var(--border);font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--accent);background:none;border-left:none;border-right:none;border-bottom:none;cursor:pointer;width:100%;text-align:left;transition:background 0.2s}
-.card-expand-btn:hover{background:rgba(0,245,196,0.05)}
+.card-desc{font-size:0.82rem;color:var(--text2);line-height:1.75;font-family:'Space Mono',monospace}
+.section-wrapper.dark .card-desc{color:rgba(248,250,245,0.55)}
+.card-tags{display:flex;gap:0.4rem;margin-top:1rem;flex-wrap:wrap}
+.tag{font-family:'Space Mono',monospace;font-size:0.63rem;padding:0.2rem 0.55rem;border-radius:100px;letter-spacing:0.05em;font-weight:700}
+.tag-green{background:var(--lime);color:var(--dark);border:1px solid var(--lime3)}
+.tag-purple{background:rgba(123,97,255,0.1);color:var(--accent-purple);border:1px solid rgba(123,97,255,0.2)}
+.tag-orange{background:rgba(255,107,53,0.1);color:var(--accent-orange);border:1px solid rgba(255,107,53,0.2)}
+.card-expand-btn{display:flex;align-items:center;gap:0.5rem;padding:0.75rem 1.5rem;border-top:1.5px solid var(--border);font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--text);background:var(--offwhite);border-left:none;border-right:none;border-bottom:none;cursor:pointer;width:100%;text-align:left;transition:background 0.2s;font-weight:700}
+.section-wrapper.dark .card-expand-btn{background:rgba(200,240,58,0.05);border-color:rgba(200,240,58,0.1);color:var(--lime)}
+.card-expand-btn:hover{background:var(--lime)}
+.section-wrapper.dark .card-expand-btn:hover{background:rgba(200,240,58,0.15)}
 .card-expand-btn::after{content:'↓';margin-left:auto;transition:transform 0.3s}
 .card-expand-btn.open::after{transform:rotate(180deg)}
-.card-content{display:none;padding:1.5rem;border-top:1px solid var(--border);background:rgba(0,0,0,0.2)}
+.card-content{display:none;padding:1.5rem;border-top:1.5px solid var(--border);background:var(--offwhite)}
+.section-wrapper.dark .card-content{background:rgba(0,0,0,0.2);border-color:rgba(200,240,58,0.1)}
 .card-content.show{display:block}
-.concept-explain{font-size:0.85rem;color:var(--text2);line-height:1.9;margin-bottom:1.5rem;font-family:'Space Mono',monospace}
-.concept-explain strong{color:var(--accent);font-weight:600}
+.concept-explain{font-size:0.83rem;color:var(--text2);line-height:1.9;margin-bottom:1.5rem;font-family:'Space Mono',monospace}
+.section-wrapper.dark .concept-explain{color:rgba(248,250,245,0.55)}
+.concept-explain strong{color:var(--dark);font-weight:700}
+.section-wrapper.dark .concept-explain strong{color:var(--lime)}
 
 /* CODE BLOCKS */
-.code-label{font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem}
-.code-label::before{content:'';width:8px;height:8px;background:var(--accent3);border-radius:50%;display:inline-block}
-pre{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:1.25rem;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:1.8;color:#cdd6f4;margin-bottom:1rem}
+.code-label{font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--text3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;display:flex;align-items:center;gap:0.5rem}
+.code-label::before{content:'';width:8px;height:8px;background:var(--lime3);border-radius:50%;display:inline-block}
+pre{background:var(--dark);border:1.5px solid rgba(200,240,58,0.2);border-radius:10px;padding:1.25rem;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:0.78rem;line-height:1.8;color:#cdd6f4;margin-bottom:1rem}
 pre .kw{color:#cba6f7}
 pre .str{color:#a6e3a1}
 pre .cm{color:#585b70;font-style:italic}
@@ -126,113 +161,142 @@ pre .cls{color:#f38ba8}
 pre .num{color:#fab387}
 pre .mac{color:#f9e2af}
 
-/* ARCHITECTURE DIAGRAM */
-.arch-container{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem;overflow-x:auto}
+/* ARCHITECTURE */
+.arch-container{background:var(--dark);border:1.5px solid rgba(200,240,58,0.2);border-radius:16px;padding:2rem;overflow-x:auto}
 .arch-diagram{min-width:700px}
 .arch-level{display:flex;justify-content:center;gap:1rem;margin-bottom:1.5rem;position:relative}
-.arch-level::after{content:'';position:absolute;bottom:-1.5rem;left:50%;transform:translateX(-50%);width:2px;height:1.5rem;background:linear-gradient(180deg,var(--accent),transparent)}
+.arch-level::after{content:'';position:absolute;bottom:-1.5rem;left:50%;transform:translateX(-50%);width:2px;height:1.5rem;background:var(--lime3)}
 .arch-level:last-child::after{display:none}
-.arch-box{padding:0.75rem 1.5rem;border-radius:10px;font-family:'Space Mono',monospace;font-size:0.78rem;font-weight:700;text-align:center;border:1.5px solid transparent;min-width:120px;transition:all 0.3s;cursor:default}
+.arch-box{padding:0.75rem 1.5rem;border-radius:100px;font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:700;text-align:center;border:2px solid transparent;min-width:130px;transition:all 0.3s;cursor:default}
 .arch-box:hover{transform:scale(1.05)}
-.arch-box.test{background:rgba(123,97,255,0.2);border-color:var(--accent2);color:var(--accent2)}
-.arch-box.env{background:rgba(0,245,196,0.15);border-color:var(--accent);color:var(--accent)}
-.arch-box.agent{background:rgba(255,107,53,0.15);border-color:var(--accent3);color:var(--accent3)}
-.arch-box.comp{background:rgba(255,255,255,0.05);border-color:var(--text3);color:var(--text2)}
-.arch-box.dut{background:rgba(255,107,53,0.3);border-color:var(--accent3);color:var(--accent3);font-weight:800}
+.arch-box.test{background:var(--lime);border-color:var(--lime3);color:var(--dark)}
+.arch-box.env{background:var(--dark2);border-color:rgba(200,240,58,0.4);color:var(--lime)}
+.arch-box.agent{background:rgba(123,97,255,0.2);border-color:var(--accent-purple);color:var(--accent-purple)}
+.arch-box.comp{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.2);color:rgba(255,255,255,0.7)}
+.arch-box.dut{background:rgba(255,107,53,0.25);border-color:var(--accent-orange);color:var(--accent-orange);font-weight:800}
 
 /* PHASE TIMELINE */
 .phase-timeline{position:relative;padding-left:2rem}
-.phase-timeline::before{content:'';position:absolute;left:0.5rem;top:0;bottom:0;width:2px;background:linear-gradient(180deg,var(--accent),var(--accent2),var(--accent3))}
-.phase-item{position:relative;margin-bottom:1.5rem;padding:1rem 1.25rem;background:var(--surface);border:1px solid var(--border);border-radius:10px;transition:all 0.2s}
-.phase-item::before{content:'';position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:var(--accent);border:2px solid var(--bg2);z-index:1}
-.phase-item:hover{border-color:rgba(0,245,196,0.3);transform:translateX(4px)}
-.phase-item .phase-name{font-family:'Space Mono',monospace;font-weight:700;font-size:0.85rem;color:var(--accent);margin-bottom:0.35rem}
-.phase-item .phase-desc{font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.7}
-.phase-item .phase-type{font-family:'Space Mono',monospace;font-size:0.65rem;color:var(--text3);margin-top:0.35rem}
+.phase-timeline::before{content:'';position:absolute;left:0.5rem;top:0;bottom:0;width:2px;background:var(--lime3)}
+.phase-item{position:relative;margin-bottom:1.25rem;padding:1rem 1.25rem;background:var(--white);border:1.5px solid var(--border);border-radius:10px;transition:all 0.2s}
+.section-wrapper.dark .phase-item{background:var(--dark2);border-color:rgba(200,240,58,0.12)}
+.phase-item::before{content:'';position:absolute;left:-1.75rem;top:50%;transform:translateY(-50%);width:12px;height:12px;border-radius:50%;background:var(--lime3);border:2px solid var(--offwhite);z-index:1}
+.section-wrapper.dark .phase-item::before{border-color:var(--dark)}
+.phase-item:hover{border-color:var(--lime3);transform:translateX(4px)}
+.phase-item .phase-name{font-family:'Space Mono',monospace;font-weight:700;font-size:0.83rem;color:var(--dark);margin-bottom:0.3rem}
+.section-wrapper.dark .phase-name{color:var(--lime)}
+.phase-item .phase-desc{font-family:'Space Mono',monospace;font-size:0.76rem;color:var(--text2);line-height:1.7}
+.section-wrapper.dark .phase-desc{color:rgba(248,250,245,0.5)}
+.phase-item .phase-type{font-family:'Space Mono',monospace;font-size:0.63rem;color:var(--text3);margin-top:0.3rem}
+.section-wrapper.dark .phase-type{color:rgba(200,240,58,0.35)}
 
-/* TLM PORT TABLE */
-.tlm-table{width:100%;border-collapse:collapse;font-family:'Space Mono',monospace;font-size:0.78rem;margin-top:1rem}
-.tlm-table th{background:rgba(0,245,196,0.1);color:var(--accent);padding:0.75rem 1rem;text-align:left;border-bottom:2px solid rgba(0,245,196,0.3);font-size:0.72rem;letter-spacing:0.05em}
-.tlm-table td{padding:0.75rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}
-.tlm-table tr:hover td{background:rgba(255,255,255,0.02);color:var(--text)}
+/* TEACHER SECTION */
+#teacher-section{padding:6rem 2rem;background:var(--dark);position:relative;overflow:hidden}
+.teacher-wrap{max-width:1400px;margin:0 auto;display:grid;grid-template-columns:1fr 1.2fr;gap:4rem;align-items:center}
+.teacher-canvas-wrap{position:relative;display:flex;flex-direction:column;align-items:center}
+#teacher-canvas{border-radius:16px;border:2px solid rgba(200,240,58,0.25)}
+.teacher-controls{display:flex;gap:0.6rem;margin-top:1rem;flex-wrap:wrap;justify-content:center}
+.teach-btn{background:rgba(200,240,58,0.08);border:1.5px solid rgba(200,240,58,0.2);color:rgba(200,240,58,0.6);padding:0.45rem 1rem;border-radius:100px;font-family:'Space Mono',monospace;font-size:0.72rem;cursor:pointer;transition:all 0.2s;font-weight:700}
+.teach-btn:hover,.teach-btn.active{background:var(--lime);border-color:var(--lime3);color:var(--dark)}
+.teacher-info h2{font-size:2.5rem;font-weight:800;letter-spacing:-0.04em;margin-bottom:1rem;color:var(--white)}
+.teacher-info h2 span{color:var(--lime)}
+.teacher-speech{background:rgba(200,240,58,0.06);border:1.5px solid rgba(200,240,58,0.2);border-left:3px solid var(--lime);border-radius:0 12px 12px 12px;padding:1.5rem;margin:1.5rem 0;min-height:120px;font-family:'Space Mono',monospace;font-size:0.83rem;line-height:1.85;color:rgba(248,250,245,0.7);position:relative}
+.speech-cursor{display:inline-block;width:2px;height:1em;background:var(--lime);margin-left:2px;animation:blink 1s infinite;vertical-align:middle}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+.teacher-topic-name{font-size:0.72rem;font-family:'Space Mono',monospace;color:var(--lime);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:0.5rem;font-weight:700}
 
-/* QUIZ SECTION */
-#quiz-section{padding:5rem 2rem;background:var(--bg3)}
+/* TLM TABLE */
+.tlm-table{width:100%;border-collapse:collapse;font-family:'Space Mono',monospace;font-size:0.76rem;margin-top:1rem}
+.tlm-table th{background:var(--lime);color:var(--dark);padding:0.7rem 1rem;text-align:left;border-bottom:none;font-size:0.7rem;letter-spacing:0.05em;font-weight:700}
+.tlm-table td{padding:0.7rem 1rem;border-bottom:1px solid var(--border);color:var(--text2)}
+.section-wrapper.dark .tlm-table td{border-color:rgba(200,240,58,0.1);color:rgba(248,250,245,0.55)}
+.tlm-table tr:hover td{background:rgba(184,224,32,0.07);color:var(--text)}
+.section-wrapper.dark .tlm-table tr:hover td{color:var(--lime)}
+
+/* QUIZ */
+#quiz-section{padding:5rem 2rem;background:var(--dark)}
 .quiz-inner{max-width:800px;margin:0 auto}
-.quiz-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:2rem}
-.quiz-q{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:1.5rem;line-height:1.5}
-.quiz-q span{color:var(--accent2);font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:400;display:block;margin-bottom:0.5rem}
-.quiz-options{display:flex;flex-direction:column;gap:0.75rem}
-.quiz-opt{background:var(--bg2);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;cursor:pointer;transition:all 0.2s;font-size:0.88rem;color:var(--text2);font-family:'Space Mono',monospace;text-align:left;width:100%}
-.quiz-opt:hover{border-color:var(--accent2);color:var(--text)}
-.quiz-opt.correct{background:rgba(0,245,196,0.1);border-color:var(--accent);color:var(--accent)}
-.quiz-opt.wrong{background:rgba(255,107,53,0.1);border-color:var(--accent3);color:var(--accent3)}
-.quiz-feedback{margin-top:1.5rem;padding:1rem;border-radius:8px;font-family:'Space Mono',monospace;font-size:0.82rem;line-height:1.7;display:none}
+.quiz-card{background:var(--dark2);border:1.5px solid rgba(200,240,58,0.15);border-radius:16px;padding:2rem}
+.quiz-q{font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:1.5rem;line-height:1.55}
+.quiz-q span{color:var(--lime);font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:400;display:block;margin-bottom:0.5rem}
+.quiz-options{display:flex;flex-direction:column;gap:0.65rem}
+.quiz-opt{background:rgba(200,240,58,0.04);border:1.5px solid rgba(200,240,58,0.12);border-radius:10px;padding:0.9rem 1.2rem;cursor:pointer;transition:all 0.2s;font-size:0.85rem;color:rgba(248,250,245,0.65);font-family:'Space Mono',monospace;text-align:left;width:100%}
+.quiz-opt:hover{border-color:var(--lime);color:var(--lime);background:rgba(200,240,58,0.08)}
+.quiz-opt.correct{background:rgba(200,240,58,0.15);border-color:var(--lime);color:var(--lime);font-weight:700}
+.quiz-opt.wrong{background:rgba(255,107,53,0.12);border-color:var(--accent-orange);color:var(--accent-orange)}
+.quiz-feedback{margin-top:1.5rem;padding:1rem 1.25rem;border-radius:10px;font-family:'Space Mono',monospace;font-size:0.8rem;line-height:1.75;display:none}
 .quiz-feedback.show{display:block}
-.quiz-feedback.good{background:rgba(0,245,196,0.08);border:1px solid rgba(0,245,196,0.2);color:var(--accent)}
-.quiz-feedback.bad{background:rgba(255,107,53,0.08);border:1px solid rgba(255,107,53,0.2);color:var(--accent3)}
+.quiz-feedback.good{background:rgba(200,240,58,0.1);border:1.5px solid rgba(200,240,58,0.25);color:var(--lime)}
+.quiz-feedback.bad{background:rgba(255,107,53,0.1);border:1.5px solid rgba(255,107,53,0.25);color:var(--accent-orange)}
 .quiz-nav{display:flex;justify-content:space-between;align-items:center;margin-top:2rem}
-.quiz-progress{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--text3)}
-.quiz-btn{background:var(--accent);color:var(--bg);padding:0.75rem 2rem;border-radius:8px;font-weight:700;cursor:pointer;border:none;font-family:'Syne',sans-serif;transition:all 0.2s}
-.quiz-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(0,245,196,0.3)}
-.quiz-btn:disabled{opacity:0.4;cursor:not-allowed;transform:none;box-shadow:none}
+.quiz-progress{font-family:'Space Mono',monospace;font-size:0.72rem;color:rgba(200,240,58,0.4)}
+.quiz-btn{background:var(--lime);color:var(--dark);padding:0.8rem 2rem;border-radius:100px;font-weight:800;cursor:pointer;border:none;font-family:'Syne',sans-serif;transition:all 0.2s;font-size:0.9rem}
+.quiz-btn:hover{background:var(--lime2);transform:translateY(-1px)}
+.quiz-btn:disabled{opacity:0.35;cursor:not-allowed;transform:none}
 .quiz-score{text-align:center;padding:3rem;display:none}
 .quiz-score.show{display:block}
-.score-num{font-size:5rem;font-weight:800;color:var(--accent);letter-spacing:-0.05em}
-.score-msg{font-size:1.2rem;color:var(--text2);margin-top:0.5rem;font-family:'Space Mono',monospace}
+.score-num{font-size:5rem;font-weight:800;color:var(--lime);letter-spacing:-0.05em}
+.score-msg{font-size:1.1rem;color:rgba(248,250,245,0.6);margin-top:0.5rem;font-family:'Space Mono',monospace}
 
 /* CHEATSHEET */
 .cheat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem}
-.cheat-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
-.cheat-title{font-family:'Space Mono',monospace;font-size:0.75rem;font-weight:700;color:var(--accent);letter-spacing:0.05em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
-.cheat-title::before{content:'';width:6px;height:6px;background:var(--accent);border-radius:50%}
-.cheat-item{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid var(--border);font-family:'Space Mono',monospace;font-size:0.72rem}
+.cheat-card{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:1.25rem}
+.section-wrapper.dark .cheat-card{background:var(--dark2);border-color:rgba(200,240,58,0.12)}
+.cheat-title{font-family:'Space Mono',monospace;font-size:0.72rem;font-weight:700;color:var(--dark);letter-spacing:0.06em;text-transform:uppercase;margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+.section-wrapper.dark .cheat-title{color:var(--lime)}
+.cheat-title::before{content:'';width:8px;height:8px;background:var(--lime3);border-radius:50%}
+.cheat-item{display:flex;justify-content:space-between;align-items:center;padding:0.4rem 0;border-bottom:1px solid var(--border);font-family:'Space Mono',monospace;font-size:0.7rem}
+.section-wrapper.dark .cheat-item{border-color:rgba(200,240,58,0.08)}
 .cheat-item:last-child{border-bottom:none}
 .cheat-key{color:var(--text2)}
-.cheat-val{color:var(--accent2);font-weight:600}
+.section-wrapper.dark .cheat-key{color:rgba(248,250,245,0.5)}
+.cheat-val{color:var(--dark);font-weight:700}
+.section-wrapper.dark .cheat-val{color:var(--lime)}
 
 /* FOOTER */
-footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem;text-align:center}
-.footer-logo{font-size:2rem;font-weight:800;color:var(--accent);letter-spacing:-0.04em;margin-bottom:0.5rem}
-.footer-logo span{color:var(--accent2)}
-.footer-text{font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--text3);margin-top:0.5rem}
+footer{background:var(--dark);border-top:1px solid rgba(200,240,58,0.15);padding:3rem 2rem;text-align:center}
+.footer-logo{font-size:2rem;font-weight:800;color:var(--white);letter-spacing:-0.04em;margin-bottom:0.5rem}
+.footer-logo span{background:var(--lime);color:var(--dark);padding:0 8px;border-radius:5px}
+.footer-text{font-family:'Space Mono',monospace;font-size:0.73rem;color:rgba(200,240,58,0.4);margin-top:0.5rem}
 
-/* RESPONSIVE */
+/* PROGRESS BAR */
+.page-progress{position:fixed;top:0;left:0;height:3px;background:var(--lime3);z-index:2000;transition:width 0.1s;width:0%}
+
+/* GENERIC SHARED */
 @media(max-width:900px){
   .teacher-wrap{grid-template-columns:1fr}
   .hero-stats{gap:2rem}
   .stat-num{font-size:2rem}
+  .mockup-body{grid-template-columns:1fr}
 }
 @media(max-width:600px){
   .nav-links{display:none}
   .hero-stats{gap:1.5rem;flex-wrap:wrap}
 }
 
-/* FLOATING PARTICLES */
-.particle{position:fixed;pointer-events:none;border-radius:50%;opacity:0;animation:float-up linear infinite}
-@keyframes float-up{0%{transform:translateY(100vh) scale(0);opacity:0}10%{opacity:0.6}90%{opacity:0.2}100%{transform:translateY(-100px) scale(1.5);opacity:0}}
+/* Inline surface overrides for dark-section children */
+#teacher-section .tlm-table th{background:var(--lime);color:var(--dark)}
 
-/* GLOW ORBS */
-.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;z-index:0}
-.orb1{width:500px;height:500px;background:rgba(0,245,196,0.05);top:-100px;right:-100px}
-.orb2{width:400px;height:400px;background:rgba(123,97,255,0.06);bottom:0;left:-100px}
+/* Info boxes */
+.info-box{background:rgba(184,224,32,0.07);border:1.5px solid rgba(184,224,32,0.2);border-radius:12px;padding:1.25rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.85}
+.info-box.dark-ctx{color:rgba(248,250,245,0.55);background:rgba(200,240,58,0.05)}
+.info-box strong,.info-box .hl-txt{color:var(--lime3);font-weight:700}
+.info-box.dark-ctx strong,.info-box.dark-ctx .hl-txt{color:var(--lime)}
+.surf-box{background:var(--offwhite);border:1.5px solid var(--border);border-radius:14px;padding:1.5rem}
+.section-wrapper.dark .surf-box{background:var(--dark2);border-color:rgba(200,240,58,0.12)}
 
-/* COPY BTN */
-.copy-btn{float:right;background:transparent;border:1px solid var(--border);color:var(--text3);padding:0.25rem 0.6rem;border-radius:4px;font-family:'Space Mono',monospace;font-size:0.65rem;cursor:pointer;transition:all 0.2s;margin-top:-2.5rem;position:relative;z-index:1}
-.copy-btn:hover{border-color:var(--accent);color:var(--accent)}
+/* Flow step */
+.flow-step{display:flex;align-items:center;gap:1rem;padding:0.7rem 1rem;background:var(--white);border:1.5px solid var(--border);border-radius:10px;margin-bottom:0.6rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2)}
+.section-wrapper.alt .flow-step{background:var(--offwhite)}
+.flow-num{width:28px;height:28px;border-radius:50%;background:var(--lime);color:var(--dark);font-weight:800;font-size:0.8rem;display:flex;align-items:center;justify-content:center;flex-shrink:0}
 
-/* PROGRESS BAR */
-.page-progress{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));z-index:2000;transition:width 0.1s;width:0%}
-
-/* CONCEPT DETAIL MODAL */
-.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:2000;display:none;align-items:center;justify-content:center;padding:1rem}
-.modal-overlay.show{display:flex}
-.modal-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;max-width:900px;width:100%;max-height:90vh;overflow-y:auto;position:relative}
-.modal-header{padding:2rem 2rem 1rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;position:sticky;top:0;background:var(--bg2);z-index:1}
-.modal-title{font-size:1.8rem;font-weight:800;letter-spacing:-0.03em}
-.modal-close{background:var(--surface);border:none;color:var(--text2);width:36px;height:36px;border-radius:8px;cursor:pointer;font-size:1.2rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all 0.2s}
-.modal-close:hover{background:rgba(255,107,53,0.2);color:var(--accent3)}
-.modal-body{padding:2rem}
+/* Analysis port flow */
+.ap-flow{background:var(--offwhite);border:1.5px solid var(--border);border-radius:14px;padding:1.5rem}
+.section-wrapper.dark .ap-flow{background:var(--dark2);border-color:rgba(200,240,58,0.12)}
+.ap-producer{background:var(--lime);color:var(--dark);font-family:'Space Mono',monospace;font-size:0.8rem;font-weight:800;padding:0.6rem 1.25rem;border-radius:100px;display:inline-block;margin-bottom:0.75rem}
+.ap-consumer{background:var(--dark);color:var(--lime);font-family:'Space Mono',monospace;font-size:0.75rem;padding:0.4rem 0.85rem;border-radius:100px;display:inline-block;margin:3px}
+.ap-arrow{color:var(--lime3);font-size:1.2rem;display:block;margin:0.5rem 0;text-align:center}
+.section-wrapper.dark .ap-arrow{color:var(--lime)}
 </style>
 </head>
 <body>
@@ -265,21 +329,72 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 
 <!-- HERO -->
 <section id="hero">
-  <div class="hero-grid"></div>
-  <div class="glow-orb orb1"></div>
-  <div class="glow-orb orb2"></div>
+  <div class="hero-dot-bg"></div>
   <div class="hero-content">
-    <div class="hero-badge">✦ SystemVerilog UVM Learning Platform</div>
+    <div class="hero-badge"><span class="hero-badge-dot"></span>SystemVerilog UVM Learning Platform</div>
     <h1 class="hero-title">
       <span class="line1">MASTER</span>
       <span class="line2">UVM</span>
-      <span class="line3">VERIFICATION</span>
+      <span class="line3">VERIFICATION.</span>
     </h1>
     <p class="hero-sub">// Complete guide to Universal Verification Methodology<br>// Learn factory override, TLM ports, sequences, and more</p>
     <div class="hero-buttons">
-      <a href="#teacher-section" class="btn-primary">Meet Your AI Teacher →</a>
-      <a href="#architecture" class="btn-secondary">Start Learning</a>
+      <a href="#teacher-section" class="btn-primary">Meet Your AI Teacher ↗</a>
+      <a href="#architecture" class="btn-secondary">Start Learning ↗</a>
     </div>
+
+    <!-- DASHBOARD MOCKUP -->
+    <div class="hero-mockup">
+      <div class="mockup-bubble top">↑ 347.23% coverage boost</div>
+      <div class="mockup-screen">
+        <div class="mockup-topbar">
+          <div class="mockup-dots"><div class="mockup-dot"></div><div class="mockup-dot"></div><div class="mockup-dot"></div></div>
+          <div class="mockup-title-bar">// UVMLearn Dashboard — Active Session</div>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-sidebar">
+            <div class="mock-nav-item active">Overview</div>
+            <div class="mock-nav-item">Architecture</div>
+            <div class="mock-nav-item">Sequences</div>
+            <div class="mock-nav-item">TLM Ports</div>
+            <div class="mock-nav-item">Factory</div>
+            <div class="mock-nav-item">Config DB</div>
+            <div class="mock-nav-item">Quiz</div>
+          </div>
+          <div class="mockup-main">
+            <div class="mockup-stats-row">
+              <div class="mock-stat">
+                <div class="mock-stat-label">Concepts</div>
+                <div class="mock-stat-val">12</div>
+                <div class="mock-stat-badge">↑ core topics</div>
+              </div>
+              <div class="mock-stat">
+                <div class="mock-stat-label">Code Examples</div>
+                <div class="mock-stat-val">50+</div>
+                <div class="mock-stat-badge">↑ working sv</div>
+              </div>
+              <div class="mock-stat">
+                <div class="mock-stat-label">Quiz Score</div>
+                <div class="mock-stat-val">—/10</div>
+                <div class="mock-stat-badge">try it!</div>
+              </div>
+              <div class="mock-stat">
+                <div class="mock-stat-label">AI Teacher</div>
+                <div class="mock-stat-val">3D</div>
+                <div class="mock-stat-badge">animated</div>
+              </div>
+            </div>
+            <div class="mock-chart-area">
+              <div class="mock-chart-label">// Learning Progress — UVM Concepts</div>
+              <div class="mock-bars" id="mockBars"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="mockup-bubble left">3.639 verified items ↑ 234%</div>
+      <div class="mockup-bubble right">$234.98K coverage ↑</div>
+    </div>
+
     <div class="hero-stats">
       <div class="stat"><div class="stat-num">12</div><div class="stat-label">Core Concepts</div></div>
       <div class="stat"><div class="stat-num">50+</div><div class="stat-label">Code Examples</div></div>
@@ -290,7 +405,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 </section>
 
 <!-- TEACHER SECTION -->
-<section id="teacher-section" class="section-wrapper alt">
+<section id="teacher-section">
   <div class="teacher-wrap">
     <div class="teacher-canvas-wrap">
       <canvas id="teacher-canvas" width="440" height="520"></canvas>
@@ -305,19 +420,19 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
     </div>
     <div class="teacher-info">
       <h2>Meet Professor <span>UVM-X</span></h2>
-      <p style="color:var(--text2);font-family:'Space Mono',monospace;font-size:0.85rem;line-height:1.8;">Your 3D AI instructor for Universal Verification Methodology. Click a topic button to hear an explanation, or scroll down to explore concepts with full code examples.</p>
+      <p style="color:rgba(248,250,245,0.55);font-family:'Space Mono',monospace;font-size:0.83rem;line-height:1.85;">Your 3D AI instructor for Universal Verification Methodology. Click a topic button to hear an explanation, or scroll down to explore concepts with full code examples.</p>
       <div class="teacher-speech">
         <div class="teacher-topic-name" id="teacherTopicName">INTRODUCTION</div>
         <div id="teacherSpeech"></div><span class="speech-cursor"></span>
       </div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-top:1.5rem">
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem">
-          <div style="font-size:0.7rem;font-family:'Space Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Current Topic</div>
-          <div id="currentTopicDisplay" style="font-family:'Space Mono',monospace;color:var(--accent);font-size:0.9rem;font-weight:700">Introduction to UVM</div>
+        <div style="background:rgba(200,240,58,0.06);border:1.5px solid rgba(200,240,58,0.15);border-radius:10px;padding:1rem">
+          <div style="font-size:0.68rem;font-family:'Space Mono',monospace;color:rgba(200,240,58,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Current Topic</div>
+          <div id="currentTopicDisplay" style="font-family:'Space Mono',monospace;color:var(--lime);font-size:0.88rem;font-weight:700">Introduction to UVM</div>
         </div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1rem">
-          <div style="font-size:0.7rem;font-family:'Space Mono',monospace;color:var(--text3);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Difficulty</div>
-          <div id="difficultyDisplay" style="font-family:'Space Mono',monospace;color:var(--accent3);font-size:0.9rem;font-weight:700">Beginner</div>
+        <div style="background:rgba(200,240,58,0.06);border:1.5px solid rgba(200,240,58,0.15);border-radius:10px;padding:1rem">
+          <div style="font-size:0.68rem;font-family:'Space Mono',monospace;color:rgba(200,240,58,0.4);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:0.5rem">Difficulty</div>
+          <div id="difficultyDisplay" style="font-family:'Space Mono',monospace;color:var(--accent-orange);font-size:0.88rem;font-weight:700">Beginner</div>
         </div>
       </div>
     </div>
@@ -325,11 +440,11 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 </section>
 
 <!-- ARCHITECTURE -->
-<section id="architecture" class="section-wrapper">
+<section id="architecture" class="section-wrapper alt">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 01</div>
-      <div class="section-title">UVM <span>Architecture</span></div>
+      <div class="section-title">UVM <span class="hl">Architecture</span></div>
       <div class="section-desc">// Hierarchical testbench structure — from test to DUT interface</div>
     </div>
     <div class="arch-container" style="margin-bottom:2rem">
@@ -356,7 +471,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
     <div class="concepts-grid">
       <div class="concept-card">
         <div class="card-header">
-          <div class="card-icon" style="background:rgba(123,97,255,0.2)">🧪</div>
+          <div class="card-icon">🧪</div>
           <div><div class="card-num">// uvm_test</div><div class="card-title">Test Class</div></div>
         </div>
         <div class="card-body">
@@ -391,7 +506,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
       </div>
       <div class="concept-card">
         <div class="card-header">
-          <div class="card-icon" style="background:rgba(0,245,196,0.15)">🌍</div>
+          <div class="card-icon">🌍</div>
           <div><div class="card-num">// uvm_env</div><div class="card-title">Environment Class</div></div>
         </div>
         <div class="card-body">
@@ -426,7 +541,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
       </div>
       <div class="concept-card">
         <div class="card-header">
-          <div class="card-icon" style="background:rgba(255,107,53,0.15)">🤖</div>
+          <div class="card-icon">🤖</div>
           <div><div class="card-num">// uvm_agent</div><div class="card-title">Agent Class</div></div>
         </div>
         <div class="card-body">
@@ -461,67 +576,31 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 </section>
 
 <!-- PHASES -->
-<section id="phases" class="section-wrapper alt">
+<section id="phases" class="section-wrapper">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 02</div>
-      <div class="section-title">UVM <span>Phases</span></div>
+      <div class="section-title">UVM <span class="hl">Phases</span></div>
       <div class="section-desc">// Ordered execution phases control build, connect, and simulation lifecycle</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
       <div>
-        <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem">Build/Connect Phases (Functions)</h3>
+        <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--lime3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;font-weight:700">Build/Connect Phases (Functions)</h3>
         <div class="phase-timeline">
-          <div class="phase-item">
-            <div class="phase-name">build_phase</div>
-            <div class="phase-desc">Create and configure child components. Called top-down: parent before child.</div>
-            <div class="phase-type">// type: function | order: top-down</div>
-          </div>
-          <div class="phase-item" style="--accent:#7b61ff">
-            <div class="phase-name" style="color:var(--accent2)">connect_phase</div>
-            <div class="phase-desc">Connect TLM ports between components. Called bottom-up.</div>
-            <div class="phase-type">// type: function | order: bottom-up</div>
-          </div>
-          <div class="phase-item">
-            <div class="phase-name">end_of_elaboration_phase</div>
-            <div class="phase-desc">Final topology adjustments. Print topology here.</div>
-            <div class="phase-type">// type: function | order: bottom-up</div>
-          </div>
-          <div class="phase-item">
-            <div class="phase-name">start_of_simulation_phase</div>
-            <div class="phase-desc">Display banner, reset signals, initialize variables.</div>
-            <div class="phase-type">// type: function | order: bottom-up</div>
-          </div>
+          <div class="phase-item"><div class="phase-name">build_phase</div><div class="phase-desc">Create and configure child components. Called top-down: parent before child.</div><div class="phase-type">// type: function | order: top-down</div></div>
+          <div class="phase-item"><div class="phase-name">connect_phase</div><div class="phase-desc">Connect TLM ports between components. Called bottom-up.</div><div class="phase-type">// type: function | order: bottom-up</div></div>
+          <div class="phase-item"><div class="phase-name">end_of_elaboration_phase</div><div class="phase-desc">Final topology adjustments. Print topology here.</div><div class="phase-type">// type: function | order: bottom-up</div></div>
+          <div class="phase-item"><div class="phase-name">start_of_simulation_phase</div><div class="phase-desc">Display banner, reset signals, initialize variables.</div><div class="phase-type">// type: function | order: bottom-up</div></div>
         </div>
       </div>
       <div>
-        <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent3);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem">Run Phase (Task — Time-Consuming)</h3>
+        <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--accent-orange);letter-spacing:0.1em;text-transform:uppercase;margin-bottom:1.5rem;font-weight:700">Run Phase (Task — Time-Consuming)</h3>
         <div class="phase-timeline">
-          <div class="phase-item" style="--accent:#ff6b35">
-            <div class="phase-name" style="color:var(--accent3)">run_phase</div>
-            <div class="phase-desc">Main simulation phase. Must raise/drop objections to control simulation end. Runs in parallel across all components.</div>
-            <div class="phase-type">// type: task | fork-join | objection-controlled</div>
-          </div>
-          <div class="phase-item">
-            <div class="phase-name">extract_phase</div>
-            <div class="phase-desc">Extract and process data from DUT/monitors.</div>
-            <div class="phase-type">// type: function | post-run</div>
-          </div>
-          <div class="phase-item">
-            <div class="phase-name">check_phase</div>
-            <div class="phase-desc">Check for errors. Scoreboard final comparison.</div>
-            <div class="phase-type">// type: function | post-run</div>
-          </div>
-          <div class="phase-item">
-            <div class="phase-name">report_phase</div>
-            <div class="phase-desc">Print simulation results and coverage summary.</div>
-            <div class="phase-type">// type: function | final</div>
-          </div>
-          <div class="phase-item">
-            <div class="phase-name">final_phase</div>
-            <div class="phase-desc">Close files, databases. Last phase before simulation exits.</div>
-            <div class="phase-type">// type: function | absolute final</div>
-          </div>
+          <div class="phase-item"><div class="phase-name" style="color:var(--accent-orange)">run_phase</div><div class="phase-desc">Main simulation phase. Must raise/drop objections to control simulation end. Runs in parallel across all components.</div><div class="phase-type">// type: task | fork-join | objection-controlled</div></div>
+          <div class="phase-item"><div class="phase-name">extract_phase</div><div class="phase-desc">Extract and process data from DUT/monitors.</div><div class="phase-type">// type: function | post-run</div></div>
+          <div class="phase-item"><div class="phase-name">check_phase</div><div class="phase-desc">Check for errors. Scoreboard final comparison.</div><div class="phase-type">// type: function | post-run</div></div>
+          <div class="phase-item"><div class="phase-name">report_phase</div><div class="phase-desc">Print simulation results and coverage summary.</div><div class="phase-type">// type: function | final</div></div>
+          <div class="phase-item"><div class="phase-name">final_phase</div><div class="phase-desc">Close files, databases. Last phase before simulation exits.</div><div class="phase-type">// type: function | absolute final</div></div>
         </div>
       </div>
     </div>
@@ -552,17 +631,17 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 </section>
 
 <!-- FACTORY OVERRIDE -->
-<section id="factory" class="section-wrapper">
+<section id="factory" class="section-wrapper alt">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 03</div>
-      <div class="section-title">Factory <span>Override</span></div>
+      <div class="section-title">Factory <span class="hl">Override</span></div>
       <div class="section-desc">// Replace component types at runtime without changing testbench code</div>
     </div>
     <div class="concepts-grid">
       <div class="concept-card" style="grid-column:span 2">
         <div class="card-header">
-          <div class="card-icon" style="background:rgba(255,107,53,0.2)">🏭</div>
+          <div class="card-icon">🏭</div>
           <div><div class="card-num">// uvm_factory</div><div class="card-title">Type Override — Replace a class with a subclass globally</div></div>
         </div>
         <div class="card-body">
@@ -633,42 +712,25 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:3rem 2rem
 </section>
 
 <!-- SEQUENCES -->
-<section id="seq-seqr" class="section-wrapper alt">
+<section id="seq-seqr" class="section-wrapper">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 04</div>
-      <div class="section-title">Sequences &amp; <span>Sequencers</span></div>
+      <div class="section-title">Sequences &amp; <span class="hl">Sequencers</span></div>
       <div class="section-desc">// The sequence-sequencer-driver trio — how stimulus is generated and driven</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;margin-bottom:2rem">
-      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
-        <h3 style="font-family:'Space Mono',monospace;font-size:0.85rem;color:var(--accent);margin-bottom:1rem">🔄 Sequence Flow</h3>
-        <div style="display:flex;flex-direction:column;gap:0.75rem;font-family:'Space Mono',monospace;font-size:0.78rem">
-          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(123,97,255,0.1);border:1px solid rgba(123,97,255,0.2);border-radius:8px">
-            <span style="color:var(--accent2);font-weight:700">1</span>
-            <span style="color:var(--text2)">sequence.start(sequencer)</span>
-          </div>
-          <div style="text-align:center;color:var(--text3)">↓ arbitration</div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(0,245,196,0.08);border:1px solid rgba(0,245,196,0.2);border-radius:8px">
-            <span style="color:var(--accent);font-weight:700">2</span>
-            <span style="color:var(--text2)">wait_for_grant()</span>
-          </div>
-          <div style="text-align:center;color:var(--text3)">↓ granted</div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(0,245,196,0.08);border:1px solid rgba(0,245,196,0.2);border-radius:8px">
-            <span style="color:var(--accent);font-weight:700">3</span>
-            <span style="color:var(--text2)">req.randomize() → send_request(req)</span>
-          </div>
-          <div style="text-align:center;color:var(--text3)">↓ to driver</div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:8px">
-            <span style="color:var(--accent3);font-weight:700">4</span>
-            <span style="color:var(--text2)">driver: seq_item_port.get_next_item(req)</span>
-          </div>
-          <div style="text-align:center;color:var(--text3)">↓ drive DUT</div>
-          <div style="display:flex;align-items:center;gap:1rem;padding:0.75rem;background:rgba(255,107,53,0.1);border:1px solid rgba(255,107,53,0.2);border-radius:8px">
-            <span style="color:var(--accent3);font-weight:700">5</span>
-            <span style="color:var(--text2)">seq_item_port.item_done() → wait_for_item_done()</span>
-          </div>
-        </div>
+      <div class="surf-box">
+        <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--lime3);margin-bottom:1.25rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase">🔄 Sequence Flow</h3>
+        <div class="flow-step"><div class="flow-num">1</div><span>sequence.start(sequencer)</span></div>
+        <div style="text-align:center;font-size:0.75rem;color:var(--text3);margin:2px 0;font-family:'Space Mono',monospace">↓ arbitration</div>
+        <div class="flow-step"><div class="flow-num">2</div><span>wait_for_grant()</span></div>
+        <div style="text-align:center;font-size:0.75rem;color:var(--text3);margin:2px 0;font-family:'Space Mono',monospace">↓ granted</div>
+        <div class="flow-step"><div class="flow-num">3</div><span>req.randomize() → send_request(req)</span></div>
+        <div style="text-align:center;font-size:0.75rem;color:var(--text3);margin:2px 0;font-family:'Space Mono',monospace">↓ to driver</div>
+        <div class="flow-step"><div class="flow-num">4</div><span>driver: seq_item_port.get_next_item(req)</span></div>
+        <div style="text-align:center;font-size:0.75rem;color:var(--text3);margin:2px 0;font-family:'Space Mono',monospace">↓ drive DUT</div>
+        <div class="flow-step"><div class="flow-num">5</div><span>seq_item_port.item_done() → wait_for_item_done()</span></div>
       </div>
       <div>
         <div class="code-label">complete seq + seqr + driver example</div>
@@ -713,17 +775,17 @@ seqh.<span class="fn">start</span>(envh.agnth.seqrh);</pre>
 </section>
 
 <!-- VIRTUAL SEQUENCE -->
-<section id="vseq" class="section-wrapper">
+<section id="vseq" class="section-wrapper alt">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 05</div>
-      <div class="section-title">Virtual <span>Sequences</span></div>
+      <div class="section-title">Virtual <span class="hl">Sequences</span></div>
       <div class="section-desc">// Coordinate multiple sequencers from a single sequence using a virtual sequencer</div>
     </div>
     <div class="concepts-grid">
       <div class="concept-card">
         <div class="card-header">
-          <div class="card-icon" style="background:rgba(0,245,196,0.15)">🕹️</div>
+          <div class="card-icon">🕹️</div>
           <div><div class="card-num">// virtual_sequencer</div><div class="card-title">Virtual Sequencer</div></div>
         </div>
         <div class="card-body">
@@ -750,7 +812,7 @@ v_seqr.seqrh2 = agnth2.seqr2h;</pre>
       </div>
       <div class="concept-card">
         <div class="card-header">
-          <div class="card-icon" style="background:rgba(123,97,255,0.2)">🎭</div>
+          <div class="card-icon">🎭</div>
           <div><div class="card-num">// virtual_sequence</div><div class="card-title">Virtual Sequence</div></div>
         </div>
         <div class="card-body">
@@ -786,30 +848,30 @@ vseq.<span class="fn">start</span>(envh.v_seqr);  <span class="cm">// Pass virtu
 </section>
 
 <!-- CONFIG DB -->
-<section id="configdb" class="section-wrapper alt">
+<section id="configdb" class="section-wrapper">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 06</div>
-      <div class="section-title">UVM <span>Config DB</span></div>
+      <div class="section-title">UVM <span class="hl">Config DB</span></div>
       <div class="section-desc">// Pass configuration objects between components without direct references</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start">
       <div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem">
-          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">CONFIG DB API</h3>
+        <div class="surf-box" style="margin-bottom:1.25rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--lime3);margin-bottom:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">CONFIG DB API</h3>
           <table class="tlm-table">
             <tr><th>Method</th><th>Description</th></tr>
-            <tr><td style="color:var(--accent2)">uvm_config_db#(T)::set()</td><td>Store a value — 4 args: context, path, field, value</td></tr>
-            <tr><td style="color:var(--accent2)">uvm_config_db#(T)::get()</td><td>Retrieve a value — 4 args: context, path, field, variable</td></tr>
+            <tr><td style="color:var(--accent-purple)">uvm_config_db#(T)::set()</td><td>Store a value — 4 args: context, path, field, value</td></tr>
+            <tr><td style="color:var(--accent-purple)">uvm_config_db#(T)::get()</td><td>Retrieve a value — 4 args: context, path, field, variable</td></tr>
           </table>
         </div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
-          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent3);margin-bottom:1rem">PATH WILDCARDS</h3>
-          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2">
-            <div><span style="color:var(--accent)">"envh.*"</span> — all children of envh</div>
-            <div><span style="color:var(--accent)">"envh.cb"</span> — specific component</div>
-            <div><span style="color:var(--accent)">"*"</span> — all components in hierarchy</div>
-            <div><span style="color:var(--accent)">""</span> — current component only</div>
+        <div class="surf-box">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--accent-orange);margin-bottom:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">PATH WILDCARDS</h3>
+          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2.1">
+            <div><span style="color:var(--lime3);font-weight:700">"envh.*"</span> — all children of envh</div>
+            <div><span style="color:var(--lime3);font-weight:700">"envh.cb"</span> — specific component</div>
+            <div><span style="color:var(--lime3);font-weight:700">"*"</span> — all components in hierarchy</div>
+            <div><span style="color:var(--lime3);font-weight:700">""</span> — current component only</div>
           </div>
         </div>
       </div>
@@ -851,22 +913,24 @@ vseq.<span class="fn">start</span>(envh.v_seqr);  <span class="cm">// Pass virtu
 </section>
 
 <!-- TLM PORTS -->
-<section id="tlm-ports" class="section-wrapper">
+<section id="tlm-ports" class="section-wrapper alt">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 07</div>
-      <div class="section-title">TLM <span>Ports</span></div>
+      <div class="section-title">TLM <span class="hl">Ports</span></div>
       <div class="section-desc">// Transaction Level Modeling — blocking, non-blocking, and implementation ports</div>
     </div>
-    <table class="tlm-table" style="margin-bottom:2rem">
-      <tr><th>Port Type</th><th>Direction</th><th>Blocking</th><th>Use Case</th></tr>
-      <tr><td style="color:var(--accent)">uvm_put_port</td><td>Producer → Consumer</td><td>Yes (put/try_put/can_put)</td><td>Send transactions to consumer</td></tr>
-      <tr><td style="color:var(--accent)">uvm_get_port</td><td>Consumer ← Producer</td><td>Yes (get/try_get/can_get)</td><td>Pull transactions from producer</td></tr>
-      <tr><td style="color:var(--accent)">uvm_blocking_put_port</td><td>Producer → Consumer</td><td>Blocking only</td><td>Simple one-way flow</td></tr>
-      <tr><td style="color:var(--accent)">uvm_blocking_get_port</td><td>Consumer ← Producer</td><td>Blocking only</td><td>Simple pull model</td></tr>
-      <tr><td style="color:var(--accent2)">uvm_put_imp</td><td>Implementation</td><td>Both</td><td>Consumer implementation (has put/try_put/can_put)</td></tr>
-      <tr><td style="color:var(--accent2)">uvm_analysis_port</td><td>1-to-many</td><td>Non-blocking write</td><td>Broadcast to monitors/scoreboards</td></tr>
-    </table>
+    <div class="surf-box" style="margin-bottom:2rem">
+      <table class="tlm-table">
+        <tr><th>Port Type</th><th>Direction</th><th>Blocking</th><th>Use Case</th></tr>
+        <tr><td style="color:var(--lime3);font-weight:700">uvm_put_port</td><td>Producer → Consumer</td><td>Yes (put/try_put/can_put)</td><td>Send transactions to consumer</td></tr>
+        <tr><td style="color:var(--lime3);font-weight:700">uvm_get_port</td><td>Consumer ← Producer</td><td>Yes (get/try_get/can_get)</td><td>Pull transactions from producer</td></tr>
+        <tr><td style="color:var(--lime3);font-weight:700">uvm_blocking_put_port</td><td>Producer → Consumer</td><td>Blocking only</td><td>Simple one-way flow</td></tr>
+        <tr><td style="color:var(--lime3);font-weight:700">uvm_blocking_get_port</td><td>Consumer ← Producer</td><td>Blocking only</td><td>Simple pull model</td></tr>
+        <tr><td style="color:var(--accent-purple);font-weight:700">uvm_put_imp</td><td>Implementation</td><td>Both</td><td>Consumer implementation (has put/try_put/can_put)</td></tr>
+        <tr><td style="color:var(--accent-purple);font-weight:700">uvm_analysis_port</td><td>1-to-many</td><td>Non-blocking write</td><td>Broadcast to monitors/scoreboards</td></tr>
+      </table>
+    </div>
     <div class="code-label">blocking + non-blocking TLM port example</div>
     <pre><span class="kw">class</span> <span class="cls">producer</span> <span class="kw">extends</span> uvm_component;
   uvm_put_port#(<span class="kw">int</span>) tlm_put;  <span class="cm">// Supports blocking + non-blocking</span>
@@ -903,25 +967,24 @@ prh.tlm_put.<span class="fn">connect</span>(crh.tlm_imp);</pre>
 </section>
 
 <!-- ANALYSIS PORTS -->
-<section id="analysis-ports" class="section-wrapper alt">
+<section id="analysis-ports" class="section-wrapper">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 08</div>
-      <div class="section-title">Analysis <span>Ports</span></div>
+      <div class="section-title">Analysis <span class="hl">Ports</span></div>
       <div class="section-desc">// Broadcast transactions to multiple subscribers — 1-to-N write() communication</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
       <div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem">
-          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">ANALYSIS PORT FLOW</h3>
-          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2.2">
-            <div style="color:var(--accent2)">producer — uvm_analysis_port</div>
-            <div style="padding-left:1rem">↓ .write(t_h) broadcasts to all connected</div>
-            <div style="color:var(--accent)">consumer_a — uvm_analysis_imp</div>
-            <div style="color:var(--accent)">consumer_b — uvm_analysis_imp</div>
-            <div style="color:var(--accent)">consumer_c — uvm_analysis_imp</div>
-            <div style="padding-top:0.5rem;color:var(--text3)">// Each consumer implements write()</div>
-            <div style="color:var(--text3)">// All receive the same transaction</div>
+        <div class="ap-flow" style="margin-bottom:1.25rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--lime3);margin-bottom:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">ANALYSIS PORT FLOW</h3>
+          <div style="text-align:center">
+            <div class="ap-producer">producer — uvm_analysis_port</div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.75rem;color:var(--text3);margin:8px 0">↓ .write(t_h) broadcasts to all connected</div>
+            <div><span class="ap-consumer">consumer_a — uvm_analysis_imp</span></div>
+            <div><span class="ap-consumer">consumer_b — uvm_analysis_imp</span></div>
+            <div><span class="ap-consumer">consumer_c — uvm_analysis_imp</span></div>
+            <div style="font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3);margin-top:8px">// Each consumer implements write()</div>
           </div>
         </div>
         <div class="code-label">producer with analysis port</div>
@@ -958,11 +1021,11 @@ p_h.producer_put.<span class="fn">connect</span>(ca_h.consumer_imp);
 p_h.producer_put.<span class="fn">connect</span>(cb_h.b_imp);
 p_h.producer_put.<span class="fn">connect</span>(cc_h.c_imp);
 <span class="cm">// All 3 consumers get write() called automatically</span></pre>
-        <div style="background:rgba(0,245,196,0.05);border:1px solid rgba(0,245,196,0.15);border-radius:10px;padding:1rem;margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.8">
-          <span style="color:var(--accent);font-weight:700">Key Rules:</span><br>
-          • <strong style="color:var(--text)">analysis_port</strong> — no blocking; write() returns immediately<br>
-          • One port connects to <strong style="color:var(--text)">unlimited</strong> subscribers<br>
-          • write() is <strong style="color:var(--text)">void function</strong> — no return value<br>
+        <div class="info-box" style="margin-top:1rem">
+          <span class="hl-txt">Key Rules:</span><br>
+          • <strong>analysis_port</strong> — no blocking; write() returns immediately<br>
+          • One port connects to <strong>unlimited</strong> subscribers<br>
+          • write() is <strong>void function</strong> — no return value<br>
           • Used in monitors to broadcast to scoreboard/coverage
         </div>
       </div>
@@ -971,11 +1034,11 @@ p_h.producer_put.<span class="fn">connect</span>(cc_h.c_imp);
 </section>
 
 <!-- TLM FIFOs -->
-<section id="fifos" class="section-wrapper">
+<section id="fifos" class="section-wrapper alt">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 09</div>
-      <div class="section-title">TLM <span>FIFOs</span></div>
+      <div class="section-title">TLM <span class="hl">FIFOs</span></div>
       <div class="section-desc">// Buffer between producer and consumer — decouples generation from driving</div>
     </div>
     <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:2rem;align-items:start">
@@ -1018,24 +1081,24 @@ p_h.producer_put.<span class="fn">connect</span>(cc_h.c_imp);
 <span class="kw">endclass</span></pre>
       </div>
       <div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
-          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">FIFO EXPORTS</h3>
+        <div class="surf-box" style="margin-bottom:1.25rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--lime3);margin-bottom:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">FIFO EXPORTS</h3>
           <table class="tlm-table">
             <tr><th>Export</th><th>Used By</th></tr>
-            <tr><td style="color:var(--accent)">put_export</td><td>Producer puts items in</td></tr>
-            <tr><td style="color:var(--accent)">get_export</td><td>Consumer gets items out</td></tr>
-            <tr><td style="color:var(--accent)">peek_export</td><td>Peek without removing</td></tr>
-            <tr><td style="color:var(--accent)">get_peek_export</td><td>Combined get+peek</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">put_export</td><td>Producer puts items in</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">get_export</td><td>Consumer gets items out</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">peek_export</td><td>Peek without removing</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">get_peek_export</td><td>Combined get+peek</td></tr>
           </table>
         </div>
-        <div style="background:rgba(123,97,255,0.06);border:1px solid rgba(123,97,255,0.15);border-radius:10px;padding:1.25rem;margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.9">
-          <span style="color:var(--accent2);font-weight:700">When to use uvm_tlm_fifo:</span><br>
+        <div class="info-box">
+          <span class="hl-txt">When to use uvm_tlm_fifo:</span><br>
           • Generator runs at its own rate<br>
           • Driver runs at its own rate<br>
           • FIFO buffers the difference<br>
           • Useful when gen faster/slower than driver<br>
           • Default size = 1 (acts as synchronizer)<br>
-          • <span style="color:var(--accent)">new("fifoh", this)</span> — created in new() not build_phase
+          • <strong>new("fifoh", this)</strong> — created in new() not build_phase
         </div>
       </div>
     </div>
@@ -1043,11 +1106,11 @@ p_h.producer_put.<span class="fn">connect</span>(cc_h.c_imp);
 </section>
 
 <!-- FIELD MACROS -->
-<section id="field-macros" class="section-wrapper alt">
+<section id="field-macros" class="section-wrapper">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 10</div>
-      <div class="section-title">Field <span>Macros</span></div>
+      <div class="section-title">Field <span class="hl">Macros</span></div>
       <div class="section-desc">// Auto-generate copy, compare, print, pack, unpack for sequence_item fields</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
@@ -1079,18 +1142,18 @@ $cast(p2_h, p1_h.<span class="fn">clone</span>());
   $display(<span class="str">"comparison success"</span>);</pre>
       </div>
       <div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem">
-          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">FIELD MACRO FLAGS</h3>
+        <div class="surf-box" style="margin-bottom:1.5rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--lime3);margin-bottom:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">FIELD MACRO FLAGS</h3>
           <table class="tlm-table">
             <tr><th>Flag</th><th>Effect</th></tr>
-            <tr><td style="color:var(--accent)">UVM_ALL_ON</td><td>Enable all operations</td></tr>
-            <tr><td style="color:var(--accent)">UVM_NOCOPY</td><td>Skip field in copy()</td></tr>
-            <tr><td style="color:var(--accent)">UVM_NOCOMPARE</td><td>Skip in compare()</td></tr>
-            <tr><td style="color:var(--accent)">UVM_NOPRINT</td><td>Skip in print()</td></tr>
-            <tr><td style="color:var(--accent)">UVM_NOPACK</td><td>Skip in pack()</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">UVM_ALL_ON</td><td>Enable all operations</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">UVM_NOCOPY</td><td>Skip field in copy()</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">UVM_NOCOMPARE</td><td>Skip in compare()</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">UVM_NOPRINT</td><td>Skip in print()</td></tr>
+            <tr><td style="color:var(--lime3);font-weight:700">UVM_NOPACK</td><td>Skip in pack()</td></tr>
           </table>
         </div>
-        <div class="code-label" style="margin-top:1.5rem">custom do_copy override</div>
+        <div class="code-label">custom do_copy override</div>
         <pre><span class="kw">virtual function void</span> <span class="fn">do_copy</span>(uvm_object rhs);
   transaction t_h = <span class="kw">new</span>();
   $cast(t_h, rhs);
@@ -1103,11 +1166,11 @@ $cast(p2_h, p1_h.<span class="fn">clone</span>());
 </section>
 
 <!-- VERBOSITY -->
-<section id="verbosity" class="section-wrapper">
+<section id="verbosity" class="section-wrapper alt">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 11</div>
-      <div class="section-title">UVM <span>Verbosity</span></div>
+      <div class="section-title">UVM <span class="hl">Verbosity</span></div>
       <div class="section-desc">// Control message display levels — from UVM_NONE (always shown) to UVM_DEBUG</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
@@ -1124,10 +1187,10 @@ $cast(p2_h, p1_h.<span class="fn">clone</span>());
           </div>
           <div class="cheat-card">
             <div class="cheat-title">Severity Levels</div>
-            <div class="cheat-item"><span class="cheat-key">`uvm_info</span><span class="cheat-val" style="color:var(--accent)">Informational</span></div>
-            <div class="cheat-item"><span class="cheat-key">`uvm_warning</span><span class="cheat-val" style="color:#f0c040">Warning</span></div>
-            <div class="cheat-item"><span class="cheat-key">`uvm_error</span><span class="cheat-val" style="color:var(--accent3)">Error (continues)</span></div>
-            <div class="cheat-item"><span class="cheat-key">`uvm_fatal</span><span class="cheat-val" style="color:#ff4040">Fatal (stops sim)</span></div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_info</span><span class="cheat-val" style="color:var(--lime3)">Informational</span></div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_warning</span><span class="cheat-val" style="color:#c8900a">Warning</span></div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_error</span><span class="cheat-val" style="color:var(--accent-orange)">Error (continues)</span></div>
+            <div class="cheat-item"><span class="cheat-key">`uvm_fatal</span><span class="cheat-val" style="color:#cc2222">Fatal (stops sim)</span></div>
           </div>
         </div>
       </div>
@@ -1162,24 +1225,24 @@ set_report_id_verbosity(<span class="str">"MY_ID"</span>, UVM_HIGH);</pre>
 </section>
 
 <!-- OBJECTIONS -->
-<section id="objections" class="section-wrapper alt">
+<section id="objections" class="section-wrapper">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// CONCEPT 12</div>
-      <div class="section-title">UVM <span>Objections</span></div>
+      <div class="section-title">UVM <span class="hl">Objections</span></div>
       <div class="section-desc">// Objection mechanism controls when run_phase ends — simulation won't end until all objections are dropped</div>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:2rem">
       <div>
-        <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin-bottom:1.5rem">
-          <h3 style="font-family:'Space Mono',monospace;font-size:0.8rem;color:var(--accent);margin-bottom:1rem">OBJECTION RULES</h3>
-          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2">
+        <div class="surf-box" style="margin-bottom:1.25rem">
+          <h3 style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--lime3);margin-bottom:1rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em">OBJECTION RULES</h3>
+          <div style="font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:2.1">
             <div>• At least ONE component must raise an objection</div>
             <div>• Simulation ends when ALL objections are dropped</div>
             <div>• Raise BEFORE the work, drop AFTER</div>
             <div>• Never drop an objection you didn't raise</div>
             <div>• Multiple components can raise concurrently</div>
-            <div style="color:var(--accent3)">• Forgetting to drop = simulation hangs!</div>
+            <div style="color:var(--accent-orange);font-weight:700">• Forgetting to drop = simulation hangs!</div>
           </div>
         </div>
         <div class="code-label">driver + monitor concurrent objections</div>
@@ -1218,9 +1281,9 @@ phase.<span class="fn">phase_done.set_drain_time</span>(<span class="kw">this</s
 
 <span class="cm">// Check objection count:</span>
 <span class="kw">int</span> count = phase.<span class="fn">get_objection_count</span>(<span class="kw">this</span>);</pre>
-        <div style="background:rgba(0,245,196,0.05);border:1px solid rgba(0,245,196,0.15);border-radius:10px;padding:1.25rem;margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--text2);line-height:1.8">
-          <span style="color:var(--accent);font-weight:700">Debug tip:</span> If simulation hangs, add<br>
-          <span style="color:var(--accent2)">+UVM_OBJECTION_TRACE</span> to the command line to see all raise/drop events with component names and counts.
+        <div class="info-box" style="margin-top:1rem">
+          <span class="hl-txt">Debug tip:</span> If simulation hangs, add<br>
+          <strong>+UVM_OBJECTION_TRACE</strong> to the command line to see all raise/drop events with component names and counts.
         </div>
       </div>
     </div>
@@ -1230,15 +1293,13 @@ phase.<span class="fn">phase_done.set_drain_time</span>(<span class="kw">this</s
 <!-- QUIZ -->
 <section id="quiz-section">
   <div class="quiz-inner">
-    <div class="section-header" style="text-align:center">
+    <div class="section-header" style="text-align:center;max-width:800px;margin:0 auto 3rem">
       <div class="section-tag" style="justify-content:center;display:flex">// TEST YOURSELF</div>
-      <div class="section-title">UVM <span>Quiz</span></div>
+      <div class="section-title">UVM <span class="hl">Quiz</span></div>
       <div class="section-desc" style="margin:0 auto">// Check your understanding of UVM concepts</div>
     </div>
     <div class="quiz-card" id="quizCard">
-      <div id="quizContent">
-        <!-- Rendered by JS -->
-      </div>
+      <div id="quizContent"></div>
       <div class="quiz-score" id="quizScore">
         <div class="score-num" id="scoreNum">0/10</div>
         <div class="score-msg" id="scoreMsg"></div>
@@ -1249,11 +1310,11 @@ phase.<span class="fn">phase_done.set_drain_time</span>(<span class="kw">this</s
 </section>
 
 <!-- CHEATSHEET -->
-<section id="cheatsheet" class="section-wrapper">
+<section id="cheatsheet" class="section-wrapper alt">
   <div class="section-inner">
     <div class="section-header">
       <div class="section-tag">// REFERENCE</div>
-      <div class="section-title">UVM <span>Cheatsheet</span></div>
+      <div class="section-title">UVM <span class="hl">Cheatsheet</span></div>
       <div class="section-desc">// Quick reference for the most important UVM patterns and macros</div>
     </div>
     <div class="cheat-grid">
@@ -1315,305 +1376,212 @@ phase.<span class="fn">phase_done.set_drain_time</span>(<span class="kw">this</s
 <footer>
   <div class="footer-logo">UVM<span>Learn</span></div>
   <div class="footer-text">// Complete UVM Learning Platform — Factory Override • Sequences • TLM Ports • Config DB • Analysis Ports • Field Macros</div>
-  <div style="margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.7rem;color:var(--text3)">Built for verification engineers learning SystemVerilog UVM</div>
+  <div style="margin-top:1rem;font-family:'Space Mono',monospace;font-size:0.68rem;color:rgba(200,240,58,0.25)">Built for verification engineers learning SystemVerilog UVM</div>
 </footer>
 
 <script>
-// ==============================
+// ========================
+// HERO MOCK BARS
+// ========================
+const barData = [40,65,55,80,50,70,90,45,75,60,85,95];
+const barContainer = document.getElementById('mockBars');
+if(barContainer){
+  barData.forEach(h=>{
+    const b=document.createElement('div');
+    b.className='mock-bar';
+    b.style.height=h+'%';
+    b.style.opacity=(0.4+h/200).toFixed(2);
+    barContainer.appendChild(b);
+  });
+}
+
+// ========================
 // 3D TEACHER CANVAS
-// ==============================
+// ========================
 const canvas = document.getElementById('teacher-canvas');
 const ctx = canvas.getContext('2d');
 let teacherState = {
-  eyeBlink: 0, blinkTimer: 0,
-  mouthOpen: 0, talking: false,
-  armAngle: 0, armDir: 1,
-  headBob: 0, headBobT: 0,
-  bodyBreath: 0, breathT: 0,
-  boardText: '', boardAnim: 0,
-  currentTopic: 'intro',
-  particles: [],
-  glassesShine: 0
+  eyeBlink:0,blinkTimer:0,mouthOpen:0,talking:false,
+  armAngle:0,armDir:1,headBob:0,headBobT:0,
+  bodyBreath:0,breathT:0,boardText:'',boardAnim:0,
+  currentTopic:'intro',particles:[],glassesShine:0
 };
 
 const teacherTopics = {
-  intro: {
-    name: 'INTRODUCTION',
-    difficulty: 'Beginner',
-    color: '#00f5c4',
-    speech: "Welcome to UVMLearn! I'm Professor UVM-X. Universal Verification Methodology is a standardized testbench framework for verifying hardware designs. It's built on SystemVerilog and provides reusable, scalable verification components. Let me guide you through every concept!",
-    board: 'UVM'
-  },
-  factory: {
-    name: 'FACTORY OVERRIDE',
-    difficulty: 'Intermediate',
-    color: '#ff6b35',
-    speech: "The UVM Factory is brilliant! Instead of using 'new()', always use type_id::create(). This registers your component with the factory. Then, you can override base_driver with driver1 at runtime — without changing a single line of testbench code!",
-    board: 'FACTORY'
-  },
-  tlm: {
-    name: 'TLM PORTS',
-    difficulty: 'Intermediate',
-    color: '#7b61ff',
-    speech: "TLM — Transaction Level Modeling — is how UVM components communicate. A producer has a put_port, a consumer has a put_imp. Connect them in connect_phase. The analysis_port is special — it broadcasts to unlimited subscribers simultaneously!",
-    board: 'TLM'
-  },
-  sequence: {
-    name: 'SEQUENCES',
-    difficulty: 'Intermediate',
-    color: '#00f5c4',
-    speech: "Sequences generate stimulus. The flow is: start() → wait_for_grant() → randomize → send_request() → wait_for_item_done(). The driver calls get_next_item() then item_done(). This handshake synchronizes generation with driving!",
-    board: 'SEQ'
-  },
-  phases: {
-    name: 'UVM PHASES',
-    difficulty: 'Beginner',
-    color: '#f0c040',
-    speech: "UVM phases are ordered execution stages. build_phase creates components top-down. connect_phase wires TLM ports bottom-up. Then run_phase drives the actual simulation — it's a task, so it runs concurrently. Always use objections to control simulation end!",
-    board: 'PHASES'
-  },
-  configdb: {
-    name: 'CONFIG DB',
-    difficulty: 'Advanced',
-    color: '#ff6b35',
-    speech: "uvm_config_db is a global configuration database. Use set() in the test to store an interface or integer, then get() in any component to retrieve it. The path wildcard 'envh.*' means all children of envh. Always check the return value — use uvm_fatal if get fails!",
-    board: 'CONFIG'
-  }
+  intro:{name:'INTRODUCTION',difficulty:'Beginner',color:'#c8f03a',speech:"Welcome to UVMLearn! I'm Professor UVM-X. Universal Verification Methodology is a standardized testbench framework for verifying hardware designs. It's built on SystemVerilog and provides reusable, scalable verification components. Let me guide you through every concept!",board:'UVM'},
+  factory:{name:'FACTORY OVERRIDE',difficulty:'Intermediate',color:'#ff6b35',speech:"The UVM Factory is brilliant! Instead of using 'new()', always use type_id::create(). This registers your component with the factory. Then, you can override base_driver with driver1 at runtime — without changing a single line of testbench code!",board:'FACTORY'},
+  tlm:{name:'TLM PORTS',difficulty:'Intermediate',color:'#7b61ff',speech:"TLM — Transaction Level Modeling — is how UVM components communicate. A producer has a put_port, a consumer has a put_imp. Connect them in connect_phase. The analysis_port is special — it broadcasts to unlimited subscribers simultaneously!",board:'TLM'},
+  sequence:{name:'SEQUENCES',difficulty:'Intermediate',color:'#c8f03a',speech:"Sequences generate stimulus. The flow is: start() → wait_for_grant() → randomize → send_request() → wait_for_item_done(). The driver calls get_next_item() then item_done(). This handshake synchronizes generation with driving!",board:'SEQ'},
+  phases:{name:'UVM PHASES',difficulty:'Beginner',color:'#f0c040',speech:"UVM phases are ordered execution stages. build_phase creates components top-down. connect_phase wires TLM ports bottom-up. Then run_phase drives the actual simulation — it's a task, so it runs concurrently. Always use objections to control simulation end!",board:'PHASES'},
+  configdb:{name:'CONFIG DB',difficulty:'Advanced',color:'#ff6b35',speech:"uvm_config_db is a global configuration database. Use set() in the test to store an interface or integer, then get() in any component to retrieve it. The path wildcard 'envh.*' means all children of envh. Always check the return value — use uvm_fatal if get fails!",board:'CONFIG'}
 };
 
-let speechTimeout, charIndex = 0, currentText = '';
-function setTeacherTopic(topic) {
-  document.querySelectorAll('.teach-btn').forEach(b => b.classList.remove('active'));
+let speechTimeout,charIndex=0,currentText='';
+function setTeacherTopic(topic){
+  document.querySelectorAll('.teach-btn').forEach(b=>b.classList.remove('active'));
   event.target.classList.add('active');
-  teacherState.currentTopic = topic;
-  const t = teacherTopics[topic];
-  document.getElementById('teacherTopicName').textContent = t.name;
-  document.getElementById('currentTopicDisplay').textContent = t.name;
-  document.getElementById('difficultyDisplay').textContent = t.difficulty;
-  teacherState.boardText = t.board;
-  teacherState.boardAnim = 1;
+  teacherState.currentTopic=topic;
+  const t=teacherTopics[topic];
+  document.getElementById('teacherTopicName').textContent=t.name;
+  document.getElementById('currentTopicDisplay').textContent=t.name;
+  document.getElementById('difficultyDisplay').textContent=t.difficulty;
+  teacherState.boardText=t.board;
+  teacherState.boardAnim=0;
   clearTimeout(speechTimeout);
-  charIndex = 0;
-  currentText = t.speech;
-  document.getElementById('teacherSpeech').textContent = '';
-  teacherState.talking = true;
-  teacherState.armAngle = 0.3;
+  charIndex=0;
+  currentText=t.speech;
+  document.getElementById('teacherSpeech').textContent='';
+  teacherState.talking=true;
   typeSpeech();
 }
-function typeSpeech() {
-  if (charIndex < currentText.length) {
-    document.getElementById('teacherSpeech').textContent += currentText[charIndex];
+function typeSpeech(){
+  if(charIndex<currentText.length){
+    document.getElementById('teacherSpeech').textContent+=currentText[charIndex];
     charIndex++;
-    speechTimeout = setTimeout(typeSpeech, 25 + Math.random() * 15);
+    speechTimeout=setTimeout(typeSpeech,25+Math.random()*15);
   } else {
-    teacherState.talking = false;
+    teacherState.talking=false;
   }
 }
-setTeacherTopic.call({target: document.querySelector('.teach-btn')}, 'intro');
-setTimeout(() => setTeacherTopic.call({target: document.querySelector('.teach-btn')}, 'intro'), 100);
+setTimeout(()=>setTeacherTopic.call({target:document.querySelector('.teach-btn')},'intro'),100);
 
-function drawTeacher(t) {
-  ctx.clearRect(0, 0, 440, 520);
-  const w = 440, h = 520;
-  // Background
-  ctx.fillStyle = '#0a0e1a';
-  ctx.fillRect(0, 0, w, h);
-  // Grid
-  ctx.strokeStyle = 'rgba(0,245,196,0.04)';
-  ctx.lineWidth = 1;
-  for(let x=0;x<w;x+=30){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
-  for(let y=0;y<h;y+=30){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
+function drawTeacher(t){
+  ctx.clearRect(0,0,440,520);
+  const w=440,h=520;
+  ctx.fillStyle='#0f1210';ctx.fillRect(0,0,w,h);
+  ctx.strokeStyle='rgba(200,240,58,0.06)';ctx.lineWidth=1;
+  for(let x=0;x<w;x+=28){ctx.beginPath();ctx.moveTo(x,0);ctx.lineTo(x,h);ctx.stroke()}
+  for(let y=0;y<h;y+=28){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()}
   
-  // WHITEBOARD
-  const bx=60,by=30,bw=320,bh=160;
-  ctx.fillStyle='#1a2540';
-  ctx.strokeStyle='rgba(0,245,196,0.3)';
-  ctx.lineWidth=2;
-  roundRect(ctx,bx,by,bw,bh,10);
-  ctx.fill();ctx.stroke();
-  // Board grid lines
-  ctx.strokeStyle='rgba(0,245,196,0.06)';ctx.lineWidth=1;
+  const bx=60,by=30,bw=320,bh=155;
+  ctx.fillStyle='#1a1f1a';ctx.strokeStyle='rgba(200,240,58,0.25)';ctx.lineWidth=1.5;
+  roundRect(ctx,bx,by,bw,bh,10);ctx.fill();ctx.stroke();
+  ctx.strokeStyle='rgba(200,240,58,0.05)';ctx.lineWidth=1;
   for(let i=1;i<5;i++){ctx.beginPath();ctx.moveTo(bx,by+bh*i/5);ctx.lineTo(bx+bw,by+bh*i/5);ctx.stroke()}
-  // Board text
-  const topic = teacherTopics[teacherState.currentTopic];
+  const topic=teacherTopics[teacherState.currentTopic];
   ctx.fillStyle=topic.color;
-  ctx.font='bold 36px "Space Mono", monospace';
-  ctx.textAlign='center';
-  ctx.globalAlpha = Math.min(1, teacherState.boardAnim);
-  ctx.fillText(teacherState.boardText, bx+bw/2, by+bh/2+14);
-  ctx.globalAlpha = 1;
-  // Board formula
-  ctx.fillStyle='rgba(255,255,255,0.25)';
-  ctx.font='11px "Space Mono", monospace';
-  ctx.fillText('type_id::create("name", this)', bx+bw/2, by+bh-20);
-  // Board stand
-  ctx.fillStyle='#1a2540';ctx.strokeStyle='rgba(0,245,196,0.2)';
-  ctx.fillRect(bx+bw/2-5,by+bh,10,30);
-  ctx.fillRect(bx+bw/2-40,by+bh+30,80,8);
-  
-  const cx=220, baseY=440;
-  const breath = Math.sin(teacherState.breathT)*3;
-  const bob = Math.sin(teacherState.headBobT)*3;
-  const eyeClose = teacherState.eyeBlink;
+  ctx.font='bold 36px "Space Mono", monospace';ctx.textAlign='center';
+  ctx.globalAlpha=Math.min(1,teacherState.boardAnim);
+  ctx.fillText(teacherState.boardText,bx+bw/2,by+bh/2+14);
+  ctx.globalAlpha=1;
+  ctx.fillStyle='rgba(200,240,58,0.2)';ctx.font='10px "Space Mono", monospace';
+  ctx.fillText('type_id::create("name", this)',bx+bw/2,by+bh-18);
+  ctx.fillStyle='#1a1f1a';ctx.strokeStyle='rgba(200,240,58,0.15)';
+  ctx.fillRect(bx+bw/2-5,by+bh,10,28);ctx.fillRect(bx+bw/2-38,by+bh+28,76,7);
 
-  // LEFT ARM (pointer arm) 
-  ctx.save();
-  ctx.translate(cx-55, baseY-120);
-  ctx.rotate(-0.3 + Math.sin(t*0.03)*0.15);
-  ctx.fillStyle='#2a4080';
-  ctx.strokeStyle='#1a2d5a';ctx.lineWidth=1.5;
+  const cx=220,baseY=440;
+  const breath=Math.sin(teacherState.breathT)*3;
+  const bob=Math.sin(teacherState.headBobT)*3;
+  const eyeClose=teacherState.eyeBlink;
+
+  // Arms
+  ctx.save();ctx.translate(cx-55,baseY-120);ctx.rotate(-0.3+Math.sin(t*0.03)*0.15);
+  ctx.fillStyle='#2a3a20';ctx.strokeStyle='#1a2a10';ctx.lineWidth=1.5;
   roundRect(ctx,-12,0,24,80,10);ctx.fill();ctx.stroke();
-  // Hand
-  ctx.fillStyle='#f4c89a';
-  ctx.beginPath();ctx.arc(0,88,12,0,Math.PI*2);ctx.fill();
-  // Pointer
+  ctx.fillStyle='#d4a870';ctx.beginPath();ctx.arc(0,88,12,0,Math.PI*2);ctx.fill();
   ctx.strokeStyle=topic.color;ctx.lineWidth=3;
-  ctx.beginPath();ctx.moveTo(12,85);ctx.lineTo(55,60);ctx.stroke();
-  ctx.restore();
-  
-  // RIGHT ARM
-  ctx.save();
-  ctx.translate(cx+55, baseY-120);
-  ctx.rotate(0.2 + Math.sin(t*0.03+1)*0.1);
-  ctx.fillStyle='#2a4080';
-  ctx.strokeStyle='#1a2d5a';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(12,85);ctx.lineTo(55,60);ctx.stroke();ctx.restore();
+  ctx.save();ctx.translate(cx+55,baseY-120);ctx.rotate(0.2+Math.sin(t*0.03+1)*0.1);
+  ctx.fillStyle='#2a3a20';ctx.strokeStyle='#1a2a10';ctx.lineWidth=1.5;
   roundRect(ctx,-12,0,24,80,10);ctx.fill();ctx.stroke();
-  ctx.fillStyle='#f4c89a';
-  ctx.beginPath();ctx.arc(0,88,12,0,Math.PI*2);ctx.fill();
-  ctx.restore();
-  
-  // BODY
-  ctx.fillStyle='#2a4080';
-  ctx.strokeStyle='#1a2d5a';ctx.lineWidth=2;
-  roundRect(ctx,cx-60,baseY-160+breath,120,130,20);
-  ctx.fill();ctx.stroke();
-  // Shirt collar
-  ctx.fillStyle='#1a2d5a';
+  ctx.fillStyle='#d4a870';ctx.beginPath();ctx.arc(0,88,12,0,Math.PI*2);ctx.fill();ctx.restore();
+
+  // Body
+  ctx.fillStyle='#2a3a20';ctx.strokeStyle='#1a2a10';ctx.lineWidth=2;
+  roundRect(ctx,cx-60,baseY-160+breath,120,130,20);ctx.fill();ctx.stroke();
+  ctx.fillStyle='#1a2a10';
   ctx.beginPath();ctx.moveTo(cx-20,baseY-155+breath);ctx.lineTo(cx,baseY-130+breath);ctx.lineTo(cx+20,baseY-155+breath);ctx.closePath();ctx.fill();
-  // Tie
   ctx.fillStyle=topic.color;
   ctx.beginPath();ctx.moveTo(cx-8,baseY-145+breath);ctx.lineTo(cx,baseY-100+breath);ctx.lineTo(cx+8,baseY-145+breath);ctx.closePath();ctx.fill();
-  // Buttons
-  for(let i=0;i<3;i++){
-    ctx.fillStyle='rgba(255,255,255,0.3)';
-    ctx.beginPath();ctx.arc(cx,baseY-115+breath+i*18,3,0,Math.PI*2);ctx.fill();
-  }
-  
-  // NECK
-  ctx.fillStyle='#f4c89a';
-  ctx.strokeStyle='#e5a870';ctx.lineWidth=1;
-  roundRect(ctx,cx-18,baseY-175+breath,36,28,8);
-  ctx.fill();ctx.stroke();
-  
-  // HEAD
-  const headY = baseY-240+bob;
-  ctx.fillStyle='#f4c89a';
-  ctx.strokeStyle='#e5a870';ctx.lineWidth=2;
-  roundRect(ctx,cx-55,headY,110,95,28);
-  ctx.fill();ctx.stroke();
-  
-  // Hair
+  for(let i=0;i<3;i++){ctx.fillStyle='rgba(200,240,58,0.3)';ctx.beginPath();ctx.arc(cx,baseY-115+breath+i*18,3,0,Math.PI*2);ctx.fill()}
+
+  // Neck
+  ctx.fillStyle='#d4a870';ctx.strokeStyle='#b88a50';ctx.lineWidth=1;
+  roundRect(ctx,cx-18,baseY-175+breath,36,28,8);ctx.fill();ctx.stroke();
+
+  // Head
+  const headY=baseY-240+bob;
+  ctx.fillStyle='#d4a870';ctx.strokeStyle='#b88a50';ctx.lineWidth=2;
+  roundRect(ctx,cx-55,headY,110,95,28);ctx.fill();ctx.stroke();
   ctx.fillStyle='#2c1a0e';
   ctx.beginPath();ctx.ellipse(cx,headY+5,55,22,0,Math.PI,0);ctx.fill();
-  // Hair detail
   ctx.strokeStyle='#1a0e08';ctx.lineWidth=1.5;
-  for(let i=-3;i<=3;i++){
-    ctx.beginPath();ctx.moveTo(cx+i*12,headY+3);ctx.quadraticCurveTo(cx+i*15,headY-5,cx+i*10,headY+26);ctx.stroke();
-  }
-  
-  // EARS
-  ctx.fillStyle='#f4c89a';ctx.strokeStyle='#e5a870';ctx.lineWidth=1.5;
+  for(let i=-3;i<=3;i++){ctx.beginPath();ctx.moveTo(cx+i*12,headY+3);ctx.quadraticCurveTo(cx+i*15,headY-5,cx+i*10,headY+26);ctx.stroke()}
+  ctx.fillStyle='#d4a870';ctx.strokeStyle='#b88a50';ctx.lineWidth=1.5;
   ctx.beginPath();ctx.ellipse(cx-56,headY+42,10,14,0,0,Math.PI*2);ctx.fill();ctx.stroke();
   ctx.beginPath();ctx.ellipse(cx+56,headY+42,10,14,0,0,Math.PI*2);ctx.fill();ctx.stroke();
-  
-  // GLASSES
-  ctx.strokeStyle='#555';ctx.lineWidth=2;
-  // Left lens
+
+  // Glasses
+  ctx.strokeStyle='rgba(200,240,58,0.5)';ctx.lineWidth=2;
   roundRect(ctx,cx-48,headY+28,36,26,6);ctx.stroke();
-  // Right lens
   roundRect(ctx,cx+12,headY+28,36,26,6);ctx.stroke();
-  // Bridge
   ctx.beginPath();ctx.moveTo(cx-12,headY+40);ctx.lineTo(cx+12,headY+40);ctx.stroke();
-  // Shine
-  ctx.fillStyle='rgba(255,255,255,0.15)';
+  ctx.fillStyle='rgba(200,240,58,0.07)';
   ctx.beginPath();ctx.ellipse(cx-35,headY+32,8,4,0,0,Math.PI*2);ctx.fill();
   ctx.beginPath();ctx.ellipse(cx+25,headY+32,8,4,0,0,Math.PI*2);ctx.fill();
-  
-  // EYES
-  const eyeH = eyeClose > 0.5 ? 2 : 9*(1-eyeClose);
-  ctx.fillStyle='#2c1a0e';
-  // Left eye
+
+  // Eyes
+  const eyeH=eyeClose>0.5?2:9*(1-eyeClose);
+  ctx.fillStyle='#1a0a04';
   ctx.beginPath();ctx.ellipse(cx-30,headY+40,6,eyeH,0,0,Math.PI*2);ctx.fill();
-  // Right eye
   ctx.beginPath();ctx.ellipse(cx+30,headY+40,6,eyeH,0,0,Math.PI*2);ctx.fill();
-  // Eye shine
-  if(eyeClose < 0.3) {
+  if(eyeClose<0.3){
     ctx.fillStyle='white';
     ctx.beginPath();ctx.arc(cx-27,headY+37,2,0,Math.PI*2);ctx.fill();
     ctx.beginPath();ctx.arc(cx+33,headY+37,2,0,Math.PI*2);ctx.fill();
   }
-  
-  // EYEBROWS
+
+  // Eyebrows
   ctx.strokeStyle='#2c1a0e';ctx.lineWidth=3;ctx.lineCap='round';
   ctx.beginPath();ctx.moveTo(cx-42,headY+22);ctx.quadraticCurveTo(cx-30,headY+18,cx-18,headY+22);ctx.stroke();
-  ctx.beginPath();ctx.moveTo(cx+18,headY+22);ctx.quadraticCurveTo(cx+30,headY+18,ctx.moveTo,headY+22);
-  ctx.moveTo(cx+18,headY+22);ctx.quadraticCurveTo(cx+30,headY+18,cx+42,headY+22);ctx.stroke();
-  
-  // NOSE
-  ctx.strokeStyle='#e5a870';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.moveTo(cx+18,headY+22);ctx.quadraticCurveTo(cx+30,headY+18,cx+42,headY+22);ctx.stroke();
+
+  // Nose
+  ctx.strokeStyle='#b88a50';ctx.lineWidth=1.5;
   ctx.beginPath();ctx.moveTo(cx,headY+45);ctx.quadraticCurveTo(cx-10,headY+60,cx-8,headY+68);ctx.stroke();
   ctx.beginPath();ctx.moveTo(cx,headY+45);ctx.quadraticCurveTo(cx+10,headY+60,cx+8,headY+68);ctx.stroke();
-  
-  // MOUTH
-  const mouthO = teacherState.talking ? (0.15 + Math.sin(t*0.4)*0.1) : 0;
-  ctx.strokeStyle='#c8845a';ctx.lineWidth=2.5;
-  if(mouthO > 0.05) {
-    ctx.beginPath();ctx.ellipse(cx, headY+78, 14, 6+mouthO*12, 0, 0, Math.PI);ctx.stroke();
-    ctx.fillStyle='#8b2020';
-    ctx.beginPath();ctx.ellipse(cx, headY+79, 10, 3+mouthO*8, 0, 0, Math.PI);ctx.fill();
-    ctx.fillStyle='#ff8888';
-    ctx.beginPath();ctx.ellipse(cx, headY+78, 14, 2, 0, 0, Math.PI);ctx.fill();
+
+  // Mouth
+  const mouthO=teacherState.talking?(0.15+Math.sin(t*0.4)*0.1):0;
+  ctx.strokeStyle='#a06040';ctx.lineWidth=2.5;
+  if(mouthO>0.05){
+    ctx.beginPath();ctx.ellipse(cx,headY+78,14,6+mouthO*12,0,0,Math.PI);ctx.stroke();
+    ctx.fillStyle='#5a1a1a';ctx.beginPath();ctx.ellipse(cx,headY+79,10,3+mouthO*8,0,0,Math.PI);ctx.fill();
+    ctx.fillStyle='#d06060';ctx.beginPath();ctx.ellipse(cx,headY+78,14,2,0,0,Math.PI);ctx.fill();
   } else {
     ctx.beginPath();ctx.moveTo(cx-14,headY+78);ctx.quadraticCurveTo(cx,headY+84,cx+14,headY+78);ctx.stroke();
   }
-  
-  // Cheeks
-  ctx.fillStyle='rgba(255,150,120,0.3)';
+  ctx.fillStyle='rgba(220,120,80,0.25)';
   ctx.beginPath();ctx.ellipse(cx-42,headY+58,14,8,0,0,Math.PI*2);ctx.fill();
   ctx.beginPath();ctx.ellipse(cx+42,headY+58,14,8,0,0,Math.PI*2);ctx.fill();
-  
-  // LEGS
-  ctx.fillStyle='#1a1a2a';ctx.strokeStyle='#0a0a1a';ctx.lineWidth=1.5;
+
+  // Legs
+  ctx.fillStyle='#0f1210';ctx.strokeStyle='#0a0a0a';ctx.lineWidth=1.5;
   roundRect(ctx,cx-50,baseY-30+breath,38,55,10);ctx.fill();ctx.stroke();
   roundRect(ctx,cx+12,baseY-30+breath,38,55,10);ctx.fill();ctx.stroke();
-  // Shoes
-  ctx.fillStyle='#111';
+  ctx.fillStyle='#2a3a20';
   roundRect(ctx,cx-56,baseY+20+breath,48,18,6);ctx.fill();
   roundRect(ctx,cx+8,baseY+20+breath,48,18,6);ctx.fill();
-  
-  // Floating particles
+
+  // Particles
   for(let i=0;i<teacherState.particles.length;i++){
-    const p = teacherState.particles[i];
-    ctx.globalAlpha = p.life;
-    ctx.fillStyle = topic.color;
-    ctx.font = `${10+p.size*6}px "Space Mono", monospace`;
-    ctx.fillText(p.char, p.x, p.y);
-    ctx.globalAlpha = 1;
+    const p=teacherState.particles[i];
+    ctx.globalAlpha=p.life;
+    ctx.fillStyle=topic.color;
+    ctx.font=`${10+p.size*6}px "Space Mono", monospace`;
+    ctx.fillText(p.char,p.x,p.y);
+    ctx.globalAlpha=1;
   }
-  
-  // Name badge
-  ctx.fillStyle='rgba(0,245,196,0.1)';
-  ctx.strokeStyle='rgba(0,245,196,0.3)';ctx.lineWidth=1;
-  roundRect(ctx,cx-70,baseY+45,140,30,8);ctx.fill();ctx.stroke();
-  ctx.fillStyle=topic.color;
-  ctx.font='bold 11px "Space Mono", monospace';
-  ctx.textAlign='center';
-  ctx.fillText('PROF. UVM-X', cx, baseY+64);
+
+  // Badge
+  ctx.fillStyle='rgba(200,240,58,0.08)';ctx.strokeStyle='rgba(200,240,58,0.3)';ctx.lineWidth=1;
+  roundRect(ctx,cx-70,baseY+45,140,30,100);ctx.fill();ctx.stroke();
+  ctx.fillStyle=topic.color;ctx.font='bold 11px "Space Mono", monospace';ctx.textAlign='center';
+  ctx.fillText('PROF. UVM-X',cx,baseY+64);
 }
 
 function roundRect(ctx,x,y,w,h,r){
-  ctx.beginPath();
-  ctx.moveTo(x+r,y);
+  ctx.beginPath();ctx.moveTo(x+r,y);
   ctx.lineTo(x+w-r,y);ctx.quadraticCurveTo(x+w,y,x+w,y+r);
   ctx.lineTo(x+w,y+h-r);ctx.quadraticCurveTo(x+w,y+h,x+w-r,y+h);
   ctx.lineTo(x+r,y+h);ctx.quadraticCurveTo(x,y+h,x,y+h-r);
@@ -1624,69 +1592,54 @@ function roundRect(ctx,x,y,w,h,r){
 let frame=0;
 function animateTeacher(){
   frame++;
-  const s = teacherState;
-  // Blink
+  const s=teacherState;
   s.blinkTimer++;
-  if(s.blinkTimer > 180+Math.random()*120){s.blinkTimer=0;s.eyeBlink=1;}
+  if(s.blinkTimer>180+Math.random()*120){s.blinkTimer=0;s.eyeBlink=1;}
   if(s.eyeBlink>0){s.eyeBlink=Math.max(0,s.eyeBlink-(s.eyeBlink>0.5?0.15:0.05));}
-  // Head bob
-  s.headBobT += 0.03;
-  // Breathe
-  s.breathT += 0.015;
-  s.bodyBreath = Math.sin(s.breathT)*2;
-  // Board anim
-  if(s.boardAnim>0) s.boardAnim=Math.min(1,s.boardAnim+0.05);
-  // Particles
-  if(s.talking && Math.random()<0.15){
+  s.headBobT+=0.03;s.breathT+=0.015;
+  s.boardAnim=Math.min(1,s.boardAnim+0.04);
+  if(s.talking&&Math.random()<0.15){
     const chars=['`','{','}','#','//','=',';'];
-    s.particles.push({
-      x:180+Math.random()*80, y:300+Math.random()*60,
-      char:chars[Math.floor(Math.random()*chars.length)],
-      size:Math.random(), life:1, dy:-1-Math.random()*2
-    });
+    s.particles.push({x:180+Math.random()*80,y:300+Math.random()*60,char:chars[Math.floor(Math.random()*chars.length)],size:Math.random(),life:1,dy:-1-Math.random()*2});
   }
-  s.particles = s.particles.filter(p=>{p.y+=p.dy;p.life-=0.02;return p.life>0});
+  s.particles=s.particles.filter(p=>{p.y+=p.dy;p.life-=0.02;return p.life>0});
   drawTeacher(frame);
   requestAnimationFrame(animateTeacher);
 }
 animateTeacher();
 
-// ==============================
+// ========================
 // CARD EXPAND
-// ==============================
+// ========================
 function toggleCard(btn){
   btn.classList.toggle('open');
-  const content = btn.nextElementSibling;
-  content.classList.toggle('show');
+  btn.nextElementSibling.classList.toggle('show');
 }
 
-// ==============================
+// ========================
 // PAGE PROGRESS
-// ==============================
+// ========================
 window.addEventListener('scroll',()=>{
-  const scrolled = window.scrollY;
-  const total = document.body.scrollHeight - window.innerHeight;
-  document.getElementById('pageProgress').style.width = (scrolled/total*100)+'%';
+  const s=window.scrollY,t=document.body.scrollHeight-window.innerHeight;
+  document.getElementById('pageProgress').style.width=(s/t*100)+'%';
 });
 
-// ==============================
+// ========================
 // NAV ACTIVE
-// ==============================
-const sections = document.querySelectorAll('section[id]');
+// ========================
+const sections=document.querySelectorAll('section[id]');
 window.addEventListener('scroll',()=>{
   let current='';
-  sections.forEach(s=>{
-    if(window.scrollY>=s.offsetTop-100) current=s.id;
-  });
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-100)current=s.id});
   document.querySelectorAll('.nav-links a').forEach(a=>{
-    a.classList.toggle('active', a.getAttribute('href')==='#'+current);
+    a.classList.toggle('active',a.getAttribute('href')==='#'+current);
   });
 });
 
-// ==============================
+// ========================
 // QUIZ
-// ==============================
-const quizData = [
+// ========================
+const quizData=[
   {q:"What method must you always use to create UVM components?",opts:["new()","create()","type_id::create()","build()"],ans:2,exp:"Always use type_id::create('name', parent) — this registers the component with the UVM factory and enables factory overrides."},
   {q:"Which phase is called TOP-DOWN in UVM?",opts:["connect_phase","run_phase","build_phase","report_phase"],ans:2,exp:"build_phase is called top-down (parent before child) so parents can create child components before they need to be connected."},
   {q:"What does uvm_analysis_port do differently from uvm_put_port?",opts:["Blocks until consumed","Broadcasts to multiple subscribers","Creates a FIFO buffer","Requires two-way handshake"],ans:1,exp:"uvm_analysis_port broadcasts write() to all connected uvm_analysis_imp instances simultaneously — it's non-blocking 1-to-N communication."},
@@ -1698,7 +1651,7 @@ const quizData = [
   {q:"Where should uvm_tlm_fifo be created — new() or build_phase()?",opts:["build_phase only","new() only","Either works","run_phase"],ans:1,exp:"uvm_tlm_fifo must be created in new() because it doesn't extend uvm_component — it extends uvm_object. build_phase is only for uvm_component instances."},
   {q:"What flag in field macros excludes a field from copy() operations?",opts:["UVM_NOCOPY","UVM_NOCOMPARE","UVM_NOPRINT","UVM_ALL_OFF"],ans:0,exp:"UVM_NOCOPY flag in `uvm_field_int(field, UVM_NOCOPY) means the field will be excluded from automatic copy() operations while still participating in compare, print, etc."}
 ];
-let qIdx=0, score=0, answered=false;
+let qIdx=0,score=0,answered=false;
 function renderQuiz(){
   if(qIdx>=quizData.length){
     document.getElementById('quizContent').style.display='none';
@@ -1708,26 +1661,25 @@ function renderQuiz(){
     document.getElementById('scoreMsg').textContent=pct>=0.9?'Outstanding! You really know UVM! 🏆':pct>=0.7?'Great job! Keep practicing 💪':pct>=0.5?'Good start! Review the concepts above 📚':'Time to review! Read through the concepts again 🎓';
     return;
   }
-  const q=quizData[qIdx];
-  answered=false;
+  const q=quizData[qIdx];answered=false;
   document.getElementById('quizContent').innerHTML=`
     <div class="quiz-q"><span>Question ${qIdx+1} of ${quizData.length}</span>${q.q}</div>
     <div class="quiz-options">${q.opts.map((o,i)=>`<button class="quiz-opt" onclick="answerQuiz(${i})">${o}</button>`).join('')}</div>
     <div class="quiz-feedback" id="qFeedback"></div>
     <div class="quiz-nav">
-      <div class="quiz-progress">${Array(quizData.length).fill(0).map((_,i)=>`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 2px;background:${i<qIdx?'var(--accent)':i===qIdx?'var(--accent2)':'var(--border)'}">`).join('')}</div>
+      <div class="quiz-progress">${Array(quizData.length).fill(0).map((_,i)=>`<span style="display:inline-block;width:8px;height:8px;border-radius:50%;margin:0 2px;background:${i<qIdx?'var(--lime)':i===qIdx?'var(--accent-purple)':'rgba(200,240,58,0.15)'}">`).join('')}</div>
       <button class="quiz-btn" id="nextBtn" onclick="nextQuestion()" disabled>Next →</button>
     </div>`;
 }
 function answerQuiz(idx){
-  if(answered) return;
+  if(answered)return;
   answered=true;
   const q=quizData[qIdx];
   const opts=document.querySelectorAll('.quiz-opt');
   opts.forEach((o,i)=>{
     o.disabled=true;
-    if(i===q.ans) o.classList.add('correct');
-    else if(i===idx) o.classList.add('wrong');
+    if(i===q.ans)o.classList.add('correct');
+    else if(i===idx)o.classList.add('wrong');
   });
   const fb=document.getElementById('qFeedback');
   if(idx===q.ans){score++;fb.className='quiz-feedback show good';fb.textContent='✓ Correct! '+q.exp;}
@@ -1743,12 +1695,12 @@ function resetQuiz(){
 }
 renderQuiz();
 
-// Smooth scroll for anchor links
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(a=>{
   a.addEventListener('click',e=>{
     e.preventDefault();
     const t=document.querySelector(a.getAttribute('href'));
-    if(t) t.scrollIntoView({behavior:'smooth'});
+    if(t)t.scrollIntoView({behavior:'smooth'});
   });
 });
 </script>
